@@ -129,7 +129,7 @@ function cssNode(node) {
 
 function flattenCss(filename, original = false) {
   const text = original ? originalText(filename) : read(filename);
-  return postcss.parse(text).nodes.flatMap((node) => {
+  return postcss.parse(text, { from: path.join(root, filename) }).nodes.flatMap((node) => {
     if (node.type === "comment") return [];
     if (node.type !== "atrule" || node.name !== "import") return [node];
     const specifier = node.params.match(/^(?:url\(\s*)?["']([^"']+)["']/)?.[1];
@@ -175,16 +175,31 @@ function customProperties(nodes) {
   return values;
 }
 
-test("every stylesheet keeps its selectors, values, specificity, media conditions and declaration order", async () => {
+// This intentional UI change has its own overflow tests. Keep comparing every
+// earlier declaration, including the unchanged card styles, with the baseline.
+const beforePinnedTitleFix = (nodes) =>
+  nodes.filter(
+    (node) =>
+      node.source.input.file !== path.join(root, "src/features/page-cards/pinned-titles.css"),
+  );
+
+test("existing CSS remains intact outside the scoped pinned-title layout fix", async () => {
+  const fix = postcss.parse(read("src/features/page-cards/pinned-titles.css"));
+  fix.walkRules((rule) =>
+    assert.ok(
+      rule.selector.startsWith(".grid li.pin a .header.pinned"),
+      "Title overflow rules stay scoped to pinned headers",
+    ),
+  );
   assert.deepEqual(
-    await canonicalCss(flattenCss("style.css")),
+    await canonicalCss(beforePinnedTitleFix(flattenCss("style.css"))),
     await canonicalCss(flattenCss("src/Settings/style.css", true)),
   );
   for (const item of migration.files.filter(
     (item) => item.path.endsWith(".css") && item.kind !== "archive",
   )) {
     assert.deepEqual(
-      await canonicalCss(flattenCss(item.path)),
+      await canonicalCss(beforePinnedTitleFix(flattenCss(item.path))),
       await canonicalCss(flattenCss(item.originalPath, true)),
       item.path,
     );

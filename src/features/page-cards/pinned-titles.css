@@ -1,0 +1,20 @@
+/* 余白を枠に持たせ、タイトル全体をカード幅の中に収める。 */
+.grid li.pin a .header.pinned {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 18px 0 24px;
+}
+
+/* 1行で省略する。文字列自体は残し、リンク名やページ名を保持する。 */
+.grid li.pin a .header.pinned .title {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
