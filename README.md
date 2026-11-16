@@ -20,7 +20,7 @@ JSON に含まれるのは **`kame-layout:delivery` の1ページだけ**です�
 
 ```text
 code:style.css
- @import url("/api/code/YOUR_CODE_PROJECT/kame-layout:delivery/style.css");
+ @import url("/api/code/YOUR_CODE_PROJECT/kame-layout%3Adelivery/style.css");
 ```
 
 ### UserScript：操作や機能を追加する
@@ -29,12 +29,14 @@ code:style.css
 
 ```text
 code:script.js
- import "/api/code/YOUR_CODE_PROJECT/kame-layout:delivery/script.js";
+ import "/api/code/YOUR_CODE_PROJECT/kame-layout%3Adelivery/script.js";
 ```
 
 既存の読み込みブロックを置き換え、ブラウザを再読み込みします。同じ機能を二重に import すると、イベントやメニューが二重登録される場合があります。
 
 自動同期を有効にすると、`main` への push → 検証 → この1ページの更新 → 公開コードの照合、の順に実行します。Scrapboxで既に開いている画面の実行中コードは置き換えず、**ブラウザを再読み込みしたときに新しい版を読み込みます**。
+
+URL中の `%3A` はページ名の `:` をURLエンコードした表記です。配信キャッシュに古いコードが残ると、再読み込み後も反映が遅れる場合があります。同期完了と通常URLでの表示反映は、別々に確認してください。
 
 初回の認証設定と有効化は [自動同期の設定](docs/auto-sync.md) を参照してください。認証未設定・同期無効の間はGitHubへのpushだけではScrapboxは更新されません。生成したJSONを手動で取り込むこともできます。
 

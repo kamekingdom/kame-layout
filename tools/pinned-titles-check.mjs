@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 import { chromium, webkit } from "@playwright/test";
 import { root } from "./project.mjs";
 import { compileStyles } from "./styles.mjs";
+import { entryPage } from "./scrapbox-package.mjs";
 
 const revision = "10150857556e6b6c95c666837d3867924a1d57a7";
 const safari = process.argv.includes("--webkit");
@@ -47,7 +48,7 @@ async function capture(version, viewport) {
   await page.goto(fixtureUrl, { waitUntil: "load" });
   if (version === "after" && live)
     await page.addStyleTag({
-      url: "https://scrapbox.io/api/code/kamelayout/kame-layout:delivery/style.css",
+      url: `https://scrapbox.io/api/code/kamelayout/${encodeURIComponent(entryPage)}/style.css`,
     });
   else await page.addStyleTag({ content: version === "before" ? beforeCss : afterCss });
   await page.evaluate(() => document.fonts.ready);
