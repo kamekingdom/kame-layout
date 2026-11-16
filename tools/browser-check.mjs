@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
-import { chromium } from "@playwright/test";
+import { chromium, webkit } from "@playwright/test";
 import { root, read, migration } from "./project.mjs";
 import { packageFiles, entryPage } from "./scrapbox-package.mjs";
 
-const output = path.join(root, ".cache/browser");
+const live = process.argv.includes("--live");
+const safari = process.argv.includes("--webkit");
+const engine = safari ? "webkit" : "chromium";
+const output = path.join(root, `.cache/browser-${engine}${live ? "-live" : ""}`);
 fs.mkdirSync(output, { recursive: true });
 const baseline = new Map();
 for (const filename of [
@@ -19,7 +22,9 @@ for (const filename of [
     execFileSync("git", ["show", `${migration.baseline}:${filename}`], { cwd: root }),
   );
 }
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await (safari
+  ? webkit.launch({ headless: true })
+  : chromium.launch({ channel: "chrome", headless: true }));
 const report = [];
 const packaged = packageFiles(JSON.parse(read("dist/kame-layout.scrapbox.json")));
 
@@ -30,7 +35,8 @@ async function capture(version, viewport) {
     const request = route.request();
     const url = new URL(request.url());
     const isBaseline = url.pathname.startsWith("/__kame-layout-test/baseline/");
-    const isPackage = url.pathname.startsWith("/api/code/kamelayout/kame-layout:");
+    const isPackage = url.pathname.startsWith(`/api/code/kamelayout/${entryPage}/`);
+    if (isPackage && live) return route.continue();
     if (url.hostname === "scrapbox.io" && (isBaseline || isPackage)) {
       const pathname = decodeURIComponent(url.pathname);
       const filename = pathname.slice(
@@ -146,7 +152,7 @@ try {
     assert.deepEqual(after.errors, before.errors, `New runtime errors at ${viewport.width}px`);
     assert.ok(
       after.screenshot.equals(before.screenshot),
-      `Screenshot differs at ${viewport.width}px: see .cache/browser/`,
+      `Screenshot differs at ${viewport.width}px: see ${output}`,
     );
     report.push({
       viewport,
@@ -154,6 +160,10 @@ try {
       screenshotsEqual: true,
       controlsEqual: true,
       graphOpenClose: true,
+      source: live
+        ? "published Scrapbox API (not replaced)"
+        : "generated package with test responses",
+      engine,
       existingGuestPageErrors: before.errors,
     });
     console.log(

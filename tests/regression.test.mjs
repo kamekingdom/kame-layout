@@ -6,7 +6,13 @@ import test from "node:test";
 import { parse } from "acorn";
 import postcss from "postcss";
 import { root, read, config, migration } from "../tools/project.mjs";
-import { packageFiles, entryPage, featurePage } from "../tools/scrapbox-package.mjs";
+import {
+  packageFiles,
+  entryPage,
+  deployedName,
+  sourceFiles,
+  managedMarker,
+} from "../tools/scrapbox-package.mjs";
 
 const baseline = JSON.parse(read("migration/manifest.json"));
 const mapping = new Map(migration.files.map((file) => [file.originalPath, file]));
@@ -153,26 +159,62 @@ test("every feature and baseline source has a documentation or provenance link",
   assert.equal(config.features.length, 72);
 });
 
-test("Scrapbox import package preserves every current code block and resolves entry imports on the same origin", () => {
+test("single-page package preserves CSS and every JS statement while relocating only module/asset URLs", () => {
   const pkg = JSON.parse(read("dist/kame-layout.scrapbox.json"));
-  assert.equal(pkg.pages.length, 73);
+  assert.equal(pkg.pages.length, 1);
   assert.equal(new Set(pkg.pages.map((page) => page.title)).size, pkg.pages.length);
   for (const page of pkg.pages) {
     assert.equal(page.lines[0], page.title);
-    assert.ok(page.title.startsWith("kame-layout:"));
+    assert.equal(page.lines[1], managedMarker);
+    assert.ok(page.lines.length < 10000);
     assert.ok(page.lines.every((line) => typeof line === "string"));
   }
   const files = packageFiles(pkg);
-  for (const feature of config.features) {
-    for (const [name, filename] of Object.entries(feature.files)) {
-      assert.equal(files.get(`${featurePage(feature.id)}/${name}`), read(filename));
+  const sources = sourceFiles();
+  const names = new Map(
+    sources.map(({ feature, name, filename }) => [filename, deployedName(feature.id, name)]),
+  );
+  assert.equal(files.size, sources.length + 3);
+  for (const { feature, name, filename } of sources) {
+    const deployed = files.get(`${entryPage}/${deployedName(feature.id, name)}`);
+    assert.equal(typeof deployed, "string", filename);
+    if (name.endsWith(".css")) {
+      assert.equal(deployed, read(filename));
+      continue;
     }
-    for (const name of feature.dataFiles ?? []) {
-      assert.equal(
-        files.get(`${featurePage(feature.id)}/${name}`),
-        read(`src/features/${feature.id}/${name}`),
+    const before = ast(read(filename));
+    const rewrite = (literal) => {
+      if (typeof literal?.value !== "string" || !literal.value.startsWith(".")) return;
+      const target = path.posix.normalize(
+        path.posix.join(path.posix.dirname(filename), literal.value),
       );
-    }
+      assert.ok(names.has(target), target);
+      literal.value = `./${names.get(target)}`;
+    };
+    const visit = (node) => {
+      if (!node || typeof node !== "object") return;
+      if (
+        [
+          "ImportDeclaration",
+          "ExportNamedDeclaration",
+          "ExportAllDeclaration",
+          "ImportExpression",
+        ].includes(node.type)
+      )
+        rewrite(node.source);
+      if (
+        node.type === "NewExpression" &&
+        node.callee.name === "URL" &&
+        node.arguments[1]?.object?.type === "MetaProperty"
+      )
+        rewrite(node.arguments[0]);
+      for (const value of Object.values(node)) {
+        if (Array.isArray(value)) value.forEach(visit);
+        else if (value && typeof value === "object") visit(value);
+      }
+    };
+    visit(before);
+    assert.deepEqual(canonical(ast(deployed)), canonical(before), filename);
   }
   for (const kind of ["styles", "scripts"]) {
     const extension = kind === "styles" ? "css" : "js";
@@ -182,4 +224,6 @@ test("Scrapbox import package preserves every current code block and resolves en
       assert.ok(files.has(target), target);
     }
   }
+  const graph = files.get(`${entryPage}/graph-view.script.js`);
+  assert.match(graph, /new URL\(["']\.\/graph-view\.style\.css["'],\s*import\.meta\.url\)/);
 });

@@ -34,13 +34,23 @@ Google Chrome をインストールした環境で実行します。
 npm run test:browser
 ```
 
-公開の Scrapbox テストページを、認証情報を持たないブラウザで開き、変更前と変更後の CSS・JS をそれぞれ適用します。変更後は生成 JSON のコードブロックを実際の `/api/code/` と同じ URL 構造でブラウザに返し、CSP は変更しません。デスクトップとモバイル幅で表示・機能 UI を比較します。Scrapbox へのアップロードや更新リクエストは行いません。出力は `.cache/browser/` に保存します。
+公開の Scrapbox テストページを、認証情報を持たないブラウザで開き、変更前と変更後の CSS・JS をそれぞれ適用します。通常モードは生成 JSON の応答をテスト用に返します。実際に配信用ページを更新した後は、下の `--live` モードで**公開済みのAPI応答を差し替えず**に読み込みます。CSP は変更しません。デスクトップとモバイル幅で表示・機能 UI を比較します。Scrapbox への書き込みは行いません。
+
+```sh
+npm run sync:verify
+npm run test:browser -- --live
+npm run test:browser -- --live --webkit
+```
+
+WebKitモードには `npx playwright install webkit` でテスト用ブラウザを準備します。WebKitはSafari系エンジンでの検証であり、実物のiPhone・iPadでの動作確認を意味しません。出力は `.cache/browser-<engine>-live/` です。
 
 これは公開ページでの比較です。ログイン後の本文編集、IME 入力、貼り付け、ページ削除など、アカウント権限や入力機器に依存する操作は別途実機で確認します。
 
 ## 公開する
 
-公開入口・生成したドキュメント・Scrapbox 用 JSON も一緒にコミットします。その JSON をコード配置先のプロジェクトへ取り込み、`kame-layout:` の同名ページを更新します。GitHub からの直接 import は Scrapbox の CSP で制限されるため、この手順が必要です。
+公開入口・生成したドキュメント・Scrapbox 用 JSON も一緒にコミットします。[自動同期](auto-sync.md) が設定済みなら `main` へのpush後に配信ページを更新します。手動で確認する場合は `npm run sync:plan` がネットワーク接続・書き込みなしで対象とハッシュを表示します。
+
+セッションを環境変数に設定した環境での `npm run sync:publish` は書き込み操作です。更新対象は `config/scrapbox-sync.json` の配信ページ1件に限定します。
 
 Scrapbox のページ構造が変更されたときは、その変更に関係する機能のセレクターや DOM 処理を確認してください。
 

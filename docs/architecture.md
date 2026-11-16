@@ -12,11 +12,13 @@ CSS だけの機能、JS だけの機能、両方が組になる機能があり�
 
 `style.css` と `script.js` は GitHub 上の配布入口です。以前の `src/Settings/style.css` と `src/kame/script.js` も、この入口へ転送する互換ファイルとして残しています。
 
-実ブラウザの確認では、Scrapbox の CSP により外部 CDN の CSS・ES Modules はブロックされました。そのため Scrapbox 用には `dist/kame-layout.scrapbox.json` を生成し、同一オリジンの `/api/code/プロジェクト/kame-layout:entry/` を入口にします。外部 URL の直接 import を前提にしません。CSP を無効化する設定や拡張機能も必要ありません。
+実ブラウザの確認では、Scrapbox の CSP により外部 CDN の CSS・ES Modules はブロックされました。そのため Scrapbox 用には `dist/kame-layout.scrapbox.json` を生成し、同一オリジンの `/api/code/プロジェクト/kame-layout:delivery/` を入口にします。外部 URL の直接 import を前提にしません。CSP を無効化する設定や拡張機能も必要ありません。
 
-JSON では1機能を1ページに対応させ、CSS・JS・補助モジュールを同じページのコードブロックに配置します。これにより、`./replacements.js` や `./style.css` の相対参照と、Script が CSS を読み込む動作を保ちます。既存の Settings・ユーザーページは生成 JSON に含めません。
+JSON は配信用の1ページです。CSS・JS・補助モジュールは `fonts.style.css`、`templates.script.js` のように機能ID付きのコードブロック名へ対応させます。相対 import と `import.meta.url` を基準にする CSS の参照先だけを、この配置へ書き換えます。機能ごとのモジュール境界と実行順は維持します。既存の Settings・ユーザーページは生成 JSON に含めません。
 
-JavaScript はブラウザ標準の ES Modules を使います。追加のランタイムライブラリはありません。現在の規模では独立した機能を直接 import する形にし、バンドラーによる `import.meta.url` の変化を避けています。将来通信数が問題になった場合は、専用 CSS やテンプレートの URL を含めて検証した上でバンドルを検討できます。[MDN: JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+Scrapbox のインポート画面は1ページ1万行未満を要求します。ソース全体をそのまま連結すると超えるため、配信用 JS では構文木から余分な整形・コメントを省いたコードを生成します。変数名や処理の最適化は行いません。CSS は変更せず、JS も参照先以外の構文木が変わっていないことをテストします。読みやすい元コードと作者コメントはGitHubの `src/features/` に残します。
+
+JavaScript はブラウザ標準の ES Modules を使います。追加のランタイムライブラリはありません。現在の規模では機能別モジュールのまま配信し、バンドルによるスコープの統合を避けています。[MDN: JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
 ## CSS と JS の順序を維持する
 
@@ -39,3 +41,9 @@ JS も初期化の順序を維持します。動的 import を並列化したり
 旧版・試作は `archive/scrapbox/` に分け、現行入口からは読み込みません。元から構文上の問題があった未使用コードも、修正せず保管しています。元の131ファイルと現在の保存先は `migration/paths.json` で対応付けています。
 
 回帰テストでは、CSS とアーカイブの元データ、JS の構文木、実行順、グラフの相対 URL を確認します。設定表を別ファイルに移した JS は、その宣言を展開して初回コミットと比較します。
+
+## 自動同期の範囲
+
+GitHub Actions は `main` の検証が通った後だけ同期します。同期処理は `kame-layout:delivery` 以外を拒否し、既存ページに管理用マーカーがなければ上書きしません。変更前の配信ページをバックアップし、更新後は87個すべての `/api/code/` の本文とContent-Typeを照合します。既存ページを削除する処理はありません。
+
+API はScrapboxの内部APIであり、認証はログインセッションを使います。これをGitHubへ保存して同期を有効化する操作は、コードの配置とは別に行います。詳細は [自動同期](auto-sync.md) を参照してください。

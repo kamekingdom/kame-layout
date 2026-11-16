@@ -12,7 +12,7 @@ GitHub をコードの管理元とし、生成した [Scrapbox 用 JSON](dist/ka
 2. コード配置先のプロジェクトの Settings → Page Data → Import Pages で取り込みます。管理者権限が必要です。[公式のインポート手順](https://scrapbox.io/help-jp/Import_Pages_%2F_Export_Pages)
 3. 以下の `YOUR_CODE_PROJECT` を、そのプロジェクト名に置き換えます。
 
-JSON には `kame-layout:entry` と `kame-layout:機能ID` の73ページが含まれます。Settings やユーザーページは含みません。利用者側で npm をインストールする必要はありません。
+JSON に含まれるのは **`kame-layout:delivery` の1ページだけ**です。87個のコードブロックを同じページに配置します。Settings・ユーザーページ・既存の機能ページは含みません。利用者側で npm をインストールする必要はありません。iPhone・iPadでも通常のUserCSS／UserScriptから利用できます。
 
 ### UserCSS：見た目を変える
 
@@ -20,7 +20,7 @@ JSON には `kame-layout:entry` と `kame-layout:機能ID` の73ページが含�
 
 ```text
 code:style.css
- @import url("/api/code/YOUR_CODE_PROJECT/kame-layout:entry/style.css");
+ @import url("/api/code/YOUR_CODE_PROJECT/kame-layout:delivery/style.css");
 ```
 
 ### UserScript：操作や機能を追加する
@@ -29,18 +29,21 @@ code:style.css
 
 ```text
 code:script.js
- import "/api/code/YOUR_CODE_PROJECT/kame-layout:entry/script.js";
+ import "/api/code/YOUR_CODE_PROJECT/kame-layout:delivery/script.js";
 ```
 
 既存の読み込みブロックを置き換え、ブラウザを再読み込みします。同じ機能を二重に import すると、イベントやメニューが二重登録される場合があります。
 
-更新時は、GitHub で編集・検証した後、生成し直した JSON をコード配置先へ取り込みます。同名の `kame-layout:` ページを更新する設定を選びます。GitHub に push しただけでは Scrapbox 側のコードは更新されません。Scrapbox 側でソースを手直しすると、次の取り込み時に生成内容へ戻るため、編集は GitHub 側で行います。
+自動同期を有効にすると、`main` への push → 検証 → この1ページの更新 → 公開コードの照合、の順に実行します。Scrapboxで既に開いている画面の実行中コードは置き換えず、**ブラウザを再読み込みしたときに新しい版を読み込みます**。
+
+初回の認証設定と有効化は [自動同期の設定](docs/auto-sync.md) を参照してください。認証未設定・同期無効の間はGitHubへのpushだけではScrapboxは更新されません。生成したJSONを手動で取り込むこともできます。
 
 ## 構成
 
 ```text
 style.css / script.js     公開入口。既存の import URL を維持
 config/features.json      機能の説明、有効・無効、読み込み順
+config/scrapbox-sync.json  同期先プロジェクトと配信用ページ
 src/features/<機能ID>/    機能ごとの CSS・JS・設定データ・README
 src/theme/project.css     プロジェクト共通変数
 src/templates/            抽出したテンプレート本文
@@ -50,6 +53,7 @@ migration/                元コードの出典・ハッシュ・移動先
 tools/                    入口とドキュメントの生成、検証
 tests/                    初回コミットとの回帰比較
 dist/                     Scrapbox へ取り込む生成済み JSON
+.github/workflows/         検証とmainへのpush後の自動同期
 ```
 
 機能単位に CSS・JS・説明をまとめ、[設定ファイル](config/features.json) から入口と機能一覧を生成します。実行時に設定 JSON を取得する処理や、新しい UI フレームワークは加えていません。CSS の優先順位と Script の実行順は元の構成を維持しています。
@@ -60,6 +64,7 @@ dist/                     Scrapbox へ取り込む生成済み JSON
 - [読み込み順](docs/load-order.md)
 - [構成の理由と維持するルール](docs/architecture.md)
 - [編集・検証の手順](docs/development.md)
+- [自動同期・認証・復旧の手順](docs/auto-sync.md)
 - [出典・参考リンク](SOURCES.md)
 
 ## 開発する
