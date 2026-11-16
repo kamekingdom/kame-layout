@@ -36,6 +36,7 @@ const json = (body, status = 200) =>
 function server({
   previous = null,
   guest = false,
+  csrfToken = "test-csrf",
   mismatch = false,
   importStatus = 200,
   finishStatus = 204,
@@ -49,7 +50,7 @@ function server({
     const method = init.method ?? "GET";
     calls.push({ pathname, method, init });
     if (pathname === "/api/users/me")
-      return json(guest ? { isGuest: true } : { id: "sync-user", csrfToken: "test-csrf" });
+      return json(guest ? { isGuest: true } : { id: "sync-user", csrfToken });
     if (pathname.startsWith("/api/pages/"))
       return stored
         ? json({ title: entryPage, lines: stored.pages[0].lines.map((text) => ({ text })) })
@@ -136,6 +137,15 @@ test("an expired session cannot submit an import", async () => {
   await assert.rejects(
     publishPackage(pkg, target, { sid, fetchImpl: api.fetchImpl }),
     /missing or expired/,
+  );
+  assert.equal(api.calls.length, 1);
+});
+
+test("a missing CSRF token is distinguished from an expired session without logging profile data", async () => {
+  const api = server({ csrfToken: null });
+  await assert.rejects(
+    publishPackage(pkg, target, { sid, fetchImpl: api.fetchImpl }),
+    /profile response has no CSRF token/,
   );
   assert.equal(api.calls.length, 1);
 });

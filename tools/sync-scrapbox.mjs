@@ -136,8 +136,11 @@ export async function publishPackage(
     await request(fetchImpl, `${origin}/api/users/me`, { headers }, "Authentication"),
     "Authentication",
   );
-  if (profile.isGuest || typeof profile.csrfToken !== "string" || !profile.csrfToken) {
+  if (profile.isGuest) {
     throw new Error("Scrapbox login session is missing or expired. Update SCRAPBOX_SID.");
+  }
+  if (typeof profile.csrfToken !== "string" || !profile.csrfToken) {
+    throw new Error("Scrapbox profile response has no CSRF token. Check the authentication API.");
   }
   const pageUrl = `${origin}/api/pages/${plan.project}/${encodeURIComponent(plan.page)}`;
   const currentResponse = await request(
