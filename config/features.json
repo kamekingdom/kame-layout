@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "styles": [
+      "headings",
+      "fonts",
+      "menus",
+      "character-counter",
+      "pinned-backgrounds",
+      "colors",
+      "header-width",
+      "katex-spacing",
+      "infobox",
+      "grid-layout",
+      "brand-icon",
+      "page-layout",
+      "page-cards",
+      "hide-plan-badge",
+      "text-decorations",
+      "checkbox-style",
+      "hashtags",
+      "sticky-notes",
+      "bookmark-style",
+      "link-colors",
+      "code-line-numbers",
+      "tables",
+      "custom-bullets",
+      "navbar-title",
+      "wide-dropdown",
+      "external-favicons",
+      "inline-quote",
+      "code-blocks",
+      "two-column-links",
+      "math-bullets",
+      "double-quote",
+      "numbered-lists",
+      "answer-lines",
+      "muted-text",
+      "quote-bar",
+      "audio-player",
+      "link-preview",
+      "hierarchy-fold",
+      "spreadsheet",
+      "status-icons",
+      "find-replace",
+      "equal-image-rows"
+    ],
+    "scripts": [
+      "templates",
+      "new-page-shortcut",
+      "bookmark-menu",
+      "untitled-prompt",
+      "icon-menu",
+      "find-replace",
+      "character-counter",
+      "sort-lines",
+      "checkbox-toggle",
+      "random-pages",
+      "auto-replace",
+      "audio-player",
+      "table-copy",
+      "link-preview",
+      "hierarchy-fold",
+      "spreadsheet",
+      "status-icons",
+      "external-favicons",
+      "equal-image-rows",
+      "graph-view"
+    ]
+  },
+  "features": [
+    {
+      "id": "checkbox-style",
+      "name": "チェックボックスCSS",
+      "category": "formatting",
+      "description": "チェックボックス記法の見た目を整えます。",
+      "usage": "[o]・[v]・[x] を含む行に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9CSS",
+      "files": {
+        "style.css": "src/features/checkbox-style/style.css"
+      }
+    },
+    {
+      "id": "sticky-notes",
+      "name": "付箋CSS",
+      "category": "formatting",
+      "description": "付箋風の背景と枠を表示します。",
+      "usage": "[~ 付箋の内容] の装飾を使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E4%BB%98%E7%AE%8BCSS",
+      "files": {
+        "style.css": "src/features/sticky-notes/style.css"
+      }
+    },
+    {
+      "id": "bookmark-style",
+      "name": "ブックマークのuserCSS",
+      "category": "formatting",
+      "description": "栞の装飾を表示します。",
+      "usage": "[. 栞の内容] の装飾を使います。ブックマークメニューは別機能です。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%AEuserCSS",
+      "files": {
+        "style.css": "src/features/bookmark-style/style.css"
+      }
+    },
+    {
+      "id": "hashtags",
+      "name": "ハッシュタグが可愛くなるuserCSS",
+      "category": "formatting",
+      "description": "ハッシュタグの色と形を整えます。",
+      "usage": "本文中のハッシュタグに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%B0%E3%81%8C%E5%8F%AF%E6%84%9B%E3%81%8F%E3%81%AA%E3%82%8BuserCSS",
+      "files": {
+        "style.css": "src/features/hashtags/style.css"
+      }
+    },
+    {
+      "id": "link-colors",
+      "name": "リンクに関するuserCSS",
+      "category": "formatting",
+      "description": "既存ページ・未作成ページのリンク表示を整えます。",
+      "usage": "本文のページリンクに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8BuserCSS",
+      "files": {
+        "style.css": "src/features/link-colors/style.css"
+      }
+    },
+    {
+      "id": "indent-guides",
+      "name": "インデント見栄え変更CSS",
+      "category": "layout",
+      "description": "インデントの線と余白を調整します。",
+      "usage": "階層のある箇条書きに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%A4%E3%83%B3%E3%83%87%E3%83%B3%E3%83%88%E8%A6%8B%E6%A0%84%E3%81%88%E5%A4%89%E6%9B%B4CSS",
+      "files": {
+        "style.css": "src/features/indent-guides/style.css"
+      }
+    },
+    {
+      "id": "card-size",
+      "name": "ページリストの大きさ変更CSS",
+      "category": "navigation",
+      "description": "ページ一覧カードの大きさを調整します。",
+      "usage": "プロジェクトの一覧画面で使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E5%A4%A7%E3%81%8D%E3%81%95%E5%A4%89%E6%9B%B4CSS",
+      "files": {
+        "style.css": "src/features/card-size/style.css"
+      }
+    },
+    {
+      "id": "code-line-numbers",
+      "name": "コードに行数を追加するCSS",
+      "category": "formatting",
+      "description": "コードブロックに行番号を表示します。",
+      "usage": "コードブロックに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AB%E8%A1%8C%E6%95%B0%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8BCSS",
+      "files": {
+        "style.css": "src/features/code-line-numbers/style.css"
+      }
+    },
+    {
+      "id": "image-size",
+      "name": "画像サイズCSS",
+      "category": "media",
+      "description": "本文画像の表示サイズを調整します。",
+      "usage": "本文の埋め込み画像に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%94%BB%E5%83%8F%E3%82%B5%E3%82%A4%E3%82%BACSS",
+      "files": {
+        "style.css": "src/features/image-size/style.css"
+      }
+    },
+    {
+      "id": "image-center",
+      "name": "画像中心CSS",
+      "category": "media",
+      "description": "本文画像を中央に配置します。",
+      "usage": "本文の埋め込み画像に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%94%BB%E5%83%8F%E4%B8%AD%E5%BF%83CSS",
+      "files": {
+        "style.css": "src/features/image-center/style.css"
+      }
+    },
+    {
+      "id": "image-gallery",
+      "name": "画像を並べるUserCSS",
+      "category": "media",
+      "description": "複数画像を並べるためのレイアウトを適用します。",
+      "usage": "画像を含む行に適用します。元ページでは画像中央寄せとの競合が記録されています。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%A6%E3%81%B9%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/image-gallery/style.css"
+      }
+    },
+    {
+      "id": "text-alignment",
+      "name": "文字揃えCSS",
+      "category": "formatting",
+      "description": "装飾記法による文字の配置を調整します。",
+      "usage": "対応する装飾を含む行に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%96%87%E5%AD%97%E6%8F%83%E3%81%88CSS",
+      "files": {
+        "style.css": "src/features/text-alignment/style.css"
+      }
+    },
+    {
+      "id": "navbar-title",
+      "name": "scrapboxのtitleをnav barに固定するUserCSS",
+      "category": "navigation",
+      "description": "ページタイトルをナビゲーションバー付近に固定します。",
+      "usage": "ページ上部のタイトル表示に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/scrapbox%E3%81%AEtitle%E3%82%92nav%20bar%E3%81%AB%E5%9B%BA%E5%AE%9A%E3%81%99%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/navbar-title/style.css"
+      }
+    },
+    {
+      "id": "hide-plan-badge",
+      "name": "プランバッジを非表示にするuserCSS",
+      "category": "navigation",
+      "description": "プランのバッジを非表示にします。",
+      "usage": "ヘッダー周辺のバッジ表示に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%97%E3%83%A9%E3%83%B3%E3%83%90%E3%83%83%E3%82%B8%E3%82%92%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%81%AB%E3%81%99%E3%82%8BuserCSS",
+      "files": {
+        "style.css": "src/features/hide-plan-badge/style.css"
+      }
+    },
+    {
+      "id": "tables",
+      "name": "テーブルの見た目",
+      "category": "formatting",
+      "description": "テーブルの配色・罫線・余白を整えます。",
+      "usage": "table: のテーブルに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE",
+      "files": {
+        "style.css": "src/features/tables/style.css"
+      }
+    },
+    {
+      "id": "wide-dropdown",
+      "name": "のびのびドロップダウンUserCSS",
+      "category": "navigation",
+      "description": "ドロップダウンを広げて選択しやすくします。",
+      "usage": "ドロップダウンメニューに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%81%AE%E3%81%B3%E3%81%AE%E3%81%B3%E3%83%89%E3%83%AD%E3%83%83%E3%83%97%E3%83%80%E3%82%A6%E3%83%B3UserCSS",
+      "files": {
+        "style.css": "src/features/wide-dropdown/style.css"
+      }
+    },
+    {
+      "id": "marquee",
+      "name": "電光掲示板UserCSS",
+      "category": "formatting",
+      "description": "文字装飾を電光掲示板風に表示します。",
+      "usage": "対応する装飾記法に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E9%9B%BB%E5%85%89%E6%8E%B2%E7%A4%BA%E6%9D%BFUserCSS",
+      "files": {
+        "style.css": "src/features/marquee/style.css"
+      }
+    },
+    {
+      "id": "external-favicons",
+      "name": "外部リンク左横にそのサイトのfaviconを自動表示する",
+      "category": "navigation",
+      "description": "外部リンクの横にサイトの favicon を表示します。",
+      "usage": "本文やテーブル内の外部リンクに自動適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E5%A4%96%E9%83%A8%E3%83%AA%E3%83%B3%E3%82%AF%E5%B7%A6%E6%A8%AA%E3%81%AB%E3%81%9D%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AEfavicon%E3%82%92%E8%87%AA%E5%8B%95%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B",
+      "files": {
+        "script.js": "src/features/external-favicons/script.js",
+        "style.css": "src/features/external-favicons/style.css"
+      },
+      "notes": ["favicon の取得先など、既存の外部リソースへの参照を維持しています。"]
+    },
+    {
+      "id": "inline-quote",
+      "name": "インライン引用記法",
+      "category": "formatting",
+      "description": "インラインの引用装飾を整えます。",
+      "usage": "引用用の文字装飾に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%A4%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E5%BC%95%E7%94%A8%E8%A8%98%E6%B3%95",
+      "files": {
+        "style.css": "src/features/inline-quote/style.css"
+      }
+    },
+    {
+      "id": "hide-untitled",
+      "name": "空白ページ非表示CSS",
+      "category": "navigation",
+      "description": "一覧上の Untitled ページを非表示にします。",
+      "usage": "CSS による非表示です。空白ページの削除提案とは別機能です。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%A9%BA%E7%99%BD%E3%83%9A%E3%83%BC%E3%82%B8%E9%9D%9E%E8%A1%A8%E7%A4%BACSS",
+      "files": {
+        "style.css": "src/features/hide-untitled/style.css"
+      }
+    },
+    {
+      "id": "code-blocks",
+      "name": "コードブロックのuserCSS",
+      "category": "formatting",
+      "description": "コードブロックの配色・枠・余白を整えます。",
+      "usage": "code: のコードブロックに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AEuserCSS",
+      "files": {
+        "style.css": "src/features/code-blocks/style.css"
+      }
+    },
+    {
+      "id": "expanded-sort-menu",
+      "name": "ソートメニューを常時展開するUserCSS",
+      "category": "navigation",
+      "description": "一覧のソートメニューを展開するための旧 CSS です。",
+      "usage": "初期状態では無効です。元コードに構文上の問題があり、旧版として保管しています。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%BD%E3%83%BC%E3%83%88%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%92%E5%B8%B8%E6%99%82%E5%B1%95%E9%96%8B%E3%81%99%E3%82%8BUserCSS",
+      "files": {},
+      "notes": ["元の CSS は閉じていないブロックを含むため、archive に保存しています。"]
+    },
+    {
+      "id": "infobox",
+      "name": "infoboxカスタムUserCSS",
+      "category": "layout",
+      "description": "infobox のテーブルやリンク表示を整えます。",
+      "usage": "infobox に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/infobox%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0UserCSS",
+      "files": {
+        "style.css": "src/features/infobox/style.css"
+      }
+    },
+    {
+      "id": "page-cards",
+      "name": "ページリストのデザイン",
+      "category": "navigation",
+      "description": "ページ一覧のタイトル・カード・説明文を整えます。",
+      "usage": "プロジェクトの一覧と関連ページのカードに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3",
+      "files": {
+        "style.css": "src/features/page-cards/style.css"
+      }
+    },
+    {
+      "id": "brand-icon",
+      "name": "Scrapboxアイコンを絵文字に置き換えるuserCSS",
+      "category": "navigation",
+      "description": "ブランドアイコンの表示を置き換えます。",
+      "usage": "ナビゲーションバーのブランド部分に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/Scrapbox%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E7%B5%B5%E6%96%87%E5%AD%97%E3%81%AB%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88%E3%82%8BuserCSS",
+      "files": {
+        "style.css": "src/features/brand-icon/style.css"
+      }
+    },
+    {
+      "id": "untitled-prompt",
+      "name": "空白ページ消去提案JS",
+      "category": "editing",
+      "description": "Untitled ページへの移動時に削除ボタンを開きます。",
+      "usage": "page:changed 時に Untitled または Untitled_数字 のタイトルを判定します。実際の操作は既存の削除 UI に従います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%A9%BA%E7%99%BD%E3%83%9A%E3%83%BC%E3%82%B8%E6%B6%88%E5%8E%BB%E6%8F%90%E6%A1%88JS",
+      "files": {
+        "script.js": "src/features/untitled-prompt/script.js"
+      }
+    },
+    {
+      "id": "pinned-menu",
+      "name": "ピンページ項目メニューJS",
+      "category": "navigation",
+      "description": "ピン留めページへ移動するメニューを追加します。",
+      "usage": "メニューを開くと現在のプロジェクトのページ一覧を取得します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%94%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8%E9%A0%85%E7%9B%AE%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BCJS",
+      "files": {
+        "script.js": "src/features/pinned-menu/script.js"
+      }
+    },
+    {
+      "id": "on-this-day",
+      "name": "過去のこの日機能JS",
+      "category": "navigation",
+      "description": "過去の同日付に関係するページをメニューに表示します。",
+      "usage": "Scrapbox Sort メニューから使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E9%81%8E%E5%8E%BB%E3%81%AE%E3%81%93%E3%81%AE%E6%97%A5%E6%A9%9F%E8%83%BDJS",
+      "files": {
+        "script.js": "src/features/on-this-day/script.js"
+      }
+    },
+    {
+      "id": "legacy-character-count",
+      "name": "文字列カウントJS",
+      "category": "editing",
+      "description": "外部の文字カウント用モジュールを読み込む旧 Script です。",
+      "usage": "初期状態では無効です。見える文字数カウンターとは別の実装です。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%96%87%E5%AD%97%E5%88%97%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88JS",
+      "files": {
+        "page.js": "src/features/legacy-character-count/page.js",
+        "popup.js": "src/features/legacy-character-count/popup.js",
+        "script.js": "src/features/legacy-character-count/script.js"
+      },
+      "notes": [
+        "外部モジュールの URL は、GitHub 配信でも Scrapbox を指すよう絶対 URL にしています。元ページには動作保留の記録があります。"
+      ]
+    },
+    {
+      "id": "project-completion",
+      "name": "所属プロジェクトの候補表示JS",
+      "category": "editing",
+      "description": "参加プロジェクトのリンク候補を表示する外部モジュールを使います。",
+      "usage": "初期状態では無効です。外部の external-completion に依存します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%89%80%E5%B1%9E%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%80%99%E8%A3%9C%E8%A1%A8%E7%A4%BAJS",
+      "files": {
+        "script.js": "src/features/project-completion/script.js"
+      },
+      "notes": [
+        "外部モジュールの URL は、GitHub 配信でも Scrapbox を指すよう絶対 URL にしています。"
+      ]
+    },
+    {
+      "id": "katex-spacing",
+      "name": "KaTeX の隙間をなくす記法",
+      "category": "formatting",
+      "description": "インライン数式の余白を調整します。",
+      "usage": "本文中の KaTeX 数式に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/KaTeX%20%E3%81%AE%E9%9A%99%E9%96%93%E3%82%92%E3%81%AA%E3%81%8F%E3%81%99%E8%A8%98%E6%B3%95",
+      "files": {
+        "style.css": "src/features/katex-spacing/style.css"
+      }
+    },
+    {
+      "id": "header-width",
+      "name": "上のUI が左右に離れすぎるのを防ぐ",
+      "category": "layout",
+      "description": "上部 UI の横幅を制限します。",
+      "usage": "広い画面のヘッダーに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E4%B8%8A%E3%81%AEUI%20%E3%81%8C%E5%B7%A6%E5%8F%B3%E3%81%AB%E9%9B%A2%E3%82%8C%E3%81%99%E3%81%8E%E3%82%8B%E3%81%AE%E3%82%92%E9%98%B2%E3%81%90",
+      "files": {
+        "style.css": "src/features/header-width/style.css"
+      }
+    },
+    {
+      "id": "text-decorations",
+      "name": "文字装飾記法userCSS",
+      "category": "formatting",
+      "description": "独自の文字装飾を追加します。",
+      "usage": "対応する文字装飾クラスに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE%E8%A8%98%E6%B3%95userCSS",
+      "files": {
+        "style.css": "src/features/text-decorations/style.css"
+      }
+    },
+    {
+      "id": "fonts",
+      "name": "フォント設定",
+      "category": "theme",
+      "description": "本文と UI のフォント・一部の色を設定します。",
+      "usage": "Google Fonts とローカルフォントを併用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E8%A8%AD%E5%AE%9A",
+      "files": {
+        "style.css": "src/features/fonts/style.css"
+      }
+    },
+    {
+      "id": "grid-layout",
+      "name": "グリッドとリストアイテム",
+      "category": "layout",
+      "description": "ページ一覧のグリッドとカードの配置を整えます。",
+      "usage": "ホーム画面とページ一覧に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%81%A8%E3%83%AA%E3%82%B9%E3%83%88%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0",
+      "files": {
+        "style.css": "src/features/grid-layout/style.css"
+      }
+    },
+    {
+      "id": "pinned-backgrounds",
+      "name": "ピン留めされたアイテムの背景画像",
+      "category": "navigation",
+      "description": "特定のピン留めカードに背景画像を設定します。",
+      "usage": "CSS に記載されたタイトルのカードに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%81%95%E3%82%8C%E3%81%9F%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E3%81%AE%E8%83%8C%E6%99%AF%E7%94%BB%E5%83%8F",
+      "files": {
+        "style.css": "src/features/pinned-backgrounds/style.css"
+      }
+    },
+    {
+      "id": "page-layout",
+      "name": "ページのデザイン",
+      "category": "layout",
+      "description": "ページタイトル・本文・背景の見た目を整えます。",
+      "usage": "個別ページに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3",
+      "files": {
+        "style.css": "src/features/page-layout/style.css"
+      }
+    },
+    {
+      "id": "menus",
+      "name": "メニュー関連",
+      "category": "navigation",
+      "description": "ソートメニューなどの UI 表示を整えます。",
+      "usage": "ページ一覧のメニューに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E9%96%A2%E9%80%A3",
+      "files": {
+        "style.css": "src/features/menus/style.css"
+      }
+    },
+    {
+      "id": "template-style",
+      "name": "テンプレートCSS",
+      "category": "editing",
+      "description": "テンプレート関連の表示を装飾します。",
+      "usage": "初期状態では無効です。テンプレート Script の動作は独立しています。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88CSS",
+      "files": {
+        "style.css": "src/features/template-style/style.css"
+      }
+    },
+    {
+      "id": "new-page-shortcut",
+      "name": "新規ページ作成ショートカット",
+      "category": "editing",
+      "description": "Ctrl+Enter で新規ページへ移動します。",
+      "usage": "本文 textarea と入力済み input では実行しません。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%96%B0%E8%A6%8F%E3%83%9A%E3%83%BC%E3%82%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88",
+      "files": {
+        "script.js": "src/features/new-page-shortcut/script.js"
+      }
+    },
+    {
+      "id": "find-replace",
+      "name": "テキスト置換機能",
+      "category": "editing",
+      "description": "ページ内の検索・置換 UI を追加します。",
+      "usage": "Script 内の検索・置換 UI から使います。対象や正規表現などのオプションを持ちます。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E7%BD%AE%E6%8F%9B%E6%A9%9F%E8%83%BD",
+      "files": {
+        "script.js": "src/features/find-replace/script.js",
+        "style.css": "src/features/find-replace/style.css"
+      }
+    },
+    {
+      "id": "character-counter",
+      "name": "見える文字数カウンター",
+      "category": "editing",
+      "description": "表示されている本文の文字数と詳細を表示します。",
+      "usage": "ページ準備後に表示し、入力・貼り付け・定期処理で更新します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E8%A6%8B%E3%81%88%E3%82%8B%E6%96%87%E5%AD%97%E6%95%B0%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC",
+      "files": {
+        "style.css": "src/features/character-counter/style.css",
+        "script.js": "src/features/character-counter/script.js"
+      }
+    },
+    {
+      "id": "math-bullets",
+      "name": "数式行にも常にバレットを表示するUserCSS",
+      "category": "formatting",
+      "description": "数式を含む行のバレット表示を調整します。",
+      "usage": "数式を含む箇条書きに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%95%B0%E5%BC%8F%E8%A1%8C%E3%81%AB%E3%82%82%E5%B8%B8%E3%81%AB%E3%83%90%E3%83%AC%E3%83%83%E3%83%88%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/math-bullets/style.css"
+      }
+    },
+    {
+      "id": "double-quote",
+      "name": "ダブルクオート",
+      "category": "formatting",
+      "description": "ダブルクオートを使う装飾の見た目を整えます。",
+      "usage": "対応する引用装飾に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%80%E3%83%96%E3%83%AB%E3%82%AF%E3%82%AA%E3%83%BC%E3%83%88",
+      "files": {
+        "style.css": "src/features/double-quote/style.css"
+      }
+    },
+    {
+      "id": "numbered-lists",
+      "name": "数字の箇条書きをシャープにする",
+      "category": "formatting",
+      "description": "番号付きリストの数字と余白を整えます。",
+      "usage": "数字. で始まる箇条書きに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%95%B0%E5%AD%97%E3%81%AE%E7%AE%87%E6%9D%A1%E6%9B%B8%E3%81%8D%E3%82%92%E3%82%B7%E3%83%A3%E3%83%BC%E3%83%97%E3%81%AB%E3%81%99%E3%82%8B",
+      "files": {
+        "style.css": "src/features/numbered-lists/style.css"
+      }
+    },
+    {
+      "id": "answer-lines",
+      "name": "!行を回答風にするUserCSS",
+      "category": "formatting",
+      "description": "! で始まる行を回答風に表示します。",
+      "usage": "行頭の ! による装飾に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%21%E8%A1%8C%E3%82%92%E5%9B%9E%E7%AD%94%E9%A2%A8%E3%81%AB%E3%81%99%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/answer-lines/style.css"
+      }
+    },
+    {
+      "id": "muted-text",
+      "name": "文字をちょっと薄くする記法",
+      "category": "formatting",
+      "description": "文字を薄い色で表示する装飾を追加します。",
+      "usage": "[# 薄く表示する文字] の装飾を使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E6%96%87%E5%AD%97%E3%82%92%E3%81%A1%E3%82%87%E3%81%A3%E3%81%A8%E8%96%84%E3%81%8F%E3%81%99%E3%82%8B%E8%A8%98%E6%B3%95",
+      "files": {
+        "style.css": "src/features/muted-text/style.css"
+      }
+    },
+    {
+      "id": "headings",
+      "name": "おしゃれな見出し",
+      "category": "formatting",
+      "description": "見出し装飾用の拡張ポイントです。",
+      "usage": "現在の style.css は空です。旧案は archive に保管しています。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%E3%81%AA%E8%A6%8B%E5%87%BA%E3%81%97",
+      "files": {
+        "style.css": "src/features/headings/style.css"
+      }
+    },
+    {
+      "id": "checkbox-toggle",
+      "name": "チェックボックス",
+      "category": "editing",
+      "description": "チェックボックス記法の状態をクリックで切り替えます。",
+      "usage": "[o]・[v]・[x] の状態を切り替えます。表示用 CSS は checkbox-style にあります。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9",
+      "files": {
+        "script.js": "src/features/checkbox-toggle/script.js"
+      },
+      "notes": ["表示をまとめて利用する場合は checkbox-style の CSS も有効にします。"]
+    },
+    {
+      "id": "quote-bar",
+      "name": "引用記号",
+      "category": "formatting",
+      "description": "行頭のパイプ記号を引用の縦棒として表示します。",
+      "usage": "行頭にパイプと空白を入力します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E5%BC%95%E7%94%A8%E8%A8%98%E5%8F%B7",
+      "files": {
+        "style.css": "src/features/quote-bar/style.css"
+      }
+    },
+    {
+      "id": "random-pages",
+      "name": "ホーム画面にランダムでページを表示させたい",
+      "category": "navigation",
+      "description": "ホーム画面にランダムなページカードを追加します。",
+      "usage": "現在のプロジェクトからページを取得し、画面幅に合わせてカードを配置します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%AB%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%81%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84",
+      "files": {
+        "script.js": "src/features/random-pages/script.js"
+      }
+    },
+    {
+      "id": "auto-replace",
+      "name": "自動文字置き換え",
+      "category": "editing",
+      "description": "入力した記号列を矢印・数学記号などへ変換します。",
+      "usage": "例：-> を → に変換します。変換表は replacements.js にあります。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E8%87%AA%E5%8B%95%E6%96%87%E5%AD%97%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88",
+      "files": {
+        "script.js": "src/features/auto-replace/script.js"
+      },
+      "dataFiles": ["replacements.js"]
+    },
+    {
+      "id": "audio-player",
+      "name": "音声ファイルを再生可能にする",
+      "category": "media",
+      "description": "本文内の音声リンクにプレイヤーを表示します。",
+      "usage": "対応する音声ファイルのリンクを個別ページに置きます。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E9%9F%B3%E5%A3%B0%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%86%8D%E7%94%9F%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B",
+      "files": {
+        "script.js": "src/features/audio-player/script.js",
+        "style.css": "src/features/audio-player/style.css"
+      }
+    },
+    {
+      "id": "table-copy",
+      "name": "テーブルのコピー機能",
+      "category": "editing",
+      "description": "テーブルをコピーするボタンを追加します。",
+      "usage": "CSV を解析し、貼り付けやすい TSV へ変換します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E6%A9%9F%E8%83%BD",
+      "files": {
+        "script.js": "src/features/table-copy/script.js"
+      }
+    },
+    {
+      "id": "link-preview",
+      "name": "リンクホバー詳細プレビュー",
+      "category": "navigation",
+      "description": "リンク先の内容をホバーでプレビューします。",
+      "usage": "ページリンクにポインターを重ねて使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%9B%E3%83%90%E3%83%BC%E8%A9%B3%E7%B4%B0%E3%83%97%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC",
+      "files": {
+        "script.js": "src/features/link-preview/script.js",
+        "style.css": "src/features/link-preview/style.css"
+      }
+    },
+    {
+      "id": "hierarchy-fold",
+      "name": "子階層の折りたたみ",
+      "category": "editing",
+      "description": "子階層の折りたたみと展開を切り替えます。",
+      "usage": "[> 見出し]・[< 見出し] の記法と行横の切り替え UI を使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E5%AD%90%E9%9A%8E%E5%B1%A4%E3%81%AE%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF",
+      "files": {
+        "script.js": "src/features/hierarchy-fold/script.js",
+        "style.css": "src/features/hierarchy-fold/style.css"
+      }
+    },
+    {
+      "id": "spreadsheet",
+      "name": "表計算スクリプト",
+      "category": "editing",
+      "description": "テーブル内の数式を計算し、結果を表示します。",
+      "usage": "SUM など、Script に実装された関数をテーブルで使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E8%A1%A8%E8%A8%88%E7%AE%97%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88",
+      "files": {
+        "script.js": "src/features/spreadsheet/script.js",
+        "style.css": "src/features/spreadsheet/style.css"
+      }
+    },
+    {
+      "id": "status-icons",
+      "name": "ステータス切替アイコン",
+      "category": "editing",
+      "description": "進捗を表すアイコンの状態を切り替えます。",
+      "usage": "AC・NWJ・WJ・WA・RE・TLE のアイコンを使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E5%88%87%E6%9B%BF%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3",
+      "files": {
+        "script.js": "src/features/status-icons/script.js",
+        "style.css": "src/features/status-icons/style.css"
+      }
+    },
+    {
+      "id": "equal-image-rows",
+      "name": "画像を一行に均等に配置する",
+      "category": "media",
+      "description": "同じ行の画像を均等な幅で並べます。",
+      "usage": "本文の複数画像を含む行に自動適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%94%BB%E5%83%8F%E3%82%92%E4%B8%80%E8%A1%8C%E3%81%AB%E5%9D%87%E7%AD%89%E3%81%AB%E9%85%8D%E7%BD%AE%E3%81%99%E3%82%8B",
+      "files": {
+        "script.js": "src/features/equal-image-rows/script.js",
+        "style.css": "src/features/equal-image-rows/style.css"
+      }
+    },
+    {
+      "id": "file-buttons",
+      "name": "アップロードしたファイルリンクのデザインをボタンにするUserCSS",
+      "category": "media",
+      "description": "添付ファイルへのリンクをボタン風に表示します。",
+      "usage": "対応する拡張子のファイルリンクに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92%E3%83%9C%E3%82%BF%E3%83%B3%E3%81%AB%E3%81%99%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/file-buttons/style.css"
+      }
+    },
+    {
+      "id": "two-column-links",
+      "name": "リンクを2カラムレイアウトにする",
+      "category": "layout",
+      "description": "関連リンクの表示を2カラムに整えます。",
+      "usage": "ページ本文と関連リンクの配置に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%922%E3%82%AB%E3%83%A9%E3%83%A0%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88%E3%81%AB%E3%81%99%E3%82%8B",
+      "files": {
+        "style.css": "src/features/two-column-links/style.css"
+      }
+    },
+    {
+      "id": "figure-numbers",
+      "name": "画像に連番を振るUserCSS",
+      "category": "media",
+      "description": "画像へ連番を付ける装飾を追加します。",
+      "usage": "本文の画像に適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%94%BB%E5%83%8F%E3%81%AB%E9%80%A3%E7%95%AA%E3%82%92%E6%8C%AF%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/figure-numbers/style.css"
+      }
+    },
+    {
+      "id": "underwater-home",
+      "name": "ホーム画面が水中になるuserCSS",
+      "category": "theme",
+      "description": "SVG を使う水中風ホーム画面の旧 CSS です。",
+      "usage": "初期状態では無効です。元コードに構文上の問題があり、旧版として保管しています。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8C%E6%B0%B4%E4%B8%AD%E3%81%AB%E3%81%AA%E3%82%8BuserCSS",
+      "files": {},
+      "notes": ["元の CSS は全角空白などの構文上の問題を含むため、archive に保存しています。"]
+    },
+    {
+      "id": "colors",
+      "name": "色管理userCSS",
+      "category": "theme",
+      "description": "背景・文字・リンク・ボタンの色変数を設定します。",
+      "usage": "テーマの色を変える場合はこの CSS を編集します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E8%89%B2%E7%AE%A1%E7%90%86userCSS",
+      "files": {
+        "style.css": "src/features/colors/style.css"
+      }
+    },
+    {
+      "id": "icon-menu",
+      "name": "アイコン自動補完JS",
+      "category": "editing",
+      "description": "よく使うアイコンを挿入するメニューを追加します。",
+      "usage": "Icons メニューから選択します。アイコンは元の kamelayout プロジェクトを参照します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E8%87%AA%E5%8B%95%E8%A3%9C%E5%AE%8CJS",
+      "files": {
+        "script.js": "src/features/icon-menu/script.js"
+      }
+    },
+    {
+      "id": "quick-launch",
+      "name": "クイックラウンチメニュー",
+      "category": "navigation",
+      "description": "クイックラウンチの見た目を整えます。",
+      "usage": "初期状態では無効です。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%81%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC",
+      "files": {
+        "style.css": "src/features/quick-launch/style.css"
+      }
+    },
+    {
+      "id": "templates",
+      "name": "テンプレートJS",
+      "category": "editing",
+      "description": "空のページにテンプレートを挿入するメニューを追加します。",
+      "usage": "論文メモ・授業ノート・書籍などを選択します。元と同じ kamelayout の API からテンプレートを取得します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88JS",
+      "files": {
+        "script.js": "src/features/templates/script.js"
+      },
+      "notes": [
+        "テンプレート本文の保存場所は src/templates/ です。動作維持のため、取得先は元と同じ Scrapbox API のままです。取得先を変更する場合は templates.js を編集します。"
+      ],
+      "dataFiles": ["templates.js"]
+    },
+    {
+      "id": "bookmark-menu",
+      "name": "ブックマークJS",
+      "category": "navigation",
+      "description": "栞の挿入や移動を行うメニューを追加します。",
+      "usage": "ブックマークの表示装飾は bookmark-style にあります。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS",
+      "files": {
+        "script.js": "src/features/bookmark-menu/script.js"
+      },
+      "notes": ["表示をまとめて利用する場合は bookmark-style の CSS も有効にします。"]
+    },
+    {
+      "id": "sort-lines",
+      "name": "選択行をソート",
+      "category": "editing",
+      "description": "選択した行を子階層ごとにソートします。",
+      "usage": "選択時のポップアップメニューの ソート を使います。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E9%81%B8%E6%8A%9E%E8%A1%8C%E3%82%92%E3%82%BD%E3%83%BC%E3%83%88",
+      "files": {
+        "script.js": "src/features/sort-lines/script.js"
+      }
+    },
+    {
+      "id": "custom-bullets",
+      "name": "箇条書きのバレットをFontAwesomeにするUserCSS",
+      "category": "formatting",
+      "description": "箇条書きのバレットを Font Awesome の記号に変更します。",
+      "usage": "本文の箇条書きに適用します。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E7%AE%87%E6%9D%A1%E6%9B%B8%E3%81%8D%E3%81%AE%E3%83%90%E3%83%AC%E3%83%83%E3%83%88%E3%82%92FontAwesome%E3%81%AB%E3%81%99%E3%82%8BUserCSS",
+      "files": {
+        "style.css": "src/features/custom-bullets/style.css"
+      }
+    },
+    {
+      "id": "header-image",
+      "name": "ヘッダー画像を追加する",
+      "category": "theme",
+      "description": "ページ上部に背景画像を表示します。",
+      "usage": "CSS の --header-image を変更して使います。初期状態では無効です。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%98%E3%83%83%E3%83%80%E3%83%BC%E7%94%BB%E5%83%8F%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B",
+      "files": {
+        "style.css": "src/features/header-image/style.css"
+      }
+    },
+    {
+      "id": "graph-view",
+      "name": "Obsidian風グラフビュー",
+      "category": "navigation",
+      "description": "ページ間のリンクをグラフとして表示します。",
+      "usage": "グラフ UI から開きます。専用 CSS は Script が必要時に読み込みます。",
+      "sourceUrl": "https://scrapbox.io/kamelayout/Obsidian%E9%A2%A8%E3%82%B0%E3%83%A9%E3%83%95%E3%83%93%E3%83%A5%E3%83%BC",
+      "files": {
+        "script.js": "src/features/graph-view/script.js",
+        "style.css": "src/features/graph-view/style.css"
+      },
+      "notes": [
+        "専用 CSS は script.js の import.meta.url を基準に取得します。元の Settings にあった stlye.css の誤字を直して全体 CSS へ追加すると適用範囲が変わるため、Script による読み込みを維持しています。"
+      ],
+      "styleLoading": "script"
+    }
+  ]
+}
