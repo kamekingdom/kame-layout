@@ -58,7 +58,7 @@ function server({
     if (pathname === "/api/page-data/import/kamelayout.json") {
       assert.equal(method, "POST");
       assert.equal(init.headers.Cookie, `connect.sid=${sid}`);
-      assert.equal(init.headers["X-CSRF-TOKEN"], "test-csrf");
+      assert.equal(init.headers["X-CSRF-TOKEN"], csrfToken ?? undefined);
       assert.equal(init.headers.Origin, "https://scrapbox.io");
       assert.equal(init.headers.Referer, "https://scrapbox.io/kamelayout/");
       assert.ok(init.body instanceof FormData);
@@ -141,13 +141,24 @@ test("an expired session cannot submit an import", async () => {
   assert.equal(api.calls.length, 1);
 });
 
-test("a missing CSRF token is distinguished from an expired session without logging profile data", async () => {
+test("current native authentication works with a member profile without a legacy CSRF token", async () => {
   const api = server({ csrfToken: null });
+  const result = await publishPackage(pkg, target, { sid, fetchImpl: api.fetchImpl });
+  assert.equal(result.action, "created");
+  assert.equal(result.verifiedCodeBlocks, 2);
+});
+
+test("an unknown authentication response cannot submit an import", async () => {
   await assert.rejects(
-    publishPackage(pkg, target, { sid, fetchImpl: api.fetchImpl }),
-    /profile response has no CSRF token/,
+    publishPackage(pkg, target, {
+      sid,
+      fetchImpl: async (url) => {
+        assert.equal(url, "https://scrapbox.io/api/users/me");
+        return json({ message: "unexpected response" });
+      },
+    }),
+    /Unexpected Scrapbox profile response/,
   );
-  assert.equal(api.calls.length, 1);
 });
 
 test("an unmarked existing page cannot be overwritten", async () => {

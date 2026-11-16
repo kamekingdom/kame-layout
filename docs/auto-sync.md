@@ -20,7 +20,7 @@ mainへpush → 構文・回帰テスト → 配信用1ページを更新 → �
 
 ## 認証と有効化
 
-Scrapboxの通常のPersonal Access TokenとService Accountは読み取り用途です。同期では、ネイティブのImport Pages画面が利用する内部APIに、`connect.sid`のログインセッションとCSRFトークンを使って書き込みます。
+Scrapboxの通常のPersonal Access TokenとService Accountは読み取り用途です。同期では、ネイティブのImport Pages画面が利用する内部APIへ、`connect.sid`のログインセッションとOrigin・Refererを使って書き込みます。現在の標準画面に合わせ、CSRFトークンは必須にせず、旧API形式で取得できた場合だけ追加します。
 
 `connect.sid`はこの1ページ専用のキーではありません。そのユーザーがアクセスできる範囲の認証情報なので、GitHubへ預ける操作は利用者自身の判断で行ってください。必要ならコード配置用プロジェクトだけを管理する専用アカウントを使います。値をチャットやIssueへ貼らないでください。
 
@@ -37,7 +37,7 @@ Scrapboxの通常のPersonal Access TokenとService Accountは読み取り用途
 `npm run sync:plan`は書き込みを行いません。`npm run sync:publish`は以下を実行します。
 
 1. 対象が管理用マーカー付きの1ページだけであることを検査。
-2. セッションとCSRFトークンを確認。
+2. セッションがメンバープロフィールとして認識されることを確認。
 3. 既存の配信ページがあればマーカーを確認。手作業の同名ページは上書きしない。
 4. 同じ内容なら書き込みを省略し、公開コードを照合。
 5. 更新があれば、直前の配信ページだけをバックアップ。

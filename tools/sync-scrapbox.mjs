@@ -139,8 +139,8 @@ export async function publishPackage(
   if (profile.isGuest) {
     throw new Error("Scrapbox login session is missing or expired. Update SCRAPBOX_SID.");
   }
-  if (typeof profile.csrfToken !== "string" || !profile.csrfToken) {
-    throw new Error("Scrapbox profile response has no CSRF token. Check the authentication API.");
+  if (typeof profile.id !== "string" || !profile.id) {
+    throw new Error("Unexpected Scrapbox profile response. Check the authentication API.");
   }
   const pageUrl = `${origin}/api/pages/${plan.project}/${encodeURIComponent(plan.page)}`;
   const currentResponse = await request(
@@ -174,7 +174,11 @@ export async function publishPackage(
   }
   const writeHeaders = {
     ...headers,
-    "X-CSRF-TOKEN": profile.csrfToken,
+    // Current native requests use Cookie + Origin. Keep compatibility with older
+    // API responses that also supplied a CSRF token, without requiring that field.
+    ...(typeof profile.csrfToken === "string" && profile.csrfToken
+      ? { "X-CSRF-TOKEN": profile.csrfToken }
+      : {}),
     Origin: origin,
     Referer: `${origin}/${plan.project}/`,
   };
