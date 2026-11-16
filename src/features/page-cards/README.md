@@ -16,8 +16,14 @@
 | ファイル | 役割 |
 | --- | --- |
 | [style.css](style.css) | 表示・装飾 |
+| [cards.css](cards.css) | 従来のカード・タイトル・説明文のスタイル |
+| [pinned-titles.css](pinned-titles.css) | ピン留めタイトルを1行の省略表示に収めるレイアウト |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
+
+## 補足
+
+- ピン留めの長いタイトルは1行に収め、末尾を「…」で省略します。ページを開くとタイトル全文を確認できます。
 
 ## 旧版・元の試作
 
