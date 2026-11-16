@@ -1,25 +1,2 @@
-import '../テンプレートJS/script.js';
-import "../新規ページ作成ショートカット/script.js";
-import "../ブックマークJS/script.js";
-import "../空白ページ消去提案JS/script.js";
-import "../アイコン自動補完JS/script.js";
-import "../テキスト置換機能/script.js";
-import "../見える文字数カウンター/script.js";
-import "../選択行をソート/script.js";
-import "../チェックボックス/script.js";
-import "../ホーム画面にランダムでページを表示させたい/script.js";
-import "../自動文字置き換え/script.js";
-import "../音声ファイルを再生可能にする/script.js";
-import "../テーブルのコピー機能/script.js";
-import "../リンクホバー詳細プレビュー/script.js";
-import "../子階層の折りたたみ/script.js";
-import "../表計算スクリプト/script.js";
-import "../ステータス切替アイコン/script.js";
-import "../外部リンク左横にそのサイトのfaviconを自動表示する/script.js";
-import "../画像を一行に均等に配置する/script.js";
-import "../Obsidian風グラフビュー/script.js";
-// import "../ピンページ項目メニューJS/script.js";
-// import '../過去のこの日機能JS/script.js';
-// import "../行リンクをプレビューするuserScript/script.js";
-// import '../所属プロジェクトの候補表示JS/script.js';
-// import '../文字カウントJS/script.js';
+// Compatibility entry.
+import "../../script.js";

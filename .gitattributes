@@ -1,0 +1,6 @@
+dist/* linguist-generated=true
+style.css linguist-generated=true
+script.js linguist-generated=true
+docs/features.md linguist-generated=true
+docs/load-order.md linguist-generated=true
+src/features/*/README.md linguist-generated=true

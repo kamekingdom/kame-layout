@@ -1,2 +1,21 @@
-// UserScript entry point. Keep feature order in src/kame/script.js.
-import "./src/kame/script.js";
+// Generated from config/features.json. Preserve execution order; run npm run build.
+import "./src/features/templates/script.js";
+import "./src/features/new-page-shortcut/script.js";
+import "./src/features/bookmark-menu/script.js";
+import "./src/features/untitled-prompt/script.js";
+import "./src/features/icon-menu/script.js";
+import "./src/features/find-replace/script.js";
+import "./src/features/character-counter/script.js";
+import "./src/features/sort-lines/script.js";
+import "./src/features/checkbox-toggle/script.js";
+import "./src/features/random-pages/script.js";
+import "./src/features/auto-replace/script.js";
+import "./src/features/audio-player/script.js";
+import "./src/features/table-copy/script.js";
+import "./src/features/link-preview/script.js";
+import "./src/features/hierarchy-fold/script.js";
+import "./src/features/spreadsheet/script.js";
+import "./src/features/status-icons/script.js";
+import "./src/features/external-favicons/script.js";
+import "./src/features/equal-image-rows/script.js";
+import "./src/features/graph-view/script.js";

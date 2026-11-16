@@ -3,3 +3,5 @@ node_modules/
 kamelayout.json
 playwright-report/
 test-results/
+.cache/
+__pycache__/
