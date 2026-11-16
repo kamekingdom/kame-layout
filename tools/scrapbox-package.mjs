@@ -90,6 +90,7 @@ export function createPackage() {
     entryPage,
     managedMarker,
     "このページはGitHubから生成・同期する配信用ページです。手動編集は次の同期で置き換わります。",
+    "[使い方・概要 https://github.com/kamekingdom/kame-layout/blob/main/README.md]",
     "[機能一覧 https://github.com/kamekingdom/kame-layout/blob/main/docs/features.md]",
     "",
     ...codeBlock("style.css", styles.join("\n")),
