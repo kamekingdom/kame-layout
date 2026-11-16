@@ -104,7 +104,7 @@ async function capture(version, viewport) {
     fullPage: true,
     animations: "disabled",
   });
-  if (version === "after" && viewport.width === 1440) {
+  if (viewport.width === 1440) {
     const samples = cards.filter(
       (card) =>
         card.width === 156 &&
@@ -115,7 +115,7 @@ async function capture(version, viewport) {
     const right = Math.ceil(Math.max(...samples.map((card) => card.card.right)));
     const bottom = Math.ceil(Math.max(...samples.map((card) => card.card.bottom)));
     await page.screenshot({
-      path: path.join(output, "preview.png"),
+      path: path.join(output, `${version}-preview.png`),
       clip: { x, y, width: right - x, height: bottom - y },
       animations: "disabled",
     });

@@ -4,6 +4,10 @@ Scrapbox / Cosense の見た目と編集機能を拡張する UserCSS・UserScri
 
 **何ができるかは [72機能の一覧](docs/features.md) から確認できます。** 各機能の README に、使い方・有効状態・CSS/JS の役割・ソース・出典をまとめています。
 
+ピン留めタイトルは、長い場合も1行に収めて末尾を「…」で省略します。[変更前後の比較と確認方法](docs/pinned-titles.md)
+
+![ピン留めタイトルの表示例](docs/images/pinned-titles-after.png)
+
 ## Scrapbox で使う
 
 GitHub をコードの管理元とし、生成した [Scrapbox 用 JSON](dist/kame-layout.scrapbox.json) をコード配置用のプロジェクトへ取り込みます。Scrapbox の CSP は GitHub / jsDelivr の直接 import を許可していないため、利用時は同じ `scrapbox.io` の `/api/code/` から読み込みます。
@@ -72,6 +76,8 @@ dist/                     Scrapbox へ取り込む生成済み JSON
 - [出典・参考リンク](SOURCES.md)
 
 ## 開発する
+
+Issue・作業ブランチ・PR・検証・マージの進め方は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
 Node.js 22.13 以降と Python 3 を使用します。Python は元 JSON の再抽出時だけ必要です。
 
