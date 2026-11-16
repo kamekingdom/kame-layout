@@ -1,0 +1,51 @@
+/* Author: kamekingdom (2026-06-12) */
+
+/* ========================================
+   行頭が「!」の行だけを青くする
+   ======================================== */
+
+/* 行頭の「!」と、それ以降の文字 */
+.line .text > span:first-child > .char-index:first-child[data-char="!"],
+.line .text > span:first-child > .char-index:first-child[data-char="!"] ~ .char-index,
+
+/* インデントされた行の行頭にある「!」と、それ以降の文字 */
+.line .text > span .indent .char-index:first-child[data-char="!"],
+.line .text > span .indent .char-index:first-child[data-char="!"] ~ .char-index {
+  background-color: rgba(0, 0, 255, 0.1);
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  padding: 3px 0;
+  color: blue;
+}
+
+/* 行頭の「!」の左側を丸める */
+.line .text > span:first-child > .char-index:first-child[data-char="!"],
+.line .text > span .indent .char-index:first-child[data-char="!"] {
+  padding-left: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+/* 行末の文字の右側を丸める */
+.line .text > span:first-child
+  > .char-index:first-child[data-char="!"]
+  ~ .char-index:last-child,
+
+.line .text > span .indent
+  .char-index:first-child[data-char="!"]
+  ~ .char-index:last-child {
+  padding-right: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* 「!」だけの行にも右側の丸みを付ける */
+.line .text > span:first-child
+  > .char-index:first-child[data-char="!"]:last-child,
+
+.line .text > span .indent
+  .char-index:first-child[data-char="!"]:last-child {
+  padding-right: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

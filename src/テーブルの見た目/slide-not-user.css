@@ -1,0 +1,85 @@
+.indent.table-block, .indent.table-block-row {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    display: block; /* Display as a block element */
+    white-space: nowrap; /* Prevent line wrapping */
+
+    /* Browser-specific scrollbar settings */
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.indent.table-block::-webkit-scrollbar, .indent.table-block-row::-webkit-scrollbar {
+    display: none;
+}
+
+/* Styling for table cells */
+.line .table-block .cell, .indent.table-block-row .cell {
+    background-color: var(--main-color) !important; /* Main color for cells */
+    color: #000000; /* Text color */
+    padding: 0.2em 1.1em; /* Padding */
+    border-left: 1px #FFFFFF solid; /* Left border */
+}
+
+/* Hide left border for the first cell */
+.table-block .cell:first-child, .indent.table-block-row .cell:first-child {
+    border-left: none;
+}
+
+/* Styling for file name area */
+.table-block .table-block-start, .indent.table-block-row .table-block-start {
+    background-color: var(--main-color);
+    padding: 0.3em 1em;
+}
+
+/* Link colors in table start block */
+.table-block .table-block-start a, .indent.table-block-row .table-block-start a {
+    color: #b6bdca;
+}
+
+/* Emphasize the first row and add underline to header row */
+.line:has(.table-block-start) + .line .table-block .cell, .line:has(.table-block-start) + .line .indent.table-block-row .cell {
+    background-color: var(--accent-color) !important; /* Accent color */
+    color: #FFFFFF; /* Text color */
+    border-bottom: 1px #FFFFFF solid; /* Bottom border */
+    text-align: center; /* Center alignment */
+}
+
+/* Additional styles for table row backgrounds and hover effects */
+.line .table-block .cell:nth-child(odd), .indent.table-block-row .cell:nth-child(odd) {
+    background-color: rgba(220, 250, 250, 0.2);
+}
+
+.line .table-block .cell:nth-child(even), .indent.table-block-row .cell:nth-child(even) {
+    background-color: rgba(220, 250, 250, 0.3);
+}
+
+.section-title + .line .table-block .cell:nth-child(odd), .section-title + .line .indent.table-block-row .cell:nth-child(odd) {
+    background-color: rgba(220, 250, 250, 0.5);
+}
+
+.section-title + .line .table-block .cell:nth-child(even), .section-title + .line .indent.table-block-row .cell:nth-child(even) {
+    background-color: rgba(220, 250, 250, 0.7);
+}
+
+/* テーブル全体をスクロール可能にするラッパ */
+.indent.table-block {
+    overflow-x: auto;      /* 横スクロール許可 */
+    overflow-y: hidden;    /* 縦スクロールは隠す */
+    display: block;        /* ブロック表示 */
+    white-space: nowrap;   /* 折り返さない */
+    -webkit-overflow-scrolling: touch; /* iOSでの慣性スクロール */
+    
+    /* スクロールバー非表示 */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+.indent.table-block::-webkit-scrollbar {
+    display: none;
+}
+
+/* 各行はスクロールを持たず、幅をテーブルに従属させる */
+.indent.table-block-row {
+    display: inline-flex;   /* 行は横方向に連結 */
+    width: max-content;     /* 必要なだけ広がる */
+}

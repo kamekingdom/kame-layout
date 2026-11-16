@@ -1,0 +1,3 @@
+.dropdown-menu>li>a.selected, [data-hover-visible] .dropdown-menu>li>a.selected{color: var(--exist-color);}
+.global-menu li a.updated, .global-menu li a.highlight{border-left: 2px solid #646262;}
+ .global-menu .project-list-filter a:focus-within, .drawer .drawer-menu ul .project-list-filter a:focus-within{box-shadow: 0 0px 0px 3px #b37e7e;}

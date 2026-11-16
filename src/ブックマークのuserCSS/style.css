@@ -1,0 +1,71 @@
+/* Author: kamekingdom (2026-09-07) */
+
+
+/* ========================================
+   [. タイトル] の見出し表示
+   ======================================== */
+
+.app:not(.presentation) .line .deco-\. {
+  font-weight: bold;
+
+  width: 100%;
+  display: inline-block;
+
+  padding: 0.2em 0.5em;
+
+  color: #494949;
+
+  border-bottom: solid 2px #d7d7d7;
+
+  margin-bottom: 0.5em;
+  margin-top: 0;
+}
+
+
+@media screen and (max-width: 990px) {
+  .app:not(.presentation) .line .deco-\.::after {
+    position: static;
+    padding-left: 0.3em;
+  }
+}
+
+
+/* ========================================
+   Bookmarks
+   ======================================== */
+
+button#Bookmarks.tool-btn {
+  position: relative;
+}
+
+
+button#Bookmarks.tool-btn::before {
+  position: absolute;
+
+  content: '';
+
+  width: 26px;
+  height: 26px;
+
+  -webkit-mask-image:
+    url('https://scrapbox.io/files/6629f6817393d100238acf00.png');
+
+  mask-image:
+    url('https://scrapbox.io/files/6629f6817393d100238acf00.png');
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  background-color: currentColor;
+}
+
+
+button#Bookmarks.tool-btn img {
+  opacity: 0;
+}

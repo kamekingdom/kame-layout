@@ -1,0 +1,54 @@
+/* Author: kamekingdom (2026-09-29) */
+
+/* =========================================================
+   Kame Spreadsheet
+   ========================================================= */
+
+.table-block
+.cell.kame-sheet-formula-cell {
+  position: relative;
+
+  color: transparent !important;
+}
+
+
+/* 計算結果 */
+.table-block
+.cell.kame-sheet-formula-cell
+.kame-sheet-result {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding: inherit;
+
+  color: #30343b !important;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  pointer-events: none;
+}
+
+
+/* hoverすると元の数式を確認できる */
+.table-block
+.cell.kame-sheet-formula-cell:hover {
+  color: #30343b !important;
+}
+
+
+.table-block
+.cell.kame-sheet-formula-cell:hover
+.kame-sheet-result {
+  opacity: 0;
+}

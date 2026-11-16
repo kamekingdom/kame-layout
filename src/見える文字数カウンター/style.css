@@ -1,0 +1,18 @@
+/* カウンターのスタイル */
+#__charCounter__ span {
+  cursor: pointer; font: 88%/1 monospace; 
+  opacity: .35; /* ←マウスを乗せてないときの濃さ 35% */
+  transition: opacity .2s ease-out }
+#__charCounter__ span:hover { opacity: 1 } /* ←マウスを乗せたときの濃さ 100% */
+#__charCounter__ { z-index: 30; position: sticky; bottom: 0; text-align: right }
+
+/* ポップアップのスタイル */
+#__charCounterPopup__ {
+  z-index: 30; position: absolute; bottom: 2em; right: -1em;
+  border-radius: .25em; border: 1px solid #ddd; box-shadow: 0 0 8px 1px rgba(8,8,8,.1);
+  padding: .8em; background-color: azure; color: #5F9EA0; font: 13.5px/1.4 monospace;
+  transition: opacity .3s ease-out }
+
+/* プレゼンモードのときは非表示にする */
+.presentation #__charCounter__,
+.presentation #__charCounterPopup__ { display: none }

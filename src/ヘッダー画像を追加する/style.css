@@ -1,0 +1,25 @@
+:root{
+  --header-image: url("https://scrapbox.io/files/695cd54b4f3d54bb1424458f.png");
+  --header-h: clamp(250px, 28vh, 480px);
+  --header-gap: 8px; /* ← ここを増やすと下との間が空く */
+}
+
+@supports selector(.app:has(.page-list)){
+  .app:has(.page-list){
+    padding-top: calc(var(--header-h) + var(--header-gap));
+  }
+  .app:has(.page-list)::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--header-h);
+    background-image: var(--header-image);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    pointer-events: none;
+    z-index: -1;
+  }
+}

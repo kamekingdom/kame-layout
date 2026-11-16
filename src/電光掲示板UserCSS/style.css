@@ -1,0 +1,53 @@
+.quick-launch {
+	&::before, &::after{
+		content: var(--bulletin-board);
+	}
+}
+.app{
+	overflow-x: clip;
+	position: relative;
+} 
+.quick-launch {
+  	margin-top: 2em; /* 下部の隙間 */
+	&::before, &::after {
+		margin-bottom: 2.0em; /* 下部の隙間 */
+ 		position: absolute;
+ 		left: 0;
+ 		top: 30px;
+    	font-size: 80px;
+    	text-indent: 1em;
+    	color: #ebe9e8;
+    	font-weight: 700;
+    	white-space: nowrap;
+    	font-family: 'jost','Zen Kaku Gothic New';
+    	z-index: -1;
+    	letter-spacing: 0.3em;
+    	text-indent: 0.3em;
+    	@media screen and (min-width: 992px) { /* 多分間違ってる */
+    		letter-spacing: 0.5em;
+    		text-indent: 1em;
+    	}
+	}     	
+}
+@media (min-width: 992px){
+.quick-launch::before{animation: marquee 40s linear infinite;}
+.quick-launch::after{animation: marquee2 40s linear infinite;}
+}
+@media (min-width: 768px) and (max-width: 991px){
+.quick-launch::before{animation: marquee 30s linear infinite;}
+.quick-launch::after{animation: marquee2 30s linear infinite;}
+}
+@media (max-width: 767px){
+.quick-launch::before{animation: marquee 25s linear infinite;}
+.quick-launch::after{animation: marquee2 25s linear infinite;}
+}
+ 
+@keyframes marquee{
+	0%{transform: translateX(0%)}
+	100%{transform:translateX(-100%)}
+}
+@keyframes marquee2{
+ 	0%{transform: translateX(100%)}
+ 	100%{transform:translateX(0%)}
+}
+:root{--bulletin-board: "This is Sample Text on 電光掲示板";}

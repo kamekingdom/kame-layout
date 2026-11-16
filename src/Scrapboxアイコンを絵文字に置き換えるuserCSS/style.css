@@ -1,0 +1,13 @@
+.navbar-brand img, .navbar-brand span { display: none !important }
+.navbar .navbar-brand{min-width: 0px;}
+.navbar-brand::before {
+   content: '\f0c9'; font-family: FontAwesome; font-size: 28px; color: #bbbbbb; }
+.kamon-caret-down:before{
+	display: none !important;
+}
+ .navbar-brand::before {
+   /* content: '\f0c9'; font-family: 'Font Awesome 5 Free' font-weight: 900; font-size: 28px */
+   /* content: 'S'; font-family: 'Font Awesome 5 Free'; font-weght: 900; font-size: 28px; color: #bbbbbb; */
+   /* ☰Ⲷ */
+   content: '📒'; font-weight: 900; font-size: 20px; color: var(--accent-color); /* #bbbbbb */;
+  }

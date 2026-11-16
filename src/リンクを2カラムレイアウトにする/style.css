@@ -1,0 +1,913 @@
+/* Author: kamekingdom (2026-09-29) */
+
+/* ========================================
+   Related Page List / Links Sidebar
+   ======================================== */
+
+
+/* ========================================
+   Scrollbar
+   ======================================== */
+
+.related-page-list::-webkit-scrollbar {
+  display: none;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar {
+  width: 5px;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar-thumb {
+  background-color: #7d899b;
+  border-radius: 3px;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar-track {
+  background-color: #111827;
+}
+
+
+/* ========================================
+   Box Sizing
+   ======================================== */
+
+.related-page-list,
+.related-page-list *,
+.related-page-list *::before,
+.related-page-list *::after {
+  box-sizing: border-box;
+}
+
+
+/* ========================================
+   Desktop Layout
+   ======================================== */
+
+@media screen and (min-width: 1500px) {
+
+  /* ========================================
+     Layout Variables
+     ======================================== */
+
+  :root {
+    /*
+     * 左Sidebar・本文・右Menuを
+     * まとめて右へ移動する量。
+     *
+     * 60px〜100px程度で調整。
+     */
+    --kame-layout-shift: 90px;
+  }
+
+
+  /* ========================================
+     Main Page
+     ======================================== */
+
+  /*
+   * 中央の白いページ本体を右へ移動。
+   */
+  .col-page .page {
+    position: relative;
+
+    left:
+      var(--kame-layout-shift);
+  }
+
+
+  /* ========================================
+     Right Page Menu
+     ======================================== */
+
+  /*
+   * 右側の縦アイコン列
+   *
+   * info
+   * document
+   * translate
+   * shuffle
+   * edit
+   * bookmark
+   * etc...
+   *
+   * を現在位置から右へ移動。
+   */
+  .page-menu {
+    translate:
+      var(--kame-layout-shift)
+      0;
+  }
+
+
+  /* ========================================
+     Sidebar Container
+     ======================================== */
+
+  .related-page-list {
+
+    /*
+     * 本文領域の想定幅
+     */
+    --kame-main-width: 1040px;
+
+
+    /*
+     * Sidebarと本文の間隔
+     */
+    --kame-sidebar-gap: 8px;
+
+
+    /*
+     * 画面左端との最低余白
+     */
+    --kame-screen-gap: 12px;
+
+
+    /*
+     * Sidebar最大幅
+     */
+    --kame-sidebar-max-width: 240px;
+
+
+    /*
+     * 画面幅に応じてSidebar幅を自動調整。
+     */
+    --kame-sidebar-width:
+      min(
+        var(--kame-sidebar-max-width),
+        calc(
+          (100vw - var(--kame-main-width)) / 2
+          - var(--kame-sidebar-gap)
+          - var(--kame-screen-gap)
+        )
+      );
+
+
+    position: fixed;
+
+
+    top: 100px;
+
+
+    /*
+     * 本文左端のすぐ左に配置しつつ、
+     * 本文と同じだけ右へ移動。
+     */
+    left:
+      calc(
+        50vw
+        - var(--kame-main-width) / 2
+        - var(--kame-sidebar-gap)
+        - var(--kame-sidebar-width)
+        + var(--kame-layout-shift)
+      );
+
+
+    transform: none;
+
+
+    width:
+      var(--kame-sidebar-width);
+
+
+    height:
+      calc(100vh - 120px);
+
+
+    max-height:
+      90vh;
+
+
+    margin: 0;
+
+
+    padding:
+      34px 8px 0 8px !important;
+
+
+    border-radius: 5px;
+
+
+    background-color: transparent;
+
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+  }
+
+
+  /* ========================================
+     Search
+     ======================================== */
+
+  .related-page-list .search-form,
+  .related-page-list form {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    margin: 0;
+
+
+    box-sizing: border-box;
+  }
+
+
+  .related-page-list input {
+    display: block;
+
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    margin: 0;
+
+
+    box-sizing: border-box;
+  }
+
+
+  /* ========================================
+     Toolbar
+     ======================================== */
+
+  .related-page-list .toolbar {
+    display: flex;
+
+
+    flex-direction: column-reverse;
+
+
+    width: 100%;
+
+
+    margin-bottom: 2em;
+
+
+    gap: 12px;
+
+
+    color: #666b70;
+
+
+    opacity: 1;
+  }
+
+
+  .related-page-list .toolbar,
+  .related-page-list .toolbar *,
+  .related-page-list .toolbar button,
+  .related-page-list .toolbar select,
+  .related-page-list .toolbar span,
+  .related-page-list .toolbar label {
+    color: #666b70 !important;
+
+    opacity: 1 !important;
+
+    visibility: visible;
+  }
+
+
+  /* ========================================
+     Toolbar Button
+     ======================================== */
+
+  .related-page-list .toolbar button {
+    width: 100%;
+
+
+    padding: 5px 8px;
+
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 4px;
+
+
+    background-color: #ffffff;
+
+
+    color: #666b70 !important;
+
+
+    font-size: 0.9em;
+
+    font-weight: 500;
+
+
+    cursor: pointer;
+  }
+
+
+  .related-page-list .toolbar button:hover {
+    color: #303438 !important;
+
+
+    background-color: #f4f5f6;
+
+
+    border-color: #cdd2d7;
+  }
+
+
+  /* ========================================
+     Toolbar Select
+     ======================================== */
+
+  .related-page-list .toolbar select {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    padding: 5px 7px;
+
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 4px;
+
+
+    background-color: #ffffff;
+
+
+    color: #666b70 !important;
+
+
+    font-size: 0.9em;
+  }
+
+
+  /* ========================================
+     Grid
+     ======================================== */
+
+  .related-page-list ul.grid {
+    display: flex;
+
+
+    flex-direction: column;
+
+    flex-wrap: nowrap;
+
+
+    gap: 11px;
+
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    margin: 0;
+
+
+    padding: 0;
+  }
+
+
+  /* ========================================
+     Relation Label
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.relation-label {
+    width: 100%;
+
+
+    min-width: 0;
+
+
+    margin: 0;
+  }
+
+
+  .related-page-list
+  .grid
+  li.relation-label
+  a {
+    display: block;
+
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    background-color: transparent;
+  }
+
+
+  .related-page-list
+  .grid
+  li.relation-label
+  a
+  .icon-lg {
+    display: none;
+  }
+
+
+  .related-page-list
+  .grid
+  li.relation-label
+  a
+  .title {
+    display: block;
+
+
+    width: 100%;
+
+
+    min-width: 0;
+
+
+    color: #777c81;
+
+
+    font-weight: 600;
+
+    font-size: 0.9em;
+
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+
+  .related-page-list
+  .grid
+  li.relation-label
+  .arrow {
+    display: none;
+  }
+
+
+  .related-page-list
+  .grid
+  li.relation-label.links
+  a,
+
+  .related-page-list
+  .grid
+  li.relation-label.project-links
+  a {
+    display: block;
+
+
+    width: 100%;
+
+    max-width: 100%;
+
+
+    color: #707172;
+  }
+
+
+  /* ========================================
+     Splitter
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.splitter.splitter {
+    height: 5px;
+
+    min-height: 5px;
+  }
+
+
+  /* ========================================
+     Grid Item
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li {
+    width: 100%;
+
+
+    min-width: 0;
+
+
+    height: 37px;
+
+
+    margin: 0 !important;
+  }
+
+
+  /* ========================================
+     Page List Item
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a {
+    position: relative;
+
+
+    display: block;
+
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+
+    height: 100%;
+
+
+    background-color: #fefefe;
+
+
+    outline:
+      1px solid transparent !important;
+
+
+    overflow: hidden;
+
+
+    transition:
+      background-color
+        100ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        ),
+
+      outline-color
+        100ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        );
+  }
+
+
+  /* ========================================
+     Header
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a
+  .header {
+    position: relative;
+
+
+    z-index: 1;
+
+
+    width: 100%;
+
+
+    min-width: 0;
+
+
+    padding:
+      10px
+      10px
+      8px;
+  }
+
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a
+  .header
+  > .title {
+    display: block;
+
+
+    width: 100%;
+
+
+    min-width: 0;
+
+
+    color: #6c7075;
+
+
+    font-size: 1em;
+
+
+    text-align: left;
+
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+
+  /* ========================================
+     Icon
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a
+  .icon {
+    position: absolute;
+
+
+    left: 0;
+
+    top: 50%;
+
+
+    transform:
+      translateY(-50%);
+
+
+    width: 100%;
+
+    height: 100%;
+
+
+    opacity: 0;
+
+
+    overflow: hidden;
+
+
+    transition:
+      opacity
+        200ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        );
+  }
+
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a
+  .icon
+  img {
+    display: block;
+
+
+    width: 100%;
+
+    height: 100%;
+
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+
+    margin: 0;
+
+
+    object-fit: cover;
+
+
+    filter: brightness(1);
+  }
+
+
+  /* ========================================
+     Description
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a
+  .description {
+    display: none;
+  }
+
+
+  /* ========================================
+     Hover
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a:hover {
+    background-color: #f5f5f5;
+
+
+    outline:
+      1px solid #374151 !important;
+
+
+    transition:
+      background-color
+        300ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        ),
+
+      outline-color
+        300ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        );
+  }
+
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a:hover
+  .icon {
+    opacity: 1;
+
+
+    transition:
+      opacity
+        400ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        );
+  }
+
+
+  .related-page-list
+  .grid
+  li.page-list-item
+  a:hover
+  .header
+  > .title {
+    color: #232323;
+
+
+    transition:
+      color
+        300ms
+        cubic-bezier(
+          0.2,
+          0.91,
+          0.85,
+          0.96
+        );
+  }
+
+
+  /* ========================================
+     Relation Label Background
+     ======================================== */
+
+  .related-page-list
+  .grid
+  li.relation-label.empty-links
+  a,
+
+  .related-page-list
+  .grid
+  li.relation-label.links
+  a,
+
+  .related-page-list
+  .grid
+  li.relation-label.project-links
+  a,
+
+  .related-page-list
+  div.links-2-hop
+  ul.grid:hover
+  .relation-label
+  a {
+    background-color: transparent;
+  }
+}
+
+
+/* ========================================
+   Smaller Displays
+   ======================================== */
+
+@media screen and (max-width: 1499px) {
+
+  /* ========================================
+     Related Page List
+     ======================================== */
+
+  .related-page-list {
+    position: static;
+
+
+    top: auto;
+
+    left: auto;
+
+
+    transform: none;
+
+
+    width: auto;
+
+    max-width: none;
+
+
+    height: auto;
+
+    max-height: none;
+
+
+    margin: 0;
+
+
+    padding: 0 !important;
+
+
+    overflow: visible;
+  }
+
+
+  /* ========================================
+     Reset Main Page
+     ======================================== */
+
+  .col-page .page {
+    position: static;
+
+    left: auto;
+  }
+
+
+  /* ========================================
+     Reset Page Menu
+     ======================================== */
+
+  .page-menu {
+    translate: none;
+  }
+}
+
+/* Author: kamekingdom (2026-09-29) */
+
+/* ========================================
+   Related Page Toolbar Icon Fix
+   ======================================== */
+
+.related-page-list .toolbar button,
+.related-page-list .toolbar button *,
+.related-page-list .toolbar button i,
+.related-page-list .toolbar button i::before {
+  color: #666b70 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+/* SVGアイコンの場合 */
+.related-page-list .toolbar button svg {
+  color: #666b70 !important;
+
+  opacity: 1 !important;
+
+  visibility: visible !important;
+
+  fill: currentColor !important;
+
+  stroke: currentColor !important;
+}

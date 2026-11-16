@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,500;1,600;1,700;1,800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans:wght@100;200;300;400;500;600;700;800&display=swap');
+@font-face {
+  font-family: 'l-safe';
+  src: local("Bahnschrift"), local("DIN"), local("ＭＳ Ｐゴシック"), local("MS PGothic");
+  unicode-range: U+006C;
+}
+html, body, #editor, .grid li {font-family: 'l-safe', 'calibri', 'Zen Kaku Gothic New', "YuGothic", 'Yu Gothic', "Font Awesome 5 Free", "Font Awesome 5 Brands", "Roboto", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";}
+.navbar .navbar-menu>li>a { color: #90C030; }
+.navbar .navbar-menu>li>a:hover, .navbar .navbar-menu>li>a:active, .navbar .navbar-menu>li>a:focus
+{ color: #000; }
+[data-hover-visible] .new-button:hover {
+  --new-button-horizontal-color: #5e8af7;
+  --new-button-vertical-color: #3d72f5;
+}

@@ -1,0 +1,173 @@
+/* Author: kamekingdom (2026-10-27) */
+
+
+/* =========================================================
+   External Link
+   ========================================================= */
+
+a.kame-link-with-favicon {
+  text-decoration:
+    inherit;
+}
+
+
+/* =========================================================
+   Icon
+   ========================================================= */
+
+/* Author: kamekingdom (2026-10-27) */
+
+.kame-external-favicon {
+  display:
+    inline-flex;
+
+  width:
+    15px;
+
+  height:
+    15px;
+
+  flex:
+    0 0 15px;
+
+  margin-left:
+    3px;
+
+  margin-right:
+    5px;
+
+  padding:
+    0;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  vertical-align:
+    -2px;
+
+  opacity:
+    0.82;
+
+  line-height:
+    1;
+
+  text-decoration:
+    none !important;
+
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+
+/* =========================================================
+   Image
+   ========================================================= */
+
+.kame-external-favicon-image {
+  display:
+    block !important;
+
+  width:
+    15px !important;
+
+  height:
+    15px !important;
+
+  min-width:
+    15px !important;
+
+  min-height:
+    15px !important;
+
+  max-width:
+    15px !important;
+
+  max-height:
+    15px !important;
+
+  margin:
+    0 !important;
+
+  padding:
+    0 !important;
+
+  border:
+    none !important;
+
+  border-radius:
+    3px;
+
+  background:
+    transparent !important;
+
+  object-fit:
+    contain;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* =========================================================
+   Table
+   ========================================================= */
+
+/*
+ * テーブルセル内でも
+ * faviconを普通のインライン要素として扱う。
+ */
+.table-block
+a.kame-link-with-favicon
+.kame-external-favicon {
+  display:
+    inline-flex;
+
+  margin-right:
+    7px;
+
+  vertical-align:
+    -2px;
+}
+
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+a.kame-link-with-favicon:hover
+.kame-external-favicon {
+  opacity:
+    1;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   Cursor Line
+   ========================================================= */
+
+.line.cursor-line
+.kame-external-favicon {
+  opacity:
+    0.72;
+}
+
+
+/* =========================================================
+   Dark Mode
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+
+  .kame-external-favicon-image {
+    filter:
+      saturate(0.95)
+      brightness(0.95);
+  }
+}

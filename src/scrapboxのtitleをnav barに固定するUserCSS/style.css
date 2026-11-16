@@ -1,0 +1,23 @@
+@media screen {
+   .quick-launch .left-box {
+     position: fixed;
+     top: -2px;
+     left: -1000px; /* アイコンを遠くに消す */
+     z-index: 1000;
+   }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .quick-launch .left-box {
+    left: 55px;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1260px) {
+  .quick-launch .left-box {
+    left: 70px;
+  }
+}
+@media screen and (min-width: 1261px) {
+  .quick-launch .left-box {
+    left: calc((100% - 1280px)/2 + 80px);
+  }
+}

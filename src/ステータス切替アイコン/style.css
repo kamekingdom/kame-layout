@@ -1,0 +1,19 @@
+/* Author: kamekingdom (2026-10-05) */
+
+a[href*="/kameLayout/AC.icon"],
+a[href*="/kameLayout/NWJ.icon"],
+a[href*="/kameLayout/WJ.icon"],
+a[href*="/kameLayout/WA.icon"],
+a[href*="/kameLayout/RE.icon"],
+a[href*="/kameLayout/TLE.icon"] {
+  cursor: pointer;
+}
+
+a[href*="/kameLayout/AC.icon"]:hover,
+a[href*="/kameLayout/NWJ.icon"]:hover,
+a[href*="/kameLayout/WJ.icon"]:hover,
+a[href*="/kameLayout/WA.icon"]:hover,
+a[href*="/kameLayout/RE.icon"]:hover,
+a[href*="/kameLayout/TLE.icon"]:hover {
+  opacity: 0.75;
+}

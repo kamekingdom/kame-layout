@@ -1,0 +1,15 @@
+.deco-\| {
+   position: absolute;
+   width: 100%;
+   text-align: center;
+ }
+ .deco-\> {
+   position: absolute;
+   width: 100%;
+   text-align: right;
+ }
+ .deco-\< {
+   position: absolute;
+   width: 100%;
+   text-align: left;
+ }

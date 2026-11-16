@@ -1,0 +1,16 @@
+@media (width < 767px){
+   	.page-list .grid li.pin{
+       	width: 50%;
+       	height: 120px;
+      }
+      .page-list .grid li.pin:nth-of-type(2){height: 120px;}
+      .page-list .grid li.pin[data-page-title="kame"]:first-of-type{width: 100%;}
+      .grid li.pin[data-page-title="kame"]:first-of-type a .header.pinned {bottom: 27px;}
+      .grid li.pin[data-page-title="kame"]:first-of-type a .title{
+      		font-size: 4.4em;
+      	}
+      .grid li.pin[data-page-title="kame"]:first-of-type a .content{
+      		background-position: -75px -15px;
+      	    background-size: 75%;
+      }
+   }

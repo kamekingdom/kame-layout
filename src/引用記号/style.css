@@ -1,0 +1,28 @@
+/* "| "（パイプ+スペース）で始まる行のパイプをNotion風の縦棒にする */
+
+/* 1. まずパイプ記号自体をターゲットにする */
+.line .text > span:first-child > .char-index[data-char="|"],
+.line .text > span .indent > .char-index[data-char="|"],
+.line .text > span > span .char-index[data-char="|"] {
+  /* 文字としての「|」を透明にして見えなくする */
+  color: transparent;
+  
+  /* 左側に縦線を引く（これが引用の棒になります） */
+  border-left: 3px solid #808080; /* 線の色（濃いグレー） */
+  
+  /* 線のサイズと位置調整 */
+  margin-right: 10px; /* 本文との間の余白 */
+  margin-left: 0px;   /* 左側の微調整 */
+  padding: 0;
+  
+  /* 高さや配置の微調整 */
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 0px; /* 幅をなくしてborderだけに見せる */
+  height: 1.3em; /* 線の高さ */
+}
+
+/* 補足：もし「|」の後ろの文字色も変えたい場合（例：薄いグレーにする等）は、
+  ご提示いただいたコードのように ~ .char-index を追加して color を指定してください。
+  現状は棒が出るだけで、文字は標準の黒のままになります。
+*/

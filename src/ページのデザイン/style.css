@@ -1,0 +1,83 @@
+/* Author: kamekingdom (2026-09-29) */
+
+.line.line-title {
+  margin-bottom: -0.2em;
+}
+
+.line.line-title .text {
+  text-align: left;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-indent: 0;
+  padding-left: 0.3em;
+  line-height: 1.25;
+}
+/* Author: kamekingdom (2026-09-29) */
+/* 画像を包むリンク */
+.line a:has(img.image) {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: top;
+}
+
+/* 画像 */
+.line img.image {
+  display: block !important;
+  margin: 0;
+  border-radius: 8px;
+  border: 2px solid #efefef;
+}
+
+/* 動画は中央寄せのまま */
+.video-player video,
+.iframe-video-player iframe {
+  display: block !important;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 2px solid #efefef;
+}
+
+.video-player video {
+  max-height: 360px;
+}
+
+.line img.icon {
+  border-radius: 2px;
+  margin-left: 2px;
+  transform: translateY(2px);
+}
+.expandable-menu{
+ 	background-color: #f7f7f7;
+ 	z-index: 2;
+ 	max-width: calc(100% - 85px);
+ }
+ .expandable-menu .page-menu .tool-btn i::before{color: #646262; }
+ .expandable-menu .toggle-button{
+ 	color: #646262;
+ 	opacity: 1;
+ }
+ .page-menu.xs{margin-bottom: -0.5em;}
+  @media (max-width: 767px){
+  .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home{
+  	width: 41px;
+  	color: transparent;
+  	border-radius: 50%;
+  }
+  .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home::after{
+   	content: "";
+   	position: absolute;
+   	left: 0;
+   	background-image: url(https://i.gyazo.com/03f922af4c0eb1659d4630db6b619aac.png);
+   	background-size: 100%;
+   	background-position: center;
+      height: 100%;
+      width: 100%;
+      transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+  }
+   .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home:hover::after{
+   	background-size: 110%;
+   	transition: cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+  }
+  }
+  .related-page-list .grid li{margin: 0 14.4px 15.4px 0;}
+  .grid li.relation-label a {border-radius: 5px;}

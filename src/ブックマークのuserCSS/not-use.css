@@ -1,0 +1,38 @@
+    .app:not(.presentation) .line .deco-\. {
+           font-weight: bold;
+           text-decoration: underline; 
+           text-decoration-color: #ABE5D2;
+           text-decoration-thickness: 2px;
+           background-color: transparent; /* 背景色を無効化 */
+         }
+         
+         /* アイコン */
+          .app:not(.presentation) .line .deco-\.::after {
+            position: absolute;
+            top: 6px; /* 少し下に下げています */
+            left: -1.4em;
+            content: '\f02e';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 1.7rem;
+            line-height: 1;
+            color: #38AEC1; /* 任意の色に変更 */
+          }
+     
+   
+    /* ページメニューボタンのスタイル */
+    /* button#Bookmarks.tool-btn:hover { text-decoration: none; }
+    /* button#Bookmarks.tool-btn::before { 
+    /*   position: absolute; content: '\f02e'; font: 400 20px/46px 'Font Awesome 5 Free';
+    /* }
+    /* button#Bookmarks.tool-btn img { opacity: 0; }
+    
+    /* button#Bookmarks.tool-btn:hover { 
+    /*   text-decoration: none; 
+    /* }
+    /* button#Pinned.tool-btn:hover { text-decoration: none }
+    /*  button#Pinned.tool-btn::before { 
+    /*  	position: absolute; content: '';
+    /*  }
+    /*  button#Pinned.tool-btn img { opacity: 0 }
+    */

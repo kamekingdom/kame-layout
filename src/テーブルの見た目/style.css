@@ -1,0 +1,347 @@
+
+/* Author: kamekingdom (2026-11-15) */
+
+/* ==========================================
+   Cosense Table — Clean White
+   Minimal / Compact / Always Light
+   ========================================== */
+
+/* ------------------------------------------
+   Design Tokens
+   ------------------------------------------ */
+
+.line .table-block {
+  --table-bg: #ffffff;
+  --table-header-bg: #f8fafc;
+  --table-title-bg: #ffffff;
+
+  --table-text: #334155;
+  --table-heading-text: #475569;
+  --table-muted: #64748b;
+
+  --table-border: #e5e7eb;
+  --table-hover: #f3f6fa;
+  --table-header-hover: #f1f5f9;
+  --table-button-hover: #e2e8f0;
+
+  --table-focus: var(--accent-color, #94a3b8);
+
+  --table-radius: 6px;
+  --table-transition: 0.15s ease;
+}
+
+/* ------------------------------------------
+   Container
+   ------------------------------------------ */
+
+.line .table-block,
+.line:hover .table-block {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Rows
+   ------------------------------------------ */
+
+.line .table-block > .indent,
+.line .table-block > .indent:hover {
+  display: flex !important;
+
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+
+  align-items: stretch;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Cells
+   ------------------------------------------ */
+
+.line .table-block .cell {
+  flex: 1 1 0 !important;
+
+  min-width: 0 !important;
+  max-width: none !important;
+  box-sizing: border-box;
+
+  padding: 0.42em 0.8em !important;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  border: none !important;
+  border-bottom:
+    1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-size: 0.94em;
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: left;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow: hidden;
+
+  filter: none !important;
+  opacity: 1 !important;
+  cursor: text;
+
+  transition:
+    background-color var(--table-transition);
+}
+
+/* Equal column widths */
+
+.line .table-block .cell[class*="col-"] {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* Text wrapping and empty cells */
+
+.line .table-block .cell > .tab,
+.line .table-block .cell > .tab .char-index {
+  white-space: pre !important;
+}
+
+.line .table-block .cell > .cell-text {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ------------------------------------------
+   Body Hover
+   ------------------------------------------ */
+
+.line .table-block > .indent:hover > .cell,
+.line .table-block .cell:hover {
+  background: var(--table-hover) !important;
+  color: var(--table-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Cell Focus
+   ------------------------------------------ */
+
+.line .table-block .cell:focus,
+.line .table-block .cell:focus-within {
+  position: relative;
+  z-index: 1;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  outline:
+    1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+
+  filter: none !important;
+}
+
+/* ==========================================
+   Header
+   ========================================== */
+
+/* ------------------------------------------
+   Header Cells
+   ------------------------------------------ */
+
+.line:has(.table-block-start)
++ .line .table-block .cell {
+  padding: 0.52em 0.8em !important;
+
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-align: left;
+
+  border: none !important;
+  border-bottom:
+    1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Rounded header corners */
+
+.line:has(.table-block-start)
++ .line .table-block .cell:first-child {
+  border-top-left-radius:
+    var(--table-radius) !important;
+}
+
+.line:has(.table-block-start)
++ .line .table-block .cell:last-child {
+  border-top-right-radius:
+    var(--table-radius) !important;
+}
+
+/* ------------------------------------------
+   Header Hover
+   ------------------------------------------ */
+
+.line:has(.table-block-start)
++ .line .table-block > .indent:hover > .cell,
+.line:has(.table-block-start)
++ .line .table-block .cell:hover {
+  background: var(--table-header-hover) !important;
+  color: var(--table-heading-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Header Focus
+   ------------------------------------------ */
+
+.line:has(.table-block-start)
++ .line .table-block .cell:focus,
+.line:has(.table-block-start)
++ .line .table-block .cell:focus-within {
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  outline:
+    1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+}
+
+/* ==========================================
+   Table Title
+   ========================================== */
+
+.line .table-block .table-block-start,
+.line .table-block .table-block-start:hover {
+  display: inline-flex !important;
+
+  width: auto !important;
+  max-width: fit-content !important;
+
+  align-items: center;
+  box-sizing: border-box;
+
+  padding: 0.3em 0.75em !important;
+
+  background: var(--table-title-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Title row */
+
+.line:has(.table-block-start)
+.table-block > .indent {
+  display: inline-flex !important;
+
+  width: auto !important;
+  max-width: max-content !important;
+  flex: 0 0 auto !important;
+}
+
+/* Title links */
+
+.line .table-block .table-block-start a,
+.line .table-block .table-block-start a:hover {
+  color: var(--table-heading-text) !important;
+
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================
+   Copy Button
+   ========================================== */
+
+.kame-table-copy-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  margin-left: 0.4em;
+  padding: 3px;
+
+  border: none;
+  border-radius: 4px !important;
+
+  background: transparent !important;
+  color: #64748b !important;
+
+  cursor: pointer;
+  vertical-align: middle;
+
+  opacity: 0.65;
+  transition: opacity 0.15s ease;
+}
+
+.kame-table-copy-button:hover {
+  background: #e2e8f0 !important;
+  opacity: 1;
+}
+
+.kame-table-copy-button svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .line .table-block .cell,
+  .kame-table-copy-button {
+    transition: none !important;
+  }
+}

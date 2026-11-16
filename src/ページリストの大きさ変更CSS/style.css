@@ -1,0 +1,17 @@
+/* 一覧カードを小さくする */
+.two-two {
+ 	width: 130px !important;
+  	height: 130px !important;
+}
+.two-two .icon {
+    padding-top: 30px !important;
+}
+.two-two .title {
+	height: 0px !important;
+}
+.page-list .grid li, 
+.related-page-list .grid li.page-list-item,
+.related-page-list .grid li.relation-label {
+	width: 130px !important;
+  	height: 130px !important;
+}

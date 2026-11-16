@@ -1,0 +1,58 @@
+@media (min-width: 768px) {
+.page-list ul.grid::before{
+    /* 青色のフィルターを追加 */
+  	content: "";
+  	position: absolute;
+  	top: 410px;
+  	left: 0;
+  	height: 12%;
+   	background-image: url(https://scrapbox.io/files/659be099e4897400240c5959.svg);
+	background-position: bottom center;
+   	background-size: cover;
+   	background-repeat: repeat-x;
+   	z-index: -1;
+   	min-width:6880px;
+   	filter: drop-shadow(0px -5px 3px rgba(0,0,0,0.02));
+   	animation: waveanime-2 60s linear infinite;
+   	opacity: .4;
+   	filter: hue-rotate(180deg) opacity(0.4) drop-shadow(0px -5px 3px rgba(0,0,0,0.02));
+      	}
+      @keyframes waveanime-2{
+        		0%{background-position:0;}
+        		100%{background-position:-3440px;}
+     
+ 　}
+.page-list ul.grid::after{
+	/* 青色のフィルターを追加 */
+    filter: hue-rotate(180deg) opacity(0.4) drop-shadow(0px -5px 3px rgba(0,0,0,0.02));
+  	content: "";
+  	position: absolute;
+  	top: 423px;
+  	left: 0;
+  	/* transform: translateX(-50%); */
+  	height: 12%;
+   	background-image: url(https://scrapbox.io/files/659be09b0e145d0025ecbee5.svg);
+	background-position: bottom center;
+   	background-size: cover;
+   	background-repeat: repeat-x;
+   	z-index: -1;
+   	min-width:6880px;
+   	filter: drop-shadow(0px -5px 3px rgba(0,0,0,0.02));
+   	animation: waveanime-1 25s linear infinite;
+   	}
+   	@keyframes waveanime-1{
+   		0%{background-position:0;}
+   		100%{background-position:-3440px;}
+  	}
+ 	@media (max-width: 767px){
+ 		.container .page-list::before{
+ 			height:745px;
+ 		}
+ 		.container .page-list ul::before{
+ 			top: 653px;
+ 		}
+ 		.container .page-list ul::after{
+   		top: 658px;	
+   	}
+ }
+ }

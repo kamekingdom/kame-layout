@@ -1,0 +1,377 @@
+/* Author: kamekingdom (2026-09-07) */
+
+/* =========================================================
+   Scrapbox Table - Compact Chic Style
+   ========================================================= */
+
+:root {
+    --table-panel-bg: #f6f7f8;
+    --table-text: #30343b;
+
+    --table-header-bg: #3f4652;
+    --table-header-text: #f5f6f7;
+
+    --table-divider: #ffffff;
+
+    --table-focus: var(--accent-color);
+}
+
+
+/* =========================================================
+   テーブル全体
+   ========================================================= */
+
+.line .table-block {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   テーブル行
+   ========================================================= */
+
+.line .table-block > .indent {
+    display: flex !important;
+
+    width: auto !important;
+
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    box-sizing: border-box;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   セル
+   ========================================================= */
+
+.line .table-block .cell {
+    flex: 1 1 0 !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+
+    box-sizing: border-box;
+
+    padding: 0.3em 1em;
+
+    border-left:
+        1px solid var(--table-divider);
+
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+
+    background-color:
+        var(--table-panel-bg) !important;
+
+    color:
+        var(--table-text) !important;
+
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    white-space: normal !important;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    overflow: hidden;
+
+    cursor: text;
+}
+
+
+/* =========================================================
+   Scrapbox側の列幅指定を無効化
+   ========================================================= */
+
+.line .table-block .cell[class*="col-"] {
+    flex: 1 1 0 !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+
+/* 最初のセルの左線を消す */
+.line .table-block .cell:first-child {
+    border-left: none;
+}
+
+
+/* =========================================================
+   空セル対策
+   ========================================================= */
+
+.line .table-block .cell > .tab {
+    white-space: pre !important;
+}
+
+
+.line .table-block .cell > .tab .char-index {
+    white-space: pre !important;
+}
+
+
+/* =========================================================
+   セル本文
+   ========================================================= */
+
+.line .table-block .cell > .cell-text {
+    white-space: normal !important;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+.line .table-block .cell:hover {
+    filter: brightness(0.975);
+}
+
+
+/* =========================================================
+   Focus
+   ========================================================= */
+
+.line .table-block .cell:focus,
+.line .table-block .cell:focus-within {
+    outline:
+        2px solid var(--table-focus);
+
+    outline-offset: -2px;
+
+    filter: none;
+}
+
+
+/* =========================================================
+   ヘッダー
+   ========================================================= */
+
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell {
+    background-color:
+        var(--table-header-bg) !important;
+
+    color:
+        var(--table-header-text) !important;
+
+    border-left:
+        1px solid rgba(255, 255, 255, 0.28);
+
+    border-bottom: none;
+
+    border-radius: 0 !important;
+
+    text-align: center;
+
+    font-weight: 600;
+
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+
+    letter-spacing: 0.015em;
+}
+
+
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:first-child {
+    border-left: none;
+}
+
+
+/* =========================================================
+   ヘッダー Hover
+   ========================================================= */
+
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:hover {
+    background-color:
+        var(--table-header-bg) !important;
+
+    color:
+        var(--table-header-text) !important;
+
+    filter: brightness(1.08);
+}
+
+
+/* =========================================================
+   ヘッダー Focus
+   ========================================================= */
+
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:focus,
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:focus-within {
+    background-color:
+        var(--table-header-bg) !important;
+
+    color:
+        var(--table-header-text) !important;
+
+    filter: none;
+}
+
+
+/* =========================================================
+   テーブルタイトル
+   ========================================================= */
+
+.line .table-block .table-block-start {
+    display: inline-flex !important;
+
+    width: auto !important;
+    max-width: fit-content !important;
+
+    align-items: center;
+
+    box-sizing: border-box;
+
+    padding:
+        0.25em
+        0.65em;
+
+    background-color:
+        var(--table-header-bg) !important;
+
+    color:
+        var(--table-header-text) !important;
+
+    /*
+     * 角丸なし
+     */
+    border-radius: 0 !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    position: relative;
+
+    font-size: 0.82em;
+
+    font-weight: 600;
+
+    letter-spacing: 0.025em;
+}
+
+
+/* =========================================================
+   テーブルタイトル行
+   ========================================================= */
+
+.line:has(.table-block-start)
+.table-block > .indent {
+    display: inline-flex !important;
+
+    width: auto !important;
+    max-width: max-content !important;
+
+    flex: 0 0 auto !important;
+}
+
+
+/* =========================================================
+   テーブルタイトル Link
+   ========================================================= */
+
+.line .table-block .table-block-start a {
+    color:
+        var(--table-header-text) !important;
+
+    text-decoration: none !important;
+
+    opacity: 0.94;
+}
+
+
+.line .table-block .table-block-start a:hover {
+    color: #ffffff !important;
+
+    opacity: 1;
+
+    text-decoration: none !important;
+}
+
+
+/* =========================================================
+   コピーアイコン
+   ========================================================= */
+
+.kame-table-copy-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    margin-left: 0.35em;
+
+    padding: 2px;
+
+    border: none;
+
+    border-radius: 0 !important;
+
+    background: transparent;
+
+    color:
+        var(--table-header-text);
+
+    cursor: pointer;
+
+    vertical-align: middle;
+
+    opacity: 0.72;
+
+    transition:
+        opacity 0.12s ease;
+}
+
+
+.kame-table-copy-button:hover {
+    opacity: 1;
+}
+
+
+.kame-table-copy-button svg {
+    display: block;
+
+    flex: 0 0 auto;
+}

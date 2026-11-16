@@ -1,0 +1,40 @@
+a.link:is([href$=".json"]) {
+	position: relative;
+	text-decoration: none;
+	color: #808383;
+    background-color: #f5f5f5;
+    padding: 0 5px 0 18px;
+    border: 2px solid #e5e2e2;
+    border-radius: 3px;
+    display: inline;
+}
+ [data-hover-visible] a.link:is([href$=".json"]):hover {
+	border: 2px solid #9d9d9d;
+	color: var(--page-text-color);
+}
+ a.link:is([href$=".json"]) > .char-index:first-child::before{
+  	display: block;
+  	position: absolute;
+  	left: 6px;
+  	font-family: 'Font Awesome 5 Free';
+  	font-weight: 900;
+  	font-size: 10px;
+  	content: '\f56d'; 
+  	color: var(--page-text-color);
+}
+
+/* ダークモード　*/
+@media (prefers-color-scheme: dark) {
+	a.link:is([href$=".json"]) {
+  		color: #9ca3a4;
+      	background-color: #263141;
+     	border: 2px solid #374151;
+	}
+   	[data-hover-visible] a.link:is([href$=".json"]):hover {
+   		border: 2px solid #6f3516;
+  		color: var(--page-text-color);
+	}
+  	a.link:is([href$=".json"]) > .char-index:first-child::before{
+    	color: var(--li-color);
+	}
+}

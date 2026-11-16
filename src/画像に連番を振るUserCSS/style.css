@@ -1,0 +1,28 @@
+body {
+    counter-reset: img-number;
+}
+
+.line img {
+    box-shadow: 0px 8px 4px -4px rgba(0,0,0,0.2);
+    display: block; /* Add this line */
+    margin-left: auto; /* Add this line */
+    margin-right: auto; /* Add this line */
+}
+
+.modal-image {
+    position: relative;
+    display: inline-block;
+}
+
+.modal-image:before {
+    position: absolute;
+    display: block;
+    bottom: 0%;
+    right: 1%;
+    color: white;
+    background: rgba(0,0,0,0.8);
+    padding: 0.2em;
+    counter-increment: img-number;
+    content: counter(img-number);
+    z-index: 289;
+}

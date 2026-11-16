@@ -1,0 +1,15 @@
+/* # Author: kamekingdom (2026-08-21) */
+
+.kame-audio-player {
+  display: block;
+  width: min(500px, 90%);
+
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.kame-audio-player audio {
+  display: block;
+  width: 100%;
+  height: 40px;
+}

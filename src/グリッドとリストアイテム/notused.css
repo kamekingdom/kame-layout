@@ -1,0 +1,4 @@
+.grid li.pin[data-page-title="kame"]:first-of-type a:hover .content{
+	background-size: 90%;
+	transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}

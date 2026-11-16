@@ -1,0 +1,8 @@
+.deco-\! {
+  color: #fff; /* 白文字 */
+  background-color: #ee6666; /* 赤背景 */
+  padding: 0.1em 0.2em 0.1em 0.2em;
+}
+.deco-\+ {
+  background: linear-gradient(transparent 80%, rgb(254, 244, 0) 60%);
+} 

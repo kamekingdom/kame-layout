@@ -1,0 +1,102 @@
+/* Author: kamekingdom (2026-09-29) */
+
+/* =========================================================
+   Hierarchy Fold
+   ========================================================= */
+
+
+/* =========================================================
+   Line
+   ========================================================= */
+
+.lines
+.line {
+  position: relative;
+}
+
+
+/* =========================================================
+   Toggle
+   ========================================================= */
+
+.lines
+.line
+.kame-fold-toggle {
+  position: absolute;
+
+  top: 50%;
+  left: -1.25em;
+
+  z-index: 20;
+
+  width: 1.1em;
+  height: 1.3em;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #89909a;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 0.63em;
+
+  line-height: 1;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transform:
+    translateY(-50%);
+
+  opacity: 0.55;
+
+  transition:
+    opacity 0.12s ease,
+    color 0.12s ease;
+}
+
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+.lines
+.line
+.kame-fold-toggle:hover {
+  color: #3f4652;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   Collapsed
+   ========================================================= */
+
+.lines
+.line.kame-fold-parent-collapsed
+.kame-fold-toggle {
+  color: #59616e;
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   Hidden
+   ========================================================= */
+
+.lines
+.line.kame-fold-hidden {
+  display: none !important;
+}

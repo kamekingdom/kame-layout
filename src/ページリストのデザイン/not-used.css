@@ -1,0 +1,5 @@
+   @media (max-width: 450px){ /* スマホでのみ表示(左上のKamonが消えるため) */
+    	.navbar .navbar-brand::before{
+    		content: "🐢";
+    	}
+    }

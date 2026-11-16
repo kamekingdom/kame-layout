@@ -1,0 +1,394 @@
+/* # Author: kamekingdom (2026-09-07) */
+
+/* =========================================================
+   Scrapbox Table CSS
+
+   - テーブル全体：利用可能な横幅に収める
+   - 全列：完全等幅
+   - ヘッダーと本文：同じ列幅
+   - 長文：最初から折り返して全文表示
+   - 長文によって他セルの横幅を変えない
+   - hover時もセルサイズを変更しない
+   - 本文：薄いグレー
+   - ヘッダー：濃いグレー
+   - テーブル名部分だけ内容幅
+   - 空セルでもキャレット移動できるようにする
+   - インデントされていても右端からはみ出さない
+   ========================================================= */
+
+
+/* =========================================================
+   テーブル全体
+   ========================================================= */
+
+.line .table-block {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   テーブル行
+   ========================================================= */
+
+.line .table-block > .indent {
+    display: flex !important;
+
+    /*
+     * 重要：
+     * width: 100% にすると、
+     * Scrapbox側のインデント分だけ右にはみ出すことがある。
+     *
+     * auto にすることで、
+     * 現在の開始位置から利用可能な横幅に収める。
+     */
+    width: auto !important;
+
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    box-sizing: border-box;
+
+    /*
+     * 長いセルによって行が高くなった場合、
+     * 他のセルも同じ高さにする。
+     */
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   セル
+   ========================================================= */
+
+.line .table-block .cell {
+    /*
+     * 全セルを完全等幅にする。
+     *
+     * 3列 → 33.33%
+     * 4列 → 25%
+     * 5列 → 20%
+     * 6列 → 16.67%
+     */
+    flex: 1 1 0 !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+
+    box-sizing: border-box;
+
+    padding: 0.2em 1.1em;
+
+    border-left: 1px solid #ffffff;
+
+    background-color: #f3f3f3 !important;
+
+    color: #000000 !important;
+
+    /*
+     * 最初から折り返す。
+     *
+     * ellipsisは使用しない。
+     */
+    white-space: normal !important;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    /*
+     * 横方向にははみ出さない。
+     *
+     * 長文があっても他セルを侵食しない。
+     */
+    overflow: hidden;
+
+    cursor: text;
+}
+
+
+/* =========================================================
+   Scrapbox側の列幅指定を無効化
+   ========================================================= */
+
+/*
+ * Scrapboxが生成する、
+ *
+ * .col-1[data-table-id="..."] {
+ *     min-width: 81px;
+ * }
+ *
+ * のような指定を無効化する。
+ *
+ * これにより内容量に関係なく等幅になる。
+ */
+.line .table-block .cell[class*="col-"] {
+    flex: 1 1 0 !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+
+/* 最初のセルの左線を消す */
+.line .table-block .cell:first-child {
+    border-left: none;
+}
+
+
+/* =========================================================
+   Scrapbox内部DOM
+   ========================================================= */
+
+/*
+ * Scrapboxは各文字を .char-index で管理している。
+ *
+ * キャレット位置計算を壊さないため、
+ * char-index自体には
+ *
+ * width
+ * display
+ * position
+ * padding
+ * margin
+ *
+ * などを指定しない。
+ */
+
+
+/* =========================================================
+   空セル対策
+   ========================================================= */
+
+/*
+ * Scrapboxの空セルは実際には、
+ *
+ * <span class="cell">
+ *   <span class="cell-text"></span>
+ *   <span class="tab">
+ *     <span class="char-index" data-char=" "> </span>
+ *   </span>
+ * </span>
+ *
+ * という構造になっている。
+ *
+ * cell全体に white-space: normal を指定すると、
+ * この唯一の空白文字がブラウザによって折り畳まれ、
+ * キャレット位置が消える。
+ *
+ * そのため .tab 内だけ空白を保持する。
+ */
+.line .table-block .cell > .tab {
+    white-space: pre !important;
+}
+
+
+/*
+ * tab内部のchar-indexにはサイズ指定をしない。
+ *
+ * Scrapbox本来の文字位置情報をそのまま利用する。
+ */
+.line .table-block .cell > .tab .char-index {
+    white-space: pre !important;
+}
+
+
+/* =========================================================
+   セル本文
+   ========================================================= */
+
+/*
+ * セル本文側は通常通り折り返す。
+ */
+.line .table-block .cell > .cell-text {
+    white-space: normal !important;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+/*
+ * hoverしてもレイアウトは変更しない。
+ *
+ * flex
+ * width
+ * min-width
+ * white-space
+ * overflow
+ *
+ * は通常時と同じ。
+ *
+ * したがって他セルの位置や幅には影響しない。
+ */
+.line .table-block .cell:hover {
+    filter: brightness(0.97);
+}
+
+
+/* =========================================================
+   Focus / 編集中
+   ========================================================= */
+
+/*
+ * 編集中もレイアウトは変更しない。
+ */
+.line .table-block .cell:focus,
+.line .table-block .cell:focus-within {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+}
+
+
+/* =========================================================
+   ヘッダー
+   ========================================================= */
+
+/*
+ * table-block-start の直後の行を
+ * ヘッダーとして扱う。
+ */
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell {
+    background-color: #808080 !important;
+
+    color: #ffffff !important;
+
+    border-bottom: 1px solid #ffffff;
+
+    text-align: center;
+
+    font-weight: 600;
+}
+
+
+/* ヘッダーhover */
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:hover {
+    background-color: #808080 !important;
+
+    color: #ffffff !important;
+
+    filter: brightness(1.08);
+}
+
+
+/* ヘッダー編集中 */
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:focus,
+.line:has(.table-block-start)
++ .line
+.table-block
+.cell:focus-within {
+    background-color: #808080 !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   テーブルタイトル
+   ========================================================= */
+
+/*
+ * 「基本構造」などのテーブルタイトル。
+ *
+ * 表本体は横幅いっぱいだが、
+ * タイトル部分だけ内容に応じた幅にする。
+ */
+.line .table-block .table-block-start {
+    display: inline-flex !important;
+
+    width: auto !important;
+    max-width: fit-content !important;
+
+    align-items: center;
+
+    box-sizing: border-box;
+
+    padding: 0.3em 1em;
+
+    background-color: #f3f3f3 !important;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+
+/*
+ * タイトル行のindentだけ
+ * 横幅いっぱいに伸ばさない。
+ */
+.line:has(.table-block-start)
+.table-block > .indent {
+    display: inline-flex !important;
+
+    width: auto !important;
+    max-width: max-content !important;
+
+    flex: 0 0 auto !important;
+}
+
+
+/* テーブルタイトルのリンク */
+.line .table-block .table-block-start a {
+    color: #aeb6c4;
+}
+
+
+/* =========================================================
+   コピーアイコン
+   ========================================================= */
+
+.kame-table-copy-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    margin-left: 0.5em;
+
+    padding: 2px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #888888;
+
+    cursor: pointer;
+
+    vertical-align: middle;
+
+    opacity: 0.75;
+}
+
+
+.kame-table-copy-button:hover {
+    opacity: 1;
+}
+
+
+.kame-table-copy-button svg {
+    display: block;
+
+    flex: 0 0 auto;
+}

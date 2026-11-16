@@ -1,0 +1,44 @@
+:root {
+  --li-color-1: #479e3e;
+  --li-color-2: #9e3e46;
+  --li-color-3: #3e479e;
+  --li-color-4: #953e9e;
+  --li-color-5: #A2C254;
+  --li-color-0: var(--accent-color);
+}
+.line .indent-mark .dot::before {
+  display: block;
+  position: absolute;
+  right: -5px;
+  top: -10px;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 6px;
+  content: var(--ul-bullet, '\f068');
+  color: var(--li-color-0);
+}
+/* 既存のバレットを消す */
+.line .indent-mark .dot { background-color: transparent; }
+.line .indent-mark .dot {
+  background-color: transparent;
+}
+
+.line .indent-mark .c-0 + .dot::before {
+  color: var(--li-color-1);
+}
+
+.line .indent-mark .c-1 + .dot::before {
+  color: var(--li-color-2);
+}
+
+.line .indent-mark .c-2 + .dot::before {
+  color: var(--li-color-3);
+}
+
+.line .indent-mark .c-3 + .dot::before {
+  color: var(--li-color-4);
+}
+
+.line .indent-mark .c-4 + .dot::before {
+  color: var(--li-color-5);
+}

@@ -1,0 +1,10 @@
+.line.number-list .dot { 
+    display: list-item; 
+} /* 表示する */
+
+.line.number-list .dot::before {
+    position: inherit;
+    top: -11px;
+    content: '\f292'; /* #: 通常 */
+    font-size: 8px; /* 適切なサイズに変更 */
+}

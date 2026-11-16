@@ -1,0 +1,13 @@
+.quick-launch{
+ 	margin-top: 10px;margin-bottom: 24px;
+ }
+ .quick-launch .flex-box{
+ 	/* flex-direction: column; */
+ 	align-content: center;
+ }
+ .quick-launch .right-box{justify-content: center;}
+ .dropdown-toggle{letter-spacing:0.1em;/*text-indent:0.1em;*/ }
+ .quick-launch .open>.dropdown-menu{
+   	left: 50%;
+   	transform: translateX(-50%);
+ }
