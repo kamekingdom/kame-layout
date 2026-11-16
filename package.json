@@ -11,11 +11,15 @@
     "check": "node tools/generate.mjs --check && node tools/validate.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node tools/browser-check.mjs",
+    "sync:plan": "node tools/sync-scrapbox.mjs",
+    "sync:verify": "node tools/sync-scrapbox.mjs --verify",
+    "sync:publish": "node tools/sync-scrapbox.mjs --publish",
     "format": "prettier --write 'src/features/**/*.js' 'src/theme/*.css' 'tools/*.mjs' 'tests/*.mjs' config/features.json"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
     "acorn": "^8.19.0",
+    "astring": "^1.9.0",
     "postcss": "^8.5.33",
     "prettier": "^3.10.1"
   }
