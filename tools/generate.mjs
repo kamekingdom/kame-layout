@@ -84,12 +84,18 @@ for (const feature of config.features) {
   ];
   const entries = { ...feature.files };
   for (const name of feature.dataFiles ?? []) entries[name] = `src/features/${feature.id}/${name}`;
+  for (const name of feature.styleFiles ?? []) entries[name] = `src/features/${feature.id}/${name}`;
+  for (const name of feature.typeFiles ?? []) entries[name] = `src/features/${feature.id}/${name}`;
   for (const [name, target] of Object.entries(entries)) {
-    const role = name.endsWith(".css")
-      ? "表示・装飾"
-      : name === "script.js"
-        ? "機能の処理・初期化"
-        : "設定データ・補助モジュール";
+    const role =
+      feature.fileDescriptions?.[name] ??
+      (feature.typeFiles?.includes(name)
+        ? "型定義（実行時の配信対象外）"
+        : name.endsWith(".css")
+          ? "表示・装飾"
+          : name === "script.js"
+            ? "機能の処理・初期化"
+            : "設定データ・補助モジュール");
     lines.push(`| [${name}](${link(filename, target)}) | ${role} |`);
   }
   if (!Object.keys(entries).length)

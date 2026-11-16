@@ -1,16 +1,16 @@
-  .line .indent-mark .dot { 
-    background-color: #FF4B00;
-    margin-top: 4px;
-   }
-  .line .indent-mark .c-1 + .dot {
-    background-color: #FFF100;
-   }
-  .line .indent-mark .c-2 + .dot {
-    background-color: #005AFF;
-   }
-  .line .indent-mark .c-3 + .dot {
-    background-color: #03AF7A;
-   }
-   .line .indent-mark .c-4 + .dot {
-    background-color: #F6AA00;
-   }
+.line .indent-mark .dot {
+  background-color: #ff4b00;
+  margin-top: 4px;
+}
+.line .indent-mark .c-1 + .dot {
+  background-color: #fff100;
+}
+.line .indent-mark .c-2 + .dot {
+  background-color: #005aff;
+}
+.line .indent-mark .c-3 + .dot {
+  background-color: #03af7a;
+}
+.line .indent-mark .c-4 + .dot {
+  background-color: #f6aa00;
+}

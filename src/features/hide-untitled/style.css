@@ -1,2 +1,3 @@
- .page-list-item[data-page-title*="Untitled"]
- {display: none !important;}
+.page-list-item[data-page-title*="Untitled"] {
+  display: none !important;
+}

@@ -11,14 +11,16 @@
   position: absolute;
   right: -5px;
   top: -10px;
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 6px;
-  content: var(--ul-bullet, '\f068');
+  content: var(--ul-bullet, "\f068");
   color: var(--li-color-0);
 }
 /* 既存のバレットを消す */
-.line .indent-mark .dot { background-color: transparent; }
+.line .indent-mark .dot {
+  background-color: transparent;
+}
 .line .indent-mark .dot {
   background-color: transparent;
 }

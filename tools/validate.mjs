@@ -15,6 +15,8 @@ for (const feature of config.features) {
   const files = [
     ...Object.values(feature.files),
     ...(feature.dataFiles ?? []).map((name) => `src/features/${feature.id}/${name}`),
+    ...(feature.styleFiles ?? []).map((name) => `src/features/${feature.id}/${name}`),
+    ...(feature.typeFiles ?? []).map((name) => `src/features/${feature.id}/${name}`),
   ];
   for (const filename of files) {
     try {

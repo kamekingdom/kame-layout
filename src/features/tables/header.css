@@ -1,0 +1,64 @@
+/* ==========================================
+   Header
+   ========================================== */
+
+/* ------------------------------------------
+   Header Cells
+   ------------------------------------------ */
+
+.line:has(.table-block-start) + .line .table-block .cell {
+  padding: 0.52em 0.8em !important;
+
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-align: left;
+
+  border: none !important;
+  border-bottom: 1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Rounded header corners */
+
+.line:has(.table-block-start) + .line .table-block .cell:first-child {
+  border-top-left-radius: var(--table-radius) !important;
+}
+
+.line:has(.table-block-start) + .line .table-block .cell:last-child {
+  border-top-right-radius: var(--table-radius) !important;
+}
+
+/* ------------------------------------------
+   Header Hover
+   ------------------------------------------ */
+
+.line:has(.table-block-start) + .line .table-block > .indent:hover > .cell,
+.line:has(.table-block-start) + .line .table-block .cell:hover {
+  background: var(--table-header-hover) !important;
+  color: var(--table-heading-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Header Focus
+   ------------------------------------------ */
+
+.line:has(.table-block-start) + .line .table-block .cell:focus,
+.line:has(.table-block-start) + .line .table-block .cell:focus-within {
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  outline: 1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+}

@@ -1,0 +1,55 @@
+/* =========================================================
+   2 Images
+   ========================================================= */
+
+.line[data-kame-equal-image-count="2"] {
+  --kame-image-card-height: 300px;
+
+  --kame-image-gap: 14px;
+}
+
+/* =========================================================
+   3 Images
+   ========================================================= */
+
+.line[data-kame-equal-image-count="3"] {
+  --kame-image-card-height: 270px;
+
+  --kame-image-gap: 14px;
+}
+
+/* =========================================================
+   4 Images
+   ========================================================= */
+
+.line[data-kame-equal-image-count="4"] {
+  --kame-image-card-height: 230px;
+
+  --kame-image-gap: 10px;
+
+  --kame-image-radius: 14px;
+}
+
+/* =========================================================
+   5 Images
+   ========================================================= */
+
+.line[data-kame-equal-image-count="5"] {
+  --kame-image-card-height: 200px;
+
+  --kame-image-gap: 8px;
+
+  --kame-image-radius: 12px;
+}
+
+/* =========================================================
+   6 Images
+   ========================================================= */
+
+.line[data-kame-equal-image-count="6"] {
+  --kame-image-card-height: 180px;
+
+  --kame-image-gap: 8px;
+
+  --kame-image-radius: 12px;
+}

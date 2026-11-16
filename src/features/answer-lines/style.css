@@ -27,24 +27,16 @@
 }
 
 /* 行末の文字の右側を丸める */
-.line .text > span:first-child
-  > .char-index:first-child[data-char="!"]
-  ~ .char-index:last-child,
-
-.line .text > span .indent
-  .char-index:first-child[data-char="!"]
-  ~ .char-index:last-child {
+.line .text > span:first-child > .char-index:first-child[data-char="!"] ~ .char-index:last-child,
+.line .text > span .indent .char-index:first-child[data-char="!"] ~ .char-index:last-child {
   padding-right: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
 /* 「!」だけの行にも右側の丸みを付ける */
-.line .text > span:first-child
-  > .char-index:first-child[data-char="!"]:last-child,
-
-.line .text > span .indent
-  .char-index:first-child[data-char="!"]:last-child {
+.line .text > span:first-child > .char-index:first-child[data-char="!"]:last-child,
+.line .text > span .indent .char-index:first-child[data-char="!"]:last-child {
   padding-right: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;

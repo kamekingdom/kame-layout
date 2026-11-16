@@ -1,0 +1,175 @@
+/* Author: kamekingdom (2026-09-07) */
+
+/* =========================================================
+   Code Block - Compact Chic Style
+   ========================================================= */
+
+:root {
+  /* コード本文 */
+  --code-panel-bg: #f6f7f8;
+  --code-text: #30343b;
+
+  /* code:xxx タイトル */
+  --code-tab-bg: #3f4652;
+  --code-tab-text: #f5f6f7;
+
+  /*
+   * Cosenseの1インデント分
+   *
+   * code:title と本文の左端の差を補正する。
+   */
+  --code-indent-width: 1.5em;
+
+  /*
+   * コード本体を右側へ少し広げる量。
+   *
+   * 大きくしすぎるとサイドバー側へ
+   * はみ出す可能性がある。
+   */
+  --code-right-extension: 1em;
+}
+
+/* =========================================================
+   Code Block 共通
+   ========================================================= */
+
+.line > .text.code-block {
+  /*
+   * 少しだけコードを小さくする。
+   */
+  font-size: 95%;
+
+  /*
+   * コンパクトな行間。
+   */
+  line-height: 1.45em;
+
+  color: var(--code-text);
+
+  /*
+   * .text.code-block 自体には背景を付けない。
+   *
+   * Cosenseではコードの各行ごとに
+   * .text.code-block が存在するため。
+   */
+  background: transparent !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+
+/* =========================================================
+   Code領域
+   ========================================================= */
+
+.line > .text.code-block > .indent {
+  display: block !important;
+
+  position: relative;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   Code本文パネル
+   ========================================================= */
+
+/*
+ * Cosenseでは例えば
+ *
+ * code:vm.txt
+ *     Hardware
+ *
+ * のように、
+ * 本文がタイトルより1インデント深くなる。
+ *
+ * そのため、灰色背景だけを1.5em左へ移動する。
+ */
+.line > .text.code-block:not(.start) > .indent {
+  background-color: var(--code-panel-bg);
+
+  /*
+   * =====================================
+   * 左端
+   * =====================================
+   *
+   * タイトルとコード本体の左端を揃える。
+   */
+  transform: translateX(calc(-1 * var(--code-indent-width)));
+
+  /*
+   * =====================================
+   * 横幅
+   * =====================================
+   *
+   * width: 100% は使用しない。
+   *
+   * Cosense側には
+   *
+   * margin-left: 6em
+   *
+   * のようなinline styleが付くため、
+   * 100%にすると右にはみ出す。
+   *
+   * autoなら残りの利用可能幅になる。
+   */
+  width: auto !important;
+
+  max-width: none !important;
+
+  /*
+   * =====================================
+   * 右側
+   * =====================================
+   *
+   * auto幅からさらに少し右へ広げる。
+   *
+   * widthを直接増やすより、
+   * negative marginの方が
+   * Cosenseのインデント構造と相性が良い。
+   */
+  margin-right: calc(-1 * var(--code-right-extension)) !important;
+
+  /*
+   * 左へ移動した分、
+   * コード文字自体は元の位置へ戻す。
+   *
+   * 1em:
+   *   通常のコード内padding
+   *
+   * 1.5em:
+   *   背景を左へ移動した分
+   */
+  padding-left: calc(1em + var(--code-indent-width));
+
+  padding-right: 1em;
+
+  /*
+   * Cosenseの行高を壊さないため、
+   * 縦方向にはpaddingを入れない。
+   */
+  padding-top: 0 !important;
+
+  padding-bottom: 0 !important;
+
+  /*
+   * 外枠なし。
+   */
+  border: none !important;
+
+  box-shadow: none !important;
+
+  /*
+   * 灰色のコード本体は完全に四角。
+   */
+  border-radius: 0 !important;
+
+  margin-top: 0 !important;
+
+  margin-bottom: 0 !important;
+}

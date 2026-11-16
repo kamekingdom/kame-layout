@@ -15,7 +15,13 @@
 
 | ファイル | 役割 |
 | --- | --- |
-| [script.js](script.js) | 機能の処理・初期化 |
+| [script.js](script.js) | 初期化・イベント・状態の管理 |
+| [config.js](config.js) | カード数とDOM IDの設定 |
+| [api.js](api.js) | プロジェクト判定とランダムページの取得 |
+| [cards.js](cards.js) | カードDOMの生成・削除 |
+| [layout.js](layout.js) | 既存カードの寸法測定とレイアウト同期 |
+| [styles.js](styles.js) | Scriptが挿入するカード専用CSS |
+| [types.js](types.js) | 型定義（実行時の配信対象外） |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

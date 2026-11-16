@@ -14,7 +14,7 @@ button#Templates.tool-btn img {
 
 /* 新しいアイコン */
 button#Templates.tool-btn::before {
-  content: '';
+  content: "";
   position: absolute;
 
   width: 22px;

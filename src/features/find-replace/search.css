@@ -1,0 +1,78 @@
+/* Author: kamekingdom (2026-10-06) */
+
+/* =========================================================
+   Standard Search + Replace
+   ========================================================= */
+
+/* =========================================================
+   Enhanced Search Form
+   ========================================================= */
+
+.in-page-search-form.kame-replace-enhanced {
+  width: min(720px, calc(100vw - 32px)) !important;
+
+  max-width: calc(100vw - 32px) !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    auto
+    42px
+    42px
+    42px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 10px !important;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   Native Search Input
+   ========================================================= */
+
+.in-page-search-form.kame-replace-enhanced > input.search-form {
+  min-width: 0;
+
+  width: 100% !important;
+
+  height: 34px;
+
+  margin: 0 !important;
+}
+
+/* =========================================================
+   Native Result Counter
+   ========================================================= */
+
+.in-page-search-form.kame-replace-enhanced > .search-result {
+  min-width: 62px;
+
+  padding: 0 4px;
+
+  color: #555b62;
+
+  font-variant-numeric: tabular-nums;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Native Buttons
+   ========================================================= */
+
+.in-page-search-form.kame-replace-enhanced > button.btn.tool-btn {
+  width: 42px;
+
+  height: 34px;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}

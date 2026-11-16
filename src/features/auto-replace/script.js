@@ -8,15 +8,9 @@ import { replacements } from "./replacements.js";
  * }} Replacement
  */
 
-/* =========================================================
-   Replacements
-   ========================================================= */
-
 /** @type {Replacement[]} */
 
-/* =========================================================
-   Sorted Replacements
-   ========================================================= */
+// Sorted Replacements
 
 /*
  * 毎keydownでsortしない。
@@ -29,16 +23,12 @@ const sortedReplacements = [...replacements].sort(
   (/** @type {Replacement} */ a, /** @type {Replacement} */ b) => b.from.length - a.from.length,
 );
 
-/* =========================================================
-   State
-   ========================================================= */
+// State
 
 /** @type {string} */
 let typed = "";
 
-/* =========================================================
-   Utility
-   ========================================================= */
+// Utility
 
 /**
  * textの末尾に完全一致するReplacementを取得。
@@ -191,9 +181,7 @@ function commitPendingReplacement(event, input, replacement) {
   typed = "";
 }
 
-/* =========================================================
-   Keydown
-   ========================================================= */
+// Keydown
 
 document.addEventListener(
   "keydown",
@@ -203,17 +191,13 @@ document.addEventListener(
    * @returns {void}
    */
   function (event) {
-    /* =======================================================
-       IME
-       ======================================================= */
+    // IME
 
     if (event.isComposing || event.key === "Process") {
       return;
     }
 
-    /* =======================================================
-       Modifier
-       ======================================================= */
+    // Modifier
 
     if (event.metaKey || event.ctrlKey || event.altKey) {
       typed = "";
@@ -221,9 +205,7 @@ document.addEventListener(
       return;
     }
 
-    /* =======================================================
-       Input
-       ======================================================= */
+    // Input
 
     /** @type {HTMLTextAreaElement | null} */
     const input = document.querySelector("#text-input");
@@ -238,17 +220,13 @@ document.addEventListener(
       return;
     }
 
-    /* =======================================================
-       Printable Character
-       ======================================================= */
+    // Printable Character
 
     if (event.key.length === 1) {
       /** @type {string} */
       const candidate = typed + event.key;
 
-      /* -----------------------------------------------------
-         完全一致
-         ----------------------------------------------------- */
+      // 完全一致
 
       /** @type {Replacement | null} */
       const exactReplacement = findExactReplacement(candidate);
@@ -279,9 +257,7 @@ document.addEventListener(
         return;
       }
 
-      /* -----------------------------------------------------
-         入力途中
-         ----------------------------------------------------- */
+      // 入力途中
 
       /*
        * candidateそのものが
@@ -300,9 +276,7 @@ document.addEventListener(
         return;
       }
 
-      /* -----------------------------------------------------
-         保留していた短いReplacementを確定
-         ----------------------------------------------------- */
+      // 保留していた短いReplacementを確定
 
       /*
        * 例:
@@ -327,18 +301,14 @@ document.addEventListener(
         return;
       }
 
-      /* -----------------------------------------------------
-         通常文字
-         ----------------------------------------------------- */
+      // 通常文字
 
       typed = candidate.slice(-20);
 
       return;
     }
 
-    /* =======================================================
-       Special Keys
-       ======================================================= */
+    // Special Keys
 
     if (
       [

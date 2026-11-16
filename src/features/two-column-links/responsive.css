@@ -1,0 +1,51 @@
+/* ========================================
+   Smaller Displays
+   ======================================== */
+
+@media screen and (max-width: 1499px) {
+  /* ========================================
+     Related Page List
+     ======================================== */
+
+  .related-page-list {
+    position: static;
+
+    top: auto;
+
+    left: auto;
+
+    transform: none;
+
+    width: auto;
+
+    max-width: none;
+
+    height: auto;
+
+    max-height: none;
+
+    margin: 0;
+
+    padding: 0 !important;
+
+    overflow: visible;
+  }
+
+  /* ========================================
+     Reset Main Page
+     ======================================== */
+
+  .col-page .page {
+    position: static;
+
+    left: auto;
+  }
+
+  /* ========================================
+     Reset Page Menu
+     ======================================== */
+
+  .page-menu {
+    translate: none;
+  }
+}

@@ -15,8 +15,10 @@
 
 | ファイル | 役割 |
 | --- | --- |
-| [script.js](script.js) | 機能の処理・初期化 |
+| [script.js](script.js) | 初期化・イベント・状態の管理 |
 | [style.css](style.css) | 表示・装飾 |
+| [links.js](links.js) | 外部リンクの判定・除外ルール・favicon URL |
+| [types.js](types.js) | 型定義（実行時の配信対象外） |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

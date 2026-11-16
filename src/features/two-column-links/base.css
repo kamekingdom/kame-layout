@@ -1,0 +1,37 @@
+/* Author: kamekingdom (2026-09-29) */
+
+/* ========================================
+   Related Page List / Links Sidebar
+   ======================================== */
+
+/* ========================================
+   Scrollbar
+   ======================================== */
+
+.related-page-list::-webkit-scrollbar {
+  display: none;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar {
+  width: 5px;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar-thumb {
+  background-color: #7d899b;
+  border-radius: 3px;
+}
+
+.drag-and-drop-enter::-webkit-scrollbar-track {
+  background-color: #111827;
+}
+
+/* ========================================
+   Box Sizing
+   ======================================== */
+
+.related-page-list,
+.related-page-list *,
+.related-page-list *::before,
+.related-page-list *::after {
+  box-sizing: border-box;
+}

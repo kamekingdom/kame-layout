@@ -1,35 +1,35 @@
-:root{
-	/* 基本次の４色 */
-	--main-color: #F5F5F5;
-	--accent-color: #757575;
-	--base-color: #B5B5B5;
-	--exist-color: #149180;
-   	--non-exist-color: #19A8BA;
-   	
-   	/* 以下詳細 */
- 	--body-bg: var(--main-color); /* 全体背景 */
- 	--navbar-bg: var(--main-color); /* ヘッダー背景 */
- 	--tool-text-color: var(--main-color); /* プロジェクト名 */
- 	--new-button-bg: transparent; /* 新規作成ボタン ↓ */
- 	--new-button-hover-bg: transparent;
- 	--new-button-active-bg: transparent;
- 	--new-button-horizontal-color: var(--exist-color);
- 	--new-button-vertical-color: var(--non-exist-color); /* ↑ */
- 	--search-form-bg: var(--main-color); /* 検索画面 */
- 	--search-form-icon-color: var(--accent-color); /* 🔍 */
- 	--search-form-text-color: var(--accent-color); /* 検索の文字 */
- 	--navbar-icon-color: var(--accent-color); /* ^ */
- 	--navbar-icon-hovered-color: var(--exist-color); /* ^:hover */
- 	--navbar-icon-active-color: var(--accent-color);
- 	
- 	/* --telomere-updated: #ffb186; /* テロメア編集 */
- 	/* --telomere-unread: #ffcbae; /* テロメア未読 */
- 	/* --- 関連ページ ラベルデザイン --- */
- 	/* --relation-label-bg: var(--main-color); */
-  	/* --relation-label-empty-bg: var(--main-color); */
- 	/* --relation-label-links-bg: var(--main-color); */
- 	/* --relation-label-text:#304ea2; */
- 	/* --relation-label-empty-text: #b10e0e; */
- 	/* --relation-label-links-text: #304ea2; */
- 	/* --- リンクの色 ---*/
- }
+:root {
+  /* 基本次の４色 */
+  --main-color: #F5F5F5;
+  --accent-color: #757575;
+  --base-color: #B5B5B5;
+  --exist-color: #149180;
+  --non-exist-color: #19A8BA;
+
+  /* 以下詳細 */
+  --body-bg: var(--main-color); /* 全体背景 */
+  --navbar-bg: var(--main-color); /* ヘッダー背景 */
+  --tool-text-color: var(--main-color); /* プロジェクト名 */
+  --new-button-bg: transparent; /* 新規作成ボタン ↓ */
+  --new-button-hover-bg: transparent;
+  --new-button-active-bg: transparent;
+  --new-button-horizontal-color: var(--exist-color);
+  --new-button-vertical-color: var(--non-exist-color); /* ↑ */
+  --search-form-bg: var(--main-color); /* 検索画面 */
+  --search-form-icon-color: var(--accent-color); /* 🔍 */
+  --search-form-text-color: var(--accent-color); /* 検索の文字 */
+  --navbar-icon-color: var(--accent-color); /* ^ */
+  --navbar-icon-hovered-color: var(--exist-color); /* ^:hover */
+  --navbar-icon-active-color: var(--accent-color);
+
+  /* --telomere-updated: #ffb186; /* テロメア編集 */
+  /* --telomere-unread: #ffcbae; /* テロメア未読 */
+  /* --- 関連ページ ラベルデザイン --- */
+  /* --relation-label-bg: var(--main-color); */
+  /* --relation-label-empty-bg: var(--main-color); */
+  /* --relation-label-links-bg: var(--main-color); */
+  /* --relation-label-text:#304ea2; */
+  /* --relation-label-empty-text: #b10e0e; */
+  /* --relation-label-links-text: #304ea2; */
+  /* --- リンクの色 ---*/
+}

@@ -5,6 +5,9 @@ import path from "node:path";
 import test from "node:test";
 import { parse } from "acorn";
 import postcss from "postcss";
+import prettier from "prettier";
+import { execFileSync } from "node:child_process";
+import { restoreFeatureModules } from "./support/refactor.mjs";
 import { root, read, config, migration } from "../tools/project.mjs";
 import {
   packageFiles,
@@ -17,8 +20,19 @@ import {
 const baseline = JSON.parse(read("migration/manifest.json"));
 const mapping = new Map(migration.files.map((file) => [file.originalPath, file]));
 const hash = (text) => crypto.createHash("sha256").update(text).digest("hex");
-const ast = (text) => parse(text, { ecmaVersion: "latest", sourceType: "module" });
-const originalText = (originalPath) => read(mapping.get(originalPath).path);
+const ast = (text) => parse(text, { ecmaVersion: "latest", sourceType: "module", ranges: true });
+const originals = new Map();
+const originalText = (originalPath) => {
+  if (!originals.has(originalPath))
+    originals.set(
+      originalPath,
+      execFileSync("git", ["show", `${migration.baseline}:${originalPath}`], {
+        cwd: root,
+        encoding: "utf8",
+      }),
+    );
+  return originals.get(originalPath);
+};
 
 function canonical(value) {
   // A redundant standalone semicolon has no observable behaviour; Prettier removes it.
@@ -30,7 +44,7 @@ function canonical(value) {
   }
   return Object.fromEntries(
     Object.entries(value)
-      .filter(([key]) => !["start", "end", "loc", "raw"].includes(key))
+      .filter(([key]) => !["start", "end", "loc", "raw", "range"].includes(key))
       .map(([key, item]) => [key, canonical(item)]),
   );
 }
@@ -59,23 +73,22 @@ function expandDataModules(tree, filename) {
   return tree;
 }
 
-test("all 131 original files are accounted for; archived code, CSS and templates are byte-identical", () => {
+test("all 131 original files are accounted for; archived code and templates are byte-identical", () => {
   assert.equal(mapping.size, baseline.files.length);
   assert.equal(new Set([...mapping.values()].map((entry) => entry.path)).size, mapping.size);
   for (const entry of baseline.files) {
     const destination = mapping.get(entry.path);
     assert.ok(destination, entry.path);
     const current = read(destination.path);
-    if (destination.kind === "archive" || !entry.path.endsWith(".js")) {
+    if (destination.kind === "archive" || !/\.(?:js|css)$/.test(entry.path)) {
       assert.equal(hash(current), entry.sha256, destination.path);
     }
   }
 });
 
-test("every JavaScript module keeps its original statements, literals and event handlers", async () => {
+test("JavaScript extraction preserves statements, literals, event handlers and lexical dependencies", async () => {
   // Read originals from the immutable initial commit: this prevents a refactor and its
   // comparison baseline from accidentally changing together.
-  const { execFileSync } = await import("node:child_process");
   for (const entry of baseline.files.filter((file) => file.path.endsWith(".js"))) {
     const destination = mapping.get(entry.path);
     if (destination.kind !== "feature") continue;
@@ -84,9 +97,12 @@ test("every JavaScript module keeps its original statements, literals and event 
       encoding: "utf8",
     });
     const before = normalizeExternalImports(ast(original));
-    const after = normalizeExternalImports(
-      expandDataModules(ast(read(destination.path)), destination.path),
+    const restored = restoreFeatureModules(
+      ast(read(destination.path)),
+      destination.path,
+      ast(original),
     );
+    const after = normalizeExternalImports(expandDataModules(restored, destination.path));
     assert.deepEqual(canonical(after), canonical(before), destination.path);
   }
 });
@@ -115,10 +131,10 @@ function flattenCss(filename, original = false) {
   const text = original ? originalText(filename) : read(filename);
   return postcss.parse(text).nodes.flatMap((node) => {
     if (node.type === "comment") return [];
-    if (node.type !== "atrule" || node.name !== "import") return [cssNode(node)];
+    if (node.type !== "atrule" || node.name !== "import") return [node];
     const specifier = node.params.match(/^(?:url\(\s*)?["']([^"']+)["']/)?.[1];
     assert.ok(specifier, node.params);
-    if (specifier.startsWith("https://")) return [cssNode(node)];
+    if (specifier.startsWith("https://")) return [node];
     const target = path.posix.normalize(path.posix.join(path.posix.dirname(filename), specifier));
     if (original && !mapping.has(target)) {
       assert.ok(
@@ -133,8 +149,51 @@ function flattenCss(filename, original = false) {
   });
 }
 
-test("effective CSS selectors, values, specificity and declaration order are unchanged", () => {
-  assert.deepEqual(flattenCss("style.css"), flattenCss("src/Settings/style.css", true));
+async function canonicalCss(nodes) {
+  const tree = postcss.root({ nodes });
+  tree.walkComments((comment) => comment.remove());
+  tree.walkRules((rule) => {
+    if (!rule.nodes.length) rule.remove();
+  });
+  tree.walkDecls((decl) => {
+    const previous = decl.prev();
+    if (
+      previous?.type === "decl" &&
+      previous.prop === decl.prop &&
+      previous.value === decl.value &&
+      !!previous.important === !!decl.important
+    )
+      decl.remove();
+  });
+  const formatted = await prettier.format(tree.toString(), { parser: "css" });
+  return postcss.parse(formatted).nodes.map(cssNode);
+}
+
+function customProperties(nodes) {
+  const values = [];
+  postcss.root({ nodes }).walkDecls(/^--/, (decl) => values.push([decl.prop, decl.value]));
+  return values;
+}
+
+test("every stylesheet keeps its selectors, values, specificity, media conditions and declaration order", async () => {
+  assert.deepEqual(
+    await canonicalCss(flattenCss("style.css")),
+    await canonicalCss(flattenCss("src/Settings/style.css", true)),
+  );
+  for (const item of migration.files.filter(
+    (item) => item.path.endsWith(".css") && item.kind !== "archive",
+  )) {
+    assert.deepEqual(
+      await canonicalCss(flattenCss(item.path)),
+      await canonicalCss(flattenCss(item.originalPath, true)),
+      item.path,
+    );
+    assert.deepEqual(
+      customProperties(flattenCss(item.path)),
+      customProperties(flattenCss(item.originalPath, true)),
+      `${item.path}: custom-property tokens`,
+    );
+  }
   assert.equal(config.defaults.styles.length, 42);
 });
 
@@ -159,7 +218,7 @@ test("every feature and baseline source has a documentation or provenance link",
   assert.equal(config.features.length, 72);
 });
 
-test("single-page package preserves CSS and every JS statement while relocating only module/asset URLs", () => {
+test("single-page package inlines stylesheet fragments and relocates only JS module/asset URLs", async () => {
   const pkg = JSON.parse(read("dist/kame-layout.scrapbox.json"));
   assert.equal(pkg.pages.length, 1);
   assert.equal(new Set(pkg.pages.map((page) => page.title)).size, pkg.pages.length);
@@ -179,7 +238,11 @@ test("single-page package preserves CSS and every JS statement while relocating 
     const deployed = files.get(`${entryPage}/${deployedName(feature.id, name)}`);
     assert.equal(typeof deployed, "string", filename);
     if (name.endsWith(".css")) {
-      assert.equal(deployed, read(filename));
+      assert.deepEqual(
+        await canonicalCss(postcss.parse(deployed).nodes),
+        await canonicalCss(flattenCss(filename)),
+        filename,
+      );
       continue;
     }
     const before = ast(read(filename));

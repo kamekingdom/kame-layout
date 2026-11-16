@@ -1,0 +1,27 @@
+/* Author: kamekingdom (2026-09-29) */
+
+/* ========================================
+   Related Page Toolbar Icon Fix
+   ======================================== */
+
+.related-page-list .toolbar button,
+.related-page-list .toolbar button *,
+.related-page-list .toolbar button i,
+.related-page-list .toolbar button i::before {
+  color: #666b70 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* SVGアイコンの場合 */
+.related-page-list .toolbar button svg {
+  color: #666b70 !important;
+
+  opacity: 1 !important;
+
+  visibility: visible !important;
+
+  fill: currentColor !important;
+
+  stroke: currentColor !important;
+}

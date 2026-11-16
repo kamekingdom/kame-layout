@@ -11,6 +11,8 @@
 - 機能の説明・有効状態・読み込み順を変える：`config/features.json`。
 - 配色を変える：`src/features/colors/style.css`。
 
+大きい機能では、`script.js` が初期化・状態・イベントを担当し、`engine.js`・`model.js`・`api.js` などが計算・解析・取得を担当します。CSSの入口が相対importだけの場合は、同じフォルダの表示部分ごとのCSSを編集します。各ファイルの役割はREADMEの表で確認できます。
+
 `style.css`、`script.js`、各機能 README、`docs/features.md`、`docs/load-order.md`、`dist/kame-layout.scrapbox.json` は生成物です。直接編集せず、設定を更新して `npm run build` を実行します。
 
 ## 通常の検証
@@ -26,6 +28,12 @@ npm test
 
 回帰テストは変更前の動作を固定しています。機能やデザインを意図して変更する場合は、変更する範囲のテストと根拠を更新します。今回のような構成整理では、比較対象を一括更新して差分を消さないようにします。
 
+## 整形する
+
+`npm run format` はJSとCSSを整形します。CSSだけなら `npm run format:css` を使います。CSS変数の色コードや文字列はScriptから参照されるため、元の表記を保持します。CSSへ直接Prettierを実行すると、変数の表記が変わる場合があります。
+
+補助ファイルを追加したときは `config/features.json` の `dataFiles`（実行するJS）・`styleFiles`（結合するCSS）・`typeFiles`（型定義）・`fileDescriptions`（READMEの説明）を更新します。
+
 ## ブラウザで比較する
 
 Google Chrome をインストールした環境で実行します。
@@ -34,7 +42,7 @@ Google Chrome をインストールした環境で実行します。
 npm run test:browser
 ```
 
-公開の Scrapbox テストページを、認証情報を持たないブラウザで開き、変更前と変更後の CSS・JS をそれぞれ適用します。通常モードは生成 JSON の応答をテスト用に返します。実際に配信用ページを更新した後は、下の `--live` モードで**公開済みのAPI応答を差し替えず**に読み込みます。CSP は変更しません。デスクトップとモバイル幅で表示・機能 UI を比較します。Scrapbox への書き込みは行いません。
+公開の Scrapbox テストページを、認証情報を持たないブラウザで開き、変更前と変更後の CSS・JS をそれぞれ適用します。通常モードは生成 JSON の応答をテスト用に返します。実際に配信用ページを更新した後は、下の `--live` モードで**公開済みのAPI応答を差し替えず**に読み込みます。CSP は変更しません。1600px・1440px・834px・390pxで表示・機能UIを比較します。Scrapbox への書き込みは行いません。
 
 ```sh
 npm run sync:verify

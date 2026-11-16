@@ -1,6 +1,9 @@
-   a[type="link"].page-link, a[type="hashTag"].page-link, .line a.link {
-     color: var(--exist-color) !important;
-   }
-   a[type="link"].empty-page-link, a[type="hashTag"].empty-page-link {
-     color: var(--non-exist-color) !important;
-   }        
+a[type="link"].page-link,
+a[type="hashTag"].page-link,
+.line a.link {
+  color: var(--exist-color) !important;
+}
+a[type="link"].empty-page-link,
+a[type="hashTag"].empty-page-link {
+  color: var(--non-exist-color) !important;
+}

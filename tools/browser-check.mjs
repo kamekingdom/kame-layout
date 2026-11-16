@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { isDeepStrictEqual } from "node:util";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -86,6 +87,10 @@ async function capture(version, viewport) {
   await page.evaluate(() => document.fonts.ready);
   // The original character-counter waits three seconds before it initialises.
   await page.waitForTimeout(3400);
+  await page.evaluate(async () => {
+    await Promise.all([...document.images].map((image) => image.decode().catch(() => {})));
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
   const selectors = [
     "body",
     ".navbar",
@@ -95,6 +100,8 @@ async function capture(version, viewport) {
     ".line .text",
     "#__charCounter__",
     ".kgv-launch",
+    ".page-menu",
+    ".page-menu img",
   ];
   const styles = await page.evaluate(
     (selectors) =>
@@ -138,12 +145,36 @@ async function capture(version, viewport) {
 
 try {
   for (const viewport of [
+    { width: 1600, height: 1000 },
     { width: 1440, height: 1000 },
+    { width: 834, height: 1194 },
     { width: 390, height: 844 },
   ]) {
     const before = await capture("baseline", viewport);
     const after = await capture("current", viewport);
-    assert.deepEqual(after.styles, before.styles, `Computed styles changed at ${viewport.width}px`);
+    if (!isDeepStrictEqual(after.styles, before.styles)) {
+      const differences = [];
+      for (const [selector, items] of Object.entries(before.styles)) {
+        for (const [index, properties] of items.entries()) {
+          for (const [property, value] of Object.entries(properties)) {
+            const actual = after.styles[selector]?.[index]?.[property];
+            if (actual !== value)
+              differences.push({ selector, index, property, before: value, after: actual });
+          }
+        }
+        if (after.styles[selector]?.length !== items.length)
+          differences.push({
+            selector,
+            countBefore: items.length,
+            countAfter: after.styles[selector]?.length,
+          });
+      }
+      const filename = path.join(output, `styles-${viewport.width}.json`);
+      fs.writeFileSync(filename, JSON.stringify(differences, null, 2) + "\n");
+      assert.fail(
+        `Computed styles changed at ${viewport.width}px: ${differences.length} differences; see ${filename}`,
+      );
+    }
     assert.deepEqual(
       after.controls,
       before.controls,

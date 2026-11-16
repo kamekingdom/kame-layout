@@ -1,0 +1,30 @@
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media screen and (max-width: 760px) {
+  .in-page-search-form.kame-replace-enhanced {
+    grid-template-columns:
+      minmax(120px, 1fr)
+      auto
+      36px
+      36px
+      36px;
+
+    gap: 5px;
+  }
+
+  .kame-replace-row {
+    grid-template-columns:
+      1fr
+      auto;
+  }
+
+  .kame-replace-row .kame-replace-all {
+    grid-column: 1 / -1;
+  }
+
+  .kame-replace-status {
+    display: none;
+  }
+}

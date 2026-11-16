@@ -3,23 +3,23 @@
 /* チェックボックスになるタグ v2 Font Awesome版 */
 
 /* 元のタグ文字を非表示 */
-.line:not(.cursor-line) a[href$='/o']:not(.icon) span,
-.line:not(.cursor-line) a[href$='/v']:not(.icon) span,
-.line:not(.cursor-line) a[href$='/x']:not(.icon) span {
+.line:not(.cursor-line) a[href$="/o"]:not(.icon) span,
+.line:not(.cursor-line) a[href$="/v"]:not(.icon) span,
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) span {
   display: inline-block;
   width: 0;
   text-indent: -9999px;
 }
 
 /* 共通設定 */
-.line:not(.cursor-line) a[href$='/o']:not(.icon)::after,
-.line:not(.cursor-line) a[href$='/v']:not(.icon)::after,
-.line:not(.cursor-line) a[href$='/x']:not(.icon)::after {
+.line:not(.cursor-line) a[href$="/o"]:not(.icon)::after,
+.line:not(.cursor-line) a[href$="/v"]:not(.icon)::after,
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::after {
   display: inline-block;
   min-width: 1.15em;
   padding-left: 1px;
 
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 400;
   font-size: 120%;
 
@@ -31,36 +31,36 @@
 }
 
 /* [o]：未チェック */
-.line:not(.cursor-line) a[href$='/o']:not(.icon)::after {
-  content: '\f0c8';
+.line:not(.cursor-line) a[href$="/o"]:not(.icon)::after {
+  content: "\f0c8";
   color: var(--non-exist-color);
 }
 
 /* [v]：チェック済み */
-.line:not(.cursor-line) a[href$='/v']:not(.icon)::after {
-  content: '\f14a';
+.line:not(.cursor-line) a[href$="/v"]:not(.icon)::after {
+  content: "\f14a";
   color: var(--exist-color);
 }
 
 /* [x] のリンクを基準位置にする */
-.line:not(.cursor-line) a[href$='/x']:not(.icon) {
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) {
   position: relative;
 }
 
 /* [x]：外枠は [o] と同じ正方形 */
-.line:not(.cursor-line) a[href$='/x']:not(.icon)::after {
-  content: '\f0c8';
-  color: #FF3F3F;
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::after {
+  content: "\f0c8";
+  color: #ff3f3f;
 
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 400;
 }
 
 /* [x]：中の× */
-.line:not(.cursor-line) a[href$='/x']:not(.icon)::before {
-  content: '\f00d';
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::before {
+  content: "\f00d";
 
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
 
   position: absolute;
@@ -70,7 +70,7 @@
 
   transform: translate(-45%, -55%);
 
-  color: #FF3F3F;
+  color: #ff3f3f;
 
   font-size: 0.8em;
   line-height: 1;
@@ -80,9 +80,9 @@
 }
 
 /* チェックボックスをクリック可能にする */
-.line:not(.cursor-line) a[href$='/o']:not(.icon),
-.line:not(.cursor-line) a[href$='/v']:not(.icon),
-.line:not(.cursor-line) a[href$='/x']:not(.icon) {
+.line:not(.cursor-line) a[href$="/o"]:not(.icon),
+.line:not(.cursor-line) a[href$="/v"]:not(.icon),
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) {
   cursor: pointer;
   text-decoration: none;
 }

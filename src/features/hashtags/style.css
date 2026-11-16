@@ -1,22 +1,26 @@
 /* ＃で始まるタグをラベル風にする */
-a[type="hashTag"]{
-     	 display: inline-block;
-          padding: 2px 8px;
-          margin: 0 8px 10px 0;
-          background: transparent; /* 一旦透過で様子見 */
-          font-size: 0.8em;
-          border-radius: 3px;
-          transition: .3s;
-          -webkit-transform: scale(1);
-          transform: scale(1);
-      }
-      
-      /* 統一性の観点からリンク色とリンク */ 
-      a[type="hashTag"].page-link{ border: 1px solid var(--exist-color); }
-      a[type="hashTag"].empty-page-link{ border: 1px solid var(--non-exist-color); }
-      
-      /* ホバー時のモーションが肝 */
-      a[type="hashTag"]:hover{
-      	-webkit-transform: scale(1.1);
-       	transform: scale(1.1);
-      }
+a[type="hashTag"] {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 0 8px 10px 0;
+  background: transparent; /* 一旦透過で様子見 */
+  font-size: 0.8em;
+  border-radius: 3px;
+  transition: 0.3s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+/* 統一性の観点からリンク色とリンク */
+a[type="hashTag"].page-link {
+  border: 1px solid var(--exist-color);
+}
+a[type="hashTag"].empty-page-link {
+  border: 1px solid var(--non-exist-color);
+}
+
+/* ホバー時のモーションが肝 */
+a[type="hashTag"]:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}

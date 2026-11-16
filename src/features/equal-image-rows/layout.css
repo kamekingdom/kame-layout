@@ -1,0 +1,113 @@
+/* Author: kamekingdom (2026-10-28) */
+
+/* =========================================================
+   Equal Image Row - Settings
+   ========================================================= */
+
+.line[class*="image-line-"] {
+  /*
+   * デスクトップ時の基本高さ。
+   */
+  --kame-image-card-height: 270px;
+
+  /*
+   * 画像同士の間隔。
+   */
+  --kame-image-gap: 14px;
+
+  /*
+   * 角丸。
+   */
+  --kame-image-radius: 16px;
+}
+
+/* =========================================================
+   Prevent Initial Layout Flash
+   ========================================================= */
+
+/*
+ * Cosense標準の画像配置が一瞬見えるのを防ぐ。
+ *
+ * UserScriptによる処理が終わるまで
+ * visibility:hidden。
+ *
+ * display:noneにはしない。
+ */
+.line[class*="image-line-"]:not([data-kame-equal-image-row="true"]) {
+  visibility: hidden !important;
+}
+
+/*
+ * UserScriptによるレイアウト処理完了後。
+ */
+.line[data-kame-equal-image-row="true"] {
+  visibility: visible !important;
+}
+
+/* =========================================================
+   Image Card
+   ========================================================= */
+
+.line[data-kame-equal-image-row="true"] .modal-image {
+  background: #f6f7f8;
+
+  border-radius: var(--kame-image-radius);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   Image
+   ========================================================= */
+
+.line[data-kame-equal-image-row="true"] .modal-image img.image {
+  border: 1px solid #e8eaec !important;
+
+  border-radius: var(--kame-image-radius) !important;
+
+  background: #ffffff !important;
+
+  box-shadow: none !important;
+
+  /*
+   * UserScript側でも指定しているが
+   * 念のためCSS側でも固定。
+   */
+  width: 100% !important;
+
+  height: 100% !important;
+
+  object-fit: cover !important;
+
+  object-position: center center !important;
+
+  transition:
+    opacity 120ms ease,
+    filter 120ms ease;
+}
+
+/* =========================================================
+   Image Link
+   ========================================================= */
+
+.line[data-kame-equal-image-row="true"] .modal-image > a {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  text-decoration: none !important;
+
+  overflow: hidden !important;
+
+  border-radius: var(--kame-image-radius) !important;
+}
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+.line[data-kame-equal-image-row="true"] .modal-image > a:hover img.image {
+  opacity: 0.95;
+
+  filter: brightness(0.98);
+}

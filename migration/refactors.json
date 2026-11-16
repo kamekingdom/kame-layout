@@ -1,0 +1,213 @@
+{
+  "baseline": "7a1d128865382659ef3cf9ab1dca21706f7a7c97",
+  "modules": {
+    "src/features/external-favicons/script.js": {
+      "links.js": [
+        "FAVICON_SIZE",
+        "IGNORED_HOSTS",
+        "normalizeHostname",
+        "isIgnoredHost",
+        "isContentLink",
+        "getExternalURL",
+        "getGoogleFaviconURL",
+        "getDuckDuckGoFaviconURL",
+        "getDirectFaviconURL"
+      ]
+    },
+    "src/features/find-replace/script.js": {
+      "text.js": [
+        "escapeRegex",
+        "expandReplacement"
+      ],
+      "ranges.js": [
+        "collectTextSegments",
+        "findBoundary",
+        "makeRange"
+      ],
+      "controls.js": [
+        "setOptionButton",
+        "createOptionButton"
+      ]
+    },
+    "src/features/checkbox-toggle/script.js": {
+      "model.js": [
+        "nextStateMap",
+        "replaceCheckbox"
+      ],
+      "links.js": [
+        "getCheckboxState",
+        "getCheckboxAnchor",
+        "getCheckboxOrdinal",
+        "suppressDefaultBehavior"
+      ]
+    },
+    "src/features/random-pages/script.js": {
+      "config.js": [
+        "ROOT_ID",
+        "STYLE_ID",
+        "DEFAULT_CARD_COUNT"
+      ],
+      "api.js": [
+        "getProjectName",
+        "isProjectHome",
+        "getUniqueRandomIndexes",
+        "fetchPageAt",
+        "fetchRandomPages"
+      ],
+      "cards.js": [
+        "escapeHtml",
+        "toPageUrl",
+        "createCardRoot",
+        "removeAllRandomPageRoots"
+      ],
+      "layout.js": [
+        "findPageList",
+        "findNormalGrid",
+        "getNormalCardCandidates",
+        "findNormalCardElement",
+        "getNormalColumnCount",
+        "getNormalCardMetrics",
+        "syncCardMetrics"
+      ],
+      "styles.js": [
+        "injectStyle"
+      ]
+    },
+    "src/features/audio-player/script.js": {
+      "players.js": [
+        "AUDIO_EXTENSIONS",
+        "PLAYER_CLASS",
+        "getPageContent",
+        "isAudioLink",
+        "findPlayer",
+        "buildPlayer",
+        "normalizeAudioPlayer",
+        "removeDuplicates",
+        "removePlayersOutsidePage",
+        "scan"
+      ]
+    },
+    "src/features/table-copy/script.js": {
+      "csv.js": [
+        "parseCSV",
+        "csvToTSV"
+      ],
+      "icons.js": [
+        "getCopyIcon",
+        "getCheckIcon"
+      ],
+      "config.js": [
+        "BUTTON_CLASS"
+      ],
+      "styles.js": [
+        "addStyle"
+      ]
+    },
+    "src/features/link-preview/script.js": {
+      "config.js": [
+        "SHOW_DELAY",
+        "HIDE_DELAY",
+        "MAX_LINES",
+        "MAX_1HOP_PAGES",
+        "MAX_2HOP_GROUPS",
+        "MAX_2HOP_PAGES_PER_GROUP",
+        "MAX_UNGROUPED_2HOP_PAGES",
+        "PREVIEW_GAP",
+        "VIEWPORT_PADDING",
+        "MAX_LINE_LENGTH"
+      ],
+      "model.js": [
+        "normalizeTitle",
+        "getIndentLevel",
+        "cleanPreviewText",
+        "parsePreviewLine",
+        "uniqueRelatedPages",
+        "createTwoHopGroups"
+      ]
+    },
+    "src/features/hierarchy-fold/script.js": {
+      "markers.js": [
+        "getFoldMarkerFromDom",
+        "toggleFoldMarkerText",
+        "isBlankLine",
+        "getIndentLevel"
+      ],
+      "visibility.js": [
+        "applyVisibility",
+        "isOwnToggleMutation"
+      ]
+    },
+    "src/features/spreadsheet/script.js": {
+      "engine.js": [
+        "FormulaError",
+        "columnLabelToIndex",
+        "parseCellReference",
+        "tokenize",
+        "toNumber",
+        "flattenValues",
+        "Parser",
+        "evaluateTable",
+        "formatResult"
+      ],
+      "table-dom.js": [
+        "getCellSource",
+        "collectTables",
+        "createMatrix",
+        "renderFormulaCell",
+        "clearFormulaCell",
+        "isOwnMutation"
+      ]
+    },
+    "src/features/status-icons/script.js": {
+      "states.js": [
+        "PROJECT_NAME",
+        "STATES",
+        "getStateIndexFromAnchor",
+        "isTargetAnchor",
+        "getTargetAnchor",
+        "findIconTokens",
+        "getClickedIconOrdinal"
+      ]
+    },
+    "src/features/equal-image-rows/script.js": {
+      "layout.js": [
+        "setStyles",
+        "getImageCount",
+        "processLine"
+      ]
+    },
+    "src/features/bookmark-menu/script.js": {
+      "headings.js": [
+        "getIndentWidth",
+        "getHierarchyLevel",
+        "getRenderedLineText",
+        "formatBookmarkTitle"
+      ],
+      "scroll.js": [
+        "getScrollContainer",
+        "scrollToBookmark",
+        "getFixedHeaderHeight"
+      ]
+    },
+    "src/features/graph-view/script.js": {
+      "colors.js": [
+        "readRgb",
+        "blend",
+        "rgbCss",
+        "alphaCss",
+        "luminance"
+      ],
+      "links.js": [
+        "keyOf",
+        "shortTitle",
+        "pageUrl"
+      ],
+      "config.js": [
+        "CONFIG"
+      ],
+      "api.js": [
+        "fetchPages"
+      ]
+    }
+  }
+}

@@ -1,0 +1,179 @@
+/* =========================================================
+   Replace Row
+   ========================================================= */
+
+.kame-replace-row {
+  grid-column: 1 / -1;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    auto
+    auto;
+
+  gap: 8px;
+
+  align-items: center;
+
+  padding-top: 1px;
+}
+
+/* =========================================================
+   Replace Input
+   ========================================================= */
+
+.kame-replace-value {
+  width: 100%;
+
+  min-width: 0;
+
+  height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 5px 10px;
+
+  color: #30343b;
+
+  background: #ffffff;
+
+  border: 1px solid #d5d9de;
+
+  border-radius: 3px;
+
+  outline: none;
+
+  font: inherit;
+}
+
+.kame-replace-value:focus {
+  border-color: #9099a3;
+}
+
+/* =========================================================
+   Replace Buttons
+   ========================================================= */
+
+.kame-replace-action {
+  height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 5px 12px;
+
+  color: #4c5259;
+
+  background: #f6f7f8;
+
+  border: 1px solid #d8dce1;
+
+  border-radius: 3px;
+
+  font: inherit;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.kame-replace-action:hover {
+  color: #30343b;
+
+  background: #eceff1;
+
+  border-color: #c9ced4;
+}
+
+.kame-replace-all {
+  font-weight: 500;
+}
+
+/* =========================================================
+   Options Row
+   ========================================================= */
+
+.kame-replace-options {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  padding-top: 1px;
+}
+
+/* =========================================================
+   Option Button
+   ========================================================= */
+
+.kame-replace-option {
+  height: 28px;
+
+  min-width: 34px;
+
+  box-sizing: border-box;
+
+  padding: 2px 8px;
+
+  color: #626971;
+
+  background: transparent;
+
+  border: 1px solid transparent;
+
+  border-radius: 3px;
+
+  font: inherit;
+
+  font-size: 0.88em;
+
+  cursor: pointer;
+}
+
+.kame-replace-option:hover {
+  color: #30343b;
+
+  background: #f1f3f4;
+
+  border-color: #d9dde1;
+}
+
+/* ON */
+.kame-replace-option.is-active {
+  color: #f5f6f7;
+
+  background: #3f4652;
+
+  border-color: #3f4652;
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   Status
+   ========================================================= */
+
+.kame-replace-status {
+  min-width: 0;
+
+  margin-left: auto;
+
+  color: #8a9097;
+
+  font-size: 0.82em;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.kame-replace-status.is-error {
+  color: #a44a4a;
+}
