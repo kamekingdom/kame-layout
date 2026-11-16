@@ -1,0 +1,88 @@
+/* =========================================================
+   Codeタイトル
+   ========================================================= */
+
+/*
+ * vm.txt
+ * container.txt
+ * javascript
+ * などのタイトル部分。
+ *
+ * こちらは角丸を残す。
+ */
+.line > .text.code-block.start .code-block-start {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.35em;
+
+  /*
+   * タイトル自体は動かさない。
+   *
+   * 灰色の本文側を左へ寄せている。
+   */
+  margin-left: 0 !important;
+
+  padding: 0.25em 0.65em;
+
+  background-color: var(--code-tab-bg);
+
+  color: var(--code-tab-text);
+
+  border-radius: 6px;
+
+  font-size: 0.82em;
+
+  font-weight: 600;
+
+  letter-spacing: 0.025em;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+
+/* =========================================================
+   Codeタイトル Link
+   ========================================================= */
+
+.line > .text.code-block.start .code-block-start a {
+  color: var(--code-tab-text) !important;
+
+  padding: 0 !important;
+
+  text-decoration: none !important;
+
+  opacity: 0.94;
+}
+
+.line > .text.code-block.start .code-block-start a:hover {
+  color: #ffffff !important;
+
+  opacity: 1;
+
+  text-decoration: none !important;
+}
+
+/* =========================================================
+   Copy Button
+   ========================================================= */
+
+.line > .text.code-block.start .code-block-start .tool-buttons {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-left: 0.1em;
+}
+
+.line > .text.code-block.start .code-block-start .tool-buttons .button {
+  color: var(--code-tab-text) !important;
+
+  opacity: 0.72;
+
+  transition: opacity 0.12s ease;
+}
+
+.line > .text.code-block.start .code-block-start .tool-buttons .button:hover {
+  opacity: 1;
+}

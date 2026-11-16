@@ -12,7 +12,7 @@ GitHub をコードの管理元とし、生成した [Scrapbox 用 JSON](dist/ka
 2. コード配置先のプロジェクトの Settings → Page Data → Import Pages で取り込みます。管理者権限が必要です。[公式のインポート手順](https://scrapbox.io/help-jp/Import_Pages_%2F_Export_Pages)
 3. 以下の `YOUR_CODE_PROJECT` を、そのプロジェクト名に置き換えます。
 
-JSON に含まれるのは **`kame-layout:delivery` の1ページだけ**です。87個のコードブロックを同じページに配置します。Settings・ユーザーページ・既存の機能ページは含みません。利用者側で npm をインストールする必要はありません。iPhone・iPadでも通常のUserCSS／UserScriptから利用できます。
+JSON に含まれるのは **`kame-layout:delivery` の1ページだけ**です。機能ごとのコードと補助モジュールを同じページに配置します。Settings・ユーザーページ・既存の機能ページは含みません。利用者側で npm をインストールする必要はありません。iPhone・iPadでも通常のUserCSS／UserScriptから利用できます。
 
 ### UserCSS：見た目を変える
 
@@ -60,6 +60,8 @@ dist/                     Scrapbox へ取り込む生成済み JSON
 
 変換ルールは [replacements.js](src/features/auto-replace/replacements.js)、テンプレートの定義は [templates.js](src/features/templates/templates.js) のように、処理本体と分けています。
 
+大きなCSSは `cells.css`・`header.css` など表示部分ごとに分け、機能の `style.css` で順序を管理します。配信時には機能ごとに結合します。Scriptは `script.js` に初期化・イベント・状態を残し、計算・解析・DOM部品を補助モジュールへ分けています。例えば表計算の [engine.js](src/features/spreadsheet/engine.js) は画面なしで検証できます。各READMEの表からファイルの役割を確認できます。
+
 - [機能一覧・各 README](docs/features.md)
 - [読み込み順](docs/load-order.md)
 - [構成の理由と維持するルール](docs/architecture.md)
@@ -69,7 +71,7 @@ dist/                     Scrapbox へ取り込む生成済み JSON
 
 ## 開発する
 
-Node.js 22 以降と Python 3 を使用します。Python は元 JSON の再抽出時だけ必要です。
+Node.js 22.13 以降と Python 3 を使用します。Python は元 JSON の再抽出時だけ必要です。
 
 ```sh
 npm ci

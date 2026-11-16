@@ -1,15 +1,15 @@
-.line [class="deco-\#"]{
-	color:#9f9f9f;
+.line [class="deco-\#"] {
+  color: #9f9f9f;
 }
-.line.cursor-line [class="deco-\#"]{
-	color:#888;
+.line.cursor-line [class="deco-\#"] {
+  color: #888;
 }
-.line:not(.cursor-line) [class="deco-\#"]{
-	font-size:0.9em;
+.line:not(.cursor-line) [class="deco-\#"] {
+  font-size: 0.9em;
 }
-.line:not(.cursor-line) [class="deco-\#"] a.page-link{
-	color:#93aef0;
+.line:not(.cursor-line) [class="deco-\#"] a.page-link {
+  color: #93aef0;
 }
-.line:not(.cursor-line) [class="deco-\#"] a.empty-page-link{
-	color:#ffa1a1;
+.line:not(.cursor-line) [class="deco-\#"] a.empty-page-link {
+  color: #ffa1a1;
 }

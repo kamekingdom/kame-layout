@@ -1,67 +1,17 @@
+/** @typedef {import("./types.js").CosenseLine} CosenseLine */
+/** @typedef {import("./types.js").SearchOptions} SearchOptions */
+/** @typedef {import("./types.js").SearchMatch} SearchMatch */
+/** @typedef {import("./types.js").ReplaceUI} ReplaceUI */
+/** @typedef {import("./types.js").KameWindow} KameWindow */
+
+import { escapeRegex, expandReplacement } from "./text.js";
+import { collectTextSegments, makeRange } from "./ranges.js";
+import { createOptionButton, setOptionButton } from "./controls.js";
+
 // Author: kamekingdom (2026-10-06)
 
 (() => {
-  /* =========================================================
-     Types
-     ========================================================= */
-
-  /**
-   * @typedef {{
-   *   id?: string,
-   *   text?: string
-   * }} CosenseLine
-   */
-
-  /**
-   * @typedef {{
-   *   caseSensitive: boolean,
-   *   wholeWord: boolean,
-   *   regex: boolean
-   * }} SearchOptions
-   */
-
-  /**
-   * @typedef {{
-   *   range: Range,
-   *   line: HTMLElement,
-   *   lineIndex: number,
-   *   ordinalInLine: number,
-   *   text: string
-   * }} SearchMatch
-   */
-
-  /**
-   * @typedef {{
-   *   form: HTMLElement,
-   *   input: HTMLInputElement,
-   *   result: HTMLElement,
-   *   prevButton: HTMLButtonElement | null,
-   *   nextButton: HTMLButtonElement | null,
-   *   closeButton: HTMLButtonElement | null,
-   *   replaceInput: HTMLInputElement,
-   *   replaceButton: HTMLButtonElement,
-   *   replaceAllButton: HTMLButtonElement,
-   *   caseButton: HTMLButtonElement,
-   *   wordButton: HTMLButtonElement,
-   *   regexButton: HTMLButtonElement,
-   *   status: HTMLElement,
-   *   controller: AbortController
-   * }} ReplaceUI
-   */
-
-  /**
-   * @typedef {
-   *   Window
-   *   & typeof globalThis
-   *   & {
-   *     __kameReplaceController?: AbortController
-   *   }
-   * } KameWindow
-   */
-
-  /* =========================================================
-     API
-     ========================================================= */
+  // API
 
   const api = window.cosense ?? window.scrapbox;
 
@@ -71,9 +21,7 @@
     return;
   }
 
-  /* =========================================================
-     Initialization
-     ========================================================= */
+  // Initialization
 
   /** @type {KameWindow} */
   const kameWindow = /** @type {KameWindow} */ (window);
@@ -88,9 +36,7 @@
 
   kameWindow.__kameReplaceController = controller;
 
-  /* =========================================================
-     State
-     ========================================================= */
+  // State
 
   /** @type {ReplaceUI | null} */
   let activeUI = null;
@@ -115,9 +61,7 @@
     regex: false,
   };
 
-  /* =========================================================
-     Highlight API
-     ========================================================= */
+  // Highlight API
 
   const HIGHLIGHT_ALL = "kame-search-match";
 
@@ -147,9 +91,7 @@
       });
   }
 
-  /* =========================================================
-     Page Lines
-     ========================================================= */
+  // Page Lines
 
   /**
    * @returns {CosenseLine[]}
@@ -190,17 +132,7 @@
     return domLines.indexOf(lineElement);
   }
 
-  /* =========================================================
-     Regex
-     ========================================================= */
-
-  /**
-   * @param {string} text
-   * @returns {string}
-   */
-  function escapeRegex(text) {
-    return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
+  // Regex
 
   /**
    * @param {string} search
@@ -237,139 +169,7 @@
     }
   }
 
-  /* =========================================================
-     Text Nodes → Range
-     ========================================================= */
-
-  /**
-   * @param {HTMLElement} line
-   * @returns {{
-   *   text: string,
-   *   segments: {
-   *     node: Text,
-   *     start: number,
-   *     end: number
-   *   }[]
-   * }}
-   */
-  function collectTextSegments(line) {
-    const root = /** @type {HTMLElement | null} */ (line.querySelector(".text"));
-
-    if (!root) {
-      return {
-        text: "",
-        segments: [],
-      };
-    }
-
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-
-    /** @type {{
-     *   node: Text,
-     *   start: number,
-     *   end: number
-     * }[]}
-     */
-    const segments = [];
-
-    let text = "";
-
-    /** @type {Text | null} */
-    let node = /** @type {Text | null} */ (walker.nextNode());
-
-    while (node) {
-      const parent = node.parentElement;
-
-      if (parent && !parent.closest(".kame-replace-extra")) {
-        const value = node.data;
-
-        const start = text.length;
-
-        text += value;
-
-        segments.push({
-          node,
-          start,
-          end: start + value.length,
-        });
-      }
-
-      node = /** @type {Text | null} */ (walker.nextNode());
-    }
-
-    return {
-      text,
-      segments,
-    };
-  }
-
-  /**
-   * @param {{
-   *   node: Text,
-   *   start: number,
-   *   end: number
-   * }[]} segments
-   * @param {number} index
-   * @param {boolean} endBoundary
-   * @returns {{node: Text, offset: number} | null}
-   */
-  function findBoundary(segments, index, endBoundary) {
-    for (const segment of segments) {
-      if (!endBoundary && index >= segment.start && index < segment.end) {
-        return {
-          node: segment.node,
-
-          offset: index - segment.start,
-        };
-      }
-
-      if (endBoundary && index > segment.start && index <= segment.end) {
-        return {
-          node: segment.node,
-
-          offset: index - segment.start,
-        };
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * @param {{
-   *   node: Text,
-   *   start: number,
-   *   end: number
-   * }[]} segments
-   * @param {number} start
-   * @param {number} end
-   * @returns {Range | null}
-   */
-  function makeRange(segments, start, end) {
-    if (end <= start) {
-      return null;
-    }
-
-    const startPoint = findBoundary(segments, start, false);
-
-    const endPoint = findBoundary(segments, end, true);
-
-    if (!startPoint || !endPoint) {
-      return null;
-    }
-
-    const range = document.createRange();
-
-    range.setStart(startPoint.node, startPoint.offset);
-
-    range.setEnd(endPoint.node, endPoint.offset);
-
-    return range;
-  }
-
-  /* =========================================================
-     Search
-     ========================================================= */
+  // Search
 
   /**
    * @returns {void}
@@ -503,9 +303,7 @@
     });
   }
 
-  /* =========================================================
-     Highlight
-     ========================================================= */
+  // Highlight
 
   /**
    * @returns {void}
@@ -543,9 +341,7 @@
     }
   }
 
-  /* =========================================================
-     Navigation
-     ========================================================= */
+  // Navigation
 
   /**
    * @returns {void}
@@ -606,62 +402,7 @@
     scrollToCurrentMatch();
   }
 
-  /* =========================================================
-     Replacement Template
-     ========================================================= */
-
-  /**
-   * 正規表現置換時に
-   *
-   * $&
-   * $1
-   * $2
-   * $$
-   *
-   * などを利用可能にする。
-   *
-   * @param {string} template
-   * @param {RegExpMatchArray} match
-   * @param {string} input
-   * @returns {string}
-   */
-  function expandReplacement(template, match, input) {
-    const matchIndex = match.index ?? 0;
-
-    return template.replace(
-      /\$(\$|&|`|'|\d{1,2})/g,
-
-      (full, token) => {
-        if (token === "$") {
-          return "$";
-        }
-
-        if (token === "&") {
-          return match[0];
-        }
-
-        if (token === "`") {
-          return input.slice(0, matchIndex);
-        }
-
-        if (token === "'") {
-          return input.slice(matchIndex + match[0].length);
-        }
-
-        const index = Number(token);
-
-        if (Number.isInteger(index) && index >= 1 && index < match.length) {
-          return match[index] ?? "";
-        }
-
-        return full;
-      },
-    );
-  }
-
-  /* =========================================================
-     Replace Current
-     ========================================================= */
+  // Replace Current
 
   /**
    * @returns {Promise<void>}
@@ -724,9 +465,7 @@
     schedulePostReplaceRefresh();
   }
 
-  /* =========================================================
-     Replace All
-     ========================================================= */
+  // Replace All
 
   /**
    * @returns {Promise<void>}
@@ -834,9 +573,7 @@
     }, 120);
   }
 
-  /* =========================================================
-     UI Status
-     ========================================================= */
+  // UI Status
 
   /**
    * @param {string} text
@@ -853,24 +590,7 @@
     activeUI.status.classList.toggle("is-error", error);
   }
 
-  /* =========================================================
-     Option Button
-     ========================================================= */
-
-  /**
-   * @param {HTMLButtonElement} button
-   * @param {boolean} active
-   * @returns {void}
-   */
-  function setOptionButton(button, active) {
-    button.classList.toggle("is-active", active);
-
-    button.setAttribute("aria-pressed", active ? "true" : "false");
-  }
-
-  /* =========================================================
-     Enhance Standard Search Form
-     ========================================================= */
+  // Enhance Standard Search Form
 
   /**
    * @param {HTMLElement} form
@@ -918,9 +638,7 @@
 
     const formSignal = formController.signal;
 
-    /* =======================================================
-       Native Buttons
-       ======================================================= */
+    // Native Buttons
 
     const prevButton = /** @type {HTMLButtonElement | null} */ (
       form.querySelector(".kamon-direction-up")?.closest("button") ?? null
@@ -934,9 +652,7 @@
       form.querySelector(".kamon-cross")?.closest("button") ?? null
     );
 
-    /* =======================================================
-       Replace Row
-       ======================================================= */
+    // Replace Row
 
     const replaceRow = document.createElement("div");
 
@@ -968,9 +684,7 @@
 
     replaceRow.append(replaceInput, replaceButton, replaceAllButton);
 
-    /* =======================================================
-       Options
-       ======================================================= */
+    // Options
 
     const optionsRow = document.createElement("div");
 
@@ -1011,9 +725,7 @@
       controller: formController,
     };
 
-    /* =======================================================
-       Search Input Capture
-       ======================================================= */
+    // Search Input Capture
 
     /*
      * Replace Modeでは
@@ -1041,9 +753,7 @@
       },
     );
 
-    /* =======================================================
-       Native Button Capture
-       ======================================================= */
+    // Native Button Capture
 
     form.addEventListener(
       "click",
@@ -1098,9 +808,7 @@
       },
     );
 
-    /* =======================================================
-       Option Events
-       ======================================================= */
+    // Option Events
 
     caseButton.addEventListener(
       "click",
@@ -1156,9 +864,7 @@
       },
     );
 
-    /* =======================================================
-       Replace Events
-       ======================================================= */
+    // Replace Events
 
     replaceButton.addEventListener(
       "click",
@@ -1190,17 +896,13 @@
 
     // Author: kamekingdom (2026-10-06)
 
-    /* =======================================================
-   Keyboard
-   ======================================================= */
+    // Keyboard
 
     form.addEventListener(
       "keydown",
 
       (event) => {
-        /* -----------------------------------------------------
-       Search Input
-       ----------------------------------------------------- */
+        // Search Input
 
         /*
          * 検索欄
@@ -1221,9 +923,7 @@
           return;
         }
 
-        /* -----------------------------------------------------
-       Replace Input
-       ----------------------------------------------------- */
+        // Replace Input
 
         /*
          * 置換欄で普通のEnter
@@ -1246,9 +946,7 @@
           return;
         }
 
-        /* -----------------------------------------------------
-       Ctrl / Cmd + Enter
-       ----------------------------------------------------- */
+        // Ctrl / Cmd + Enter
 
         /*
          * Ctrl + Enter
@@ -1273,9 +971,7 @@
       },
     );
 
-    /* =======================================================
-       Initial
-       ======================================================= */
+    // Initial
 
     setOptionButton(caseButton, options.caseSensitive);
 
@@ -1292,30 +988,7 @@
     });
   }
 
-  /**
-   * @param {string} text
-   * @param {string} title
-   * @returns {HTMLButtonElement}
-   */
-  function createOptionButton(text, title) {
-    const button = document.createElement("button");
-
-    button.type = "button";
-
-    button.className = "kame-replace-option";
-
-    button.textContent = text;
-
-    button.title = title;
-
-    button.setAttribute("aria-pressed", "false");
-
-    return button;
-  }
-
-  /* =========================================================
-     Disable Replace Mode
-     ========================================================= */
+  // Disable Replace Mode
 
   /**
    * @param {boolean} restoreNativeSearch
@@ -1361,9 +1034,7 @@
     }
   }
 
-  /* =========================================================
-     Shortcut
-     ========================================================= */
+  // Shortcut
 
   /**
    * @param {KeyboardEvent} event
@@ -1378,9 +1049,7 @@
       return;
     }
 
-    /* -------------------------------------------------------
-       Ctrl + H
-       ------------------------------------------------------- */
+    // Ctrl + H
 
     if (key === "KeyH") {
       replaceRequested = true;
@@ -1412,9 +1081,7 @@
       return;
     }
 
-    /* -------------------------------------------------------
-       Ctrl + F
-       ------------------------------------------------------- */
+    // Ctrl + F
 
     if (key === "KeyF" && activeUI) {
       replaceRequested = false;
@@ -1436,9 +1103,7 @@
     signal,
   });
 
-  /* =========================================================
-     DOM Observer
-     ========================================================= */
+  // DOM Observer
 
   observer = new MutationObserver(() => {
     const form = /** @type {HTMLElement | null} */ (document.querySelector(".in-page-search-form"));
@@ -1467,9 +1132,7 @@
     subtree: true,
   });
 
-  /* =========================================================
-     Page Mutation
-     ========================================================= */
+  // Page Mutation
 
   /*
    * Replace Mode中にページ本文が変わった場合、
@@ -1505,9 +1168,7 @@
     });
   }
 
-  /* =========================================================
-     Cleanup
-     ========================================================= */
+  // Cleanup
 
   signal.addEventListener(
     "abort",

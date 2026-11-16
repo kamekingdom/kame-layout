@@ -1,0 +1,25 @@
+/* =========================================================
+   Code本文
+   ========================================================= */
+
+.line > .text.code-block code.code-body {
+  color: var(--code-text);
+
+  background: transparent !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+  font-size: inherit;
+
+  line-height: inherit;
+}
+
+/* =========================================================
+   Syntax Highlighting
+   ========================================================= */
+
+.line > .text.code-block code.code-body.highlight {
+  background: transparent !important;
+}

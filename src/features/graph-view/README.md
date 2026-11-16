@@ -15,8 +15,12 @@
 
 | ファイル | 役割 |
 | --- | --- |
-| [script.js](script.js) | 機能の処理・初期化 |
+| [script.js](script.js) | 初期化・イベント・状態の管理 |
 | [style.css](style.css) | 表示・装飾 |
+| [colors.js](colors.js) | テーマ色の解析・混色・輝度計算 |
+| [links.js](links.js) | ページ名の比較・省略表示・URL生成 |
+| [config.js](config.js) | 取得上限・キャッシュ・描画回数の設定 |
+| [api.js](api.js) | ページ一覧の取得とページ送り |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

@@ -1,0 +1,47 @@
+/* ==========================================
+   Copy Button
+   ========================================== */
+
+.kame-table-copy-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  margin-left: 0.4em;
+  padding: 3px;
+
+  border: none;
+  border-radius: 4px !important;
+
+  background: transparent !important;
+  color: #64748b !important;
+
+  cursor: pointer;
+  vertical-align: middle;
+
+  opacity: 0.65;
+  transition: opacity 0.15s ease;
+}
+
+.kame-table-copy-button:hover {
+  background: #e2e8f0 !important;
+  opacity: 1;
+}
+
+.kame-table-copy-button svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .line .table-block .cell,
+  .kame-table-copy-button {
+    transition: none !important;
+  }
+}

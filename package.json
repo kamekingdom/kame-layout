@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Scrapbox / Cosense custom styles and scripts",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13"
   },
   "scripts": {
     "build": "node tools/generate.mjs",
@@ -14,12 +14,15 @@
     "sync:plan": "node tools/sync-scrapbox.mjs",
     "sync:verify": "node tools/sync-scrapbox.mjs --verify",
     "sync:publish": "node tools/sync-scrapbox.mjs --publish",
-    "format": "prettier --write 'src/features/**/*.js' 'src/theme/*.css' 'tools/*.mjs' 'tests/*.mjs' config/features.json"
+    "format": "npm run format:script && npm run format:css",
+    "format:script": "prettier --write 'src/features/**/*.js' 'tools/*.mjs' 'tests/**/*.mjs' config/features.json",
+    "format:css": "node tools/format-styles.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
     "acorn": "^8.19.0",
     "astring": "^1.9.0",
+    "eslint-scope": "^9.1.2",
     "postcss": "^8.5.33",
     "prettier": "^3.10.1"
   }

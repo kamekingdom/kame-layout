@@ -15,7 +15,11 @@ CSV を解析し、貼り付けやすい TSV へ変換します。
 
 | ファイル | 役割 |
 | --- | --- |
-| [script.js](script.js) | 機能の処理・初期化 |
+| [script.js](script.js) | 初期化・イベント・状態の管理 |
+| [csv.js](csv.js) | CSV解析とTSV変換 |
+| [icons.js](icons.js) | コピー・完了アイコンのSVG |
+| [config.js](config.js) | ボタンの識別子 |
+| [styles.js](styles.js) | Scriptが挿入するボタン専用CSS |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

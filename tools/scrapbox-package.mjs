@@ -2,6 +2,7 @@ import path from "node:path";
 import { parse } from "acorn";
 import { generate } from "astring";
 import { config, defaults, read } from "./project.mjs";
+import { compileStyles } from "./styles.mjs";
 
 export const entryPage = "kame-layout:delivery";
 export const managedMarker = "kame-layout managed delivery v1";
@@ -101,7 +102,7 @@ export function createPackage() {
     "",
   ];
   for (const { feature, name, filename } of sources) {
-    let source = read(filename);
+    let source = name.endsWith(".css") ? compileStyles(filename) : read(filename);
     if (name.endsWith(".js")) source = compileModule(source, filename, names);
     lines.push(
       `説明：${feature.name} / ${name}`,

@@ -1,37 +1,12 @@
+/** @typedef {import("./types.js").CosenseLine} CosenseLine */
+/** @typedef {import("./types.js").KameWindow} KameWindow */
+
+import { findIconTokens, getClickedIconOrdinal, STATES, getTargetAnchor } from "./states.js";
+
 // Author: kamekingdom (2026-10-05)
 
 (() => {
-  /* =========================================================
-     Types
-     ========================================================= */
-
-  /**
-   * @typedef {{
-   *   name: string,
-   *   source: string
-   * }} IconState
-   */
-
-  /**
-   * @typedef {{
-   *   id?: string,
-   *   text?: string
-   * }} CosenseLine
-   */
-
-  /**
-   * @typedef {
-   *   Window
-   *   & typeof globalThis
-   *   & {
-   *     __kameStatusIconController?: AbortController
-   *   }
-   * } KameWindow
-   */
-
-  /* =========================================================
-     API
-     ========================================================= */
+  // API
 
   const api = window.cosense ?? window.scrapbox;
 
@@ -41,43 +16,7 @@
     return;
   }
 
-  /* =========================================================
-     Settings
-     ========================================================= */
-
-  const PROJECT_NAME = "kamelayout";
-
-  /** @type {IconState[]} */
-  const STATES = [
-    {
-      name: "AC",
-      source: "[/kameLayout/AC.icon]",
-    },
-    {
-      name: "NWJ",
-      source: "[/kameLayout/NWJ.icon]",
-    },
-    {
-      name: "WJ",
-      source: "[/kameLayout/WJ.icon]",
-    },
-    {
-      name: "WA",
-      source: "[/kameLayout/WA.icon]",
-    },
-    {
-      name: "RE",
-      source: "[/kameLayout/RE.icon]",
-    },
-    {
-      name: "TLE",
-      source: "[/kameLayout/TLE.icon]",
-    },
-  ];
-
-  /* =========================================================
-     Initialization
-     ========================================================= */
+  // Initialization
 
   /** @type {KameWindow} */
   const kameWindow = /** @type {KameWindow} */ (window);
@@ -94,112 +33,7 @@
 
   kameWindow.__kameStatusIconController = controller;
 
-  /* =========================================================
-     Anchor Detection
-     ========================================================= */
-
-  /**
-   * hrefから状態名を取得。
-   *
-   * 実際のリンク:
-   *
-   * /kamelayout/AC
-   * /kamelayout/NWJ
-   * ...
-   *
-   * @param {HTMLAnchorElement} anchor
-   * @returns {number}
-   */
-  function getStateIndexFromAnchor(anchor) {
-    /*
-     * 通常の文字リンク
-     *
-     * [AC]
-     *
-     * までToggle対象にしないため、
-     * 画像を含んでいるリンクだけ対象。
-     */
-    if (!anchor.querySelector("img")) {
-      return -1;
-    }
-
-    try {
-      const url = new URL(anchor.href, location.href);
-
-      const pathParts = url.pathname
-        .split("/")
-        .filter(Boolean)
-        .map((part) => decodeURIComponent(part));
-
-      /*
-       * 例:
-       *
-       * /kamelayout/AC
-       *
-       * ↓
-       *
-       * [
-       *   "kamelayout",
-       *   "AC"
-       * ]
-       */
-      if (pathParts.length < 2) {
-        return -1;
-      }
-
-      const projectName = pathParts[pathParts.length - 2];
-
-      const pageName = pathParts[pathParts.length - 1];
-
-      if (projectName.toLowerCase() !== PROJECT_NAME.toLowerCase()) {
-        return -1;
-      }
-
-      return STATES.findIndex((state) => state.name === pageName);
-    } catch (error) {
-      return -1;
-    }
-  }
-
-  /**
-   * 対象のStatus Iconか。
-   *
-   * @param {HTMLAnchorElement} anchor
-   * @returns {boolean}
-   */
-  function isTargetAnchor(anchor) {
-    return getStateIndexFromAnchor(anchor) >= 0;
-  }
-
-  /**
-   * Eventから対象anchor取得。
-   *
-   * @param {Event} event
-   * @returns {HTMLAnchorElement | null}
-   */
-  function getTargetAnchor(event) {
-    const target = event.target;
-
-    if (!(target instanceof Element)) {
-      return null;
-    }
-
-    const anchor = target.closest("a[href]");
-
-    if (!(anchor instanceof HTMLAnchorElement)) {
-      return null;
-    }
-
-    if (!isTargetAnchor(anchor)) {
-      return null;
-    }
-
-    return anchor;
-  }
-
-  /* =========================================================
-     Page Lines
-     ========================================================= */
+  // Page Lines
 
   /**
    * @returns {CosenseLine[]}
@@ -225,9 +59,7 @@
 
     const normalizedDomId = domId.startsWith("L") ? domId.slice(1) : domId;
 
-    /* =======================================================
-       ID Match
-       ======================================================= */
+    // ID Match
 
     const idIndex = pageLines.findIndex((line) => {
       if (!line.id) {
@@ -241,94 +73,14 @@
       return idIndex;
     }
 
-    /* =======================================================
-       DOM Index Fallback
-       ======================================================= */
+    // DOM Index Fallback
 
     const domLines = Array.from(document.querySelectorAll(".lines > .line"));
 
     return domLines.indexOf(lineElement);
   }
 
-  /* =========================================================
-     Source Token Detection
-     ========================================================= */
-
-  /**
-   * 行内のStatus Icon記法を全部取得。
-   *
-   * @param {string} text
-   * @returns {{
-   *   start: number,
-   *   end: number,
-   *   stateIndex: number
-   * }[]}
-   */
-  function findIconTokens(text) {
-    /** @type {{
-     *   start: number,
-     *   end: number,
-     *   stateIndex: number
-     * }[]}
-     */
-    const tokens = [];
-
-    for (let stateIndex = 0; stateIndex < STATES.length; stateIndex++) {
-      const source = STATES[stateIndex].source;
-
-      let position = 0;
-
-      while (true) {
-        const start = text.indexOf(source, position);
-
-        if (start < 0) {
-          break;
-        }
-
-        tokens.push({
-          start,
-
-          end: start + source.length,
-
-          stateIndex,
-        });
-
-        position = start + source.length;
-      }
-    }
-
-    /*
-     * 左から順番に並べる。
-     */
-    tokens.sort((a, b) => a.start - b.start);
-
-    return tokens;
-  }
-
-  /* =========================================================
-     Clicked Icon Detection
-     ========================================================= */
-
-  /**
-   * 同じ行に複数Status Iconがある場合、
-   * 何番目をクリックしたか調べる。
-   *
-   * @param {HTMLElement} lineElement
-   * @param {HTMLAnchorElement} clickedAnchor
-   * @returns {number}
-   */
-  function getClickedIconOrdinal(lineElement, clickedAnchor) {
-    /** @type {HTMLAnchorElement[]} */
-    const anchors = Array.from(lineElement.querySelectorAll("a[href]"))
-      .filter((element) => element instanceof HTMLAnchorElement)
-      .filter((element) => isTargetAnchor(/** @type {HTMLAnchorElement} */ (element)));
-
-    return anchors.indexOf(clickedAnchor);
-  }
-
-  /* =========================================================
-     Toggle
-     ========================================================= */
+  // Toggle
 
   /**
    * Status Iconを次の状態へ変更。
@@ -357,9 +109,7 @@
       return;
     }
 
-    /* =======================================================
-       Page Line
-       ======================================================= */
+    // Page Line
 
     const lineIndex = findPageLineIndex(lineElement);
 
@@ -379,9 +129,7 @@
 
     const text = pageLine.text ?? "";
 
-    /* =======================================================
-       Token
-       ======================================================= */
+    // Token
 
     const tokens = findIconTokens(text);
 
@@ -401,9 +149,7 @@
 
     const nextState = STATES[nextStateIndex];
 
-    /* =======================================================
-       Replace
-       ======================================================= */
+    // Replace
 
     const updatedText = text.slice(0, token.start) + nextState.source + text.slice(token.end);
 
@@ -423,10 +169,6 @@
     }
   }
 
-  /* =========================================================
-     Navigation Prevention
-     ========================================================= */
-
   /**
    * Cosenseがページ遷移する前に
    * 対象Status Iconを捕まえる。
@@ -434,9 +176,7 @@
    * capture phaseで実行。
    */
 
-  /* ---------------------------------------------------------
-     Pointer Down
-     --------------------------------------------------------- */
+  // Pointer Down
 
   document.addEventListener(
     "pointerdown",
@@ -465,9 +205,7 @@
     },
   );
 
-  /* ---------------------------------------------------------
-     Mouse Down
-     --------------------------------------------------------- */
+  // Mouse Down
 
   document.addEventListener(
     "mousedown",
@@ -490,9 +228,7 @@
     },
   );
 
-  /* ---------------------------------------------------------
-     Click
-     --------------------------------------------------------- */
+  // Click
 
   document.addEventListener(
     "click",
@@ -525,9 +261,7 @@
     },
   );
 
-  /* =========================================================
-     Drag Prevention
-     ========================================================= */
+  // Drag Prevention
 
   /*
    * 画像をドラッグしたときの
@@ -552,9 +286,7 @@
     },
   );
 
-  /* =========================================================
-     Loaded
-     ========================================================= */
+  // Loaded
 
   console.log("[Kame Status Icon] loaded");
 })();

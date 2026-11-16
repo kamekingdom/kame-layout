@@ -8,15 +8,9 @@ import { templates } from "./templates.js";
  * }} Template
  */
 
-/* =========================================================
-   Templates
-   ========================================================= */
-
 /** @type {Template[]} */
 
-/* =========================================================
-   Load Template
-   ========================================================= */
+// Load Template
 
 /**
  * テンプレートを取得し、Cosenseの編集欄に挿入する。
@@ -37,9 +31,7 @@ async function loadTemplate(templateUrl) {
   const originalPath = window.location.pathname;
 
   try {
-    /* -----------------------------------------------------
-       Fetch Template
-       ----------------------------------------------------- */
+    // Fetch Template
 
     const response = await fetch(templateUrl, {
       method: "GET",
@@ -60,18 +52,14 @@ async function loadTemplate(templateUrl) {
     /** @type {string} */
     const templateText = await response.text();
 
-    /* -----------------------------------------------------
-       Validate Current Page
-       ----------------------------------------------------- */
+    // Validate Current Page
 
     if (window.location.pathname !== originalPath || !page.lines || page.lines.length !== 1) {
       console.warn("[Template] ページが変更されたため処理を中止しました。");
       return;
     }
 
-    /* -----------------------------------------------------
-       Focus Editor
-       ----------------------------------------------------- */
+    // Focus Editor
 
     const firstLine = page.lines[0];
 
@@ -105,9 +93,7 @@ async function loadTemplate(templateUrl) {
       }),
     );
 
-    /* -----------------------------------------------------
-       Insert Template
-       ----------------------------------------------------- */
+    // Insert Template
 
     // ネイティブsetterを利用して値を設定
     const valueSetter = Object.getOwnPropertyDescriptor(
@@ -137,9 +123,7 @@ async function loadTemplate(templateUrl) {
   }
 }
 
-/* =========================================================
-   Page Menu
-   ========================================================= */
+// Page Menu
 
 /** @type {string} */
 const menuTitle = "Templates";

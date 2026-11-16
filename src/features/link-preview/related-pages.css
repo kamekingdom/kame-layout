@@ -1,0 +1,211 @@
+/* Author: kamekingdom (2026-09-08) */
+
+/* =========================================================
+   Link Preview - Related Pages
+   ========================================================= */
+
+/* =========================================================
+   Related Pages全体
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related {
+  margin-top: 0.8em;
+
+  padding-top: 0.65em;
+
+  border-top: 1px solid var(--link-preview-border);
+}
+
+/* =========================================================
+   RELATED PAGES
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-heading {
+  margin-bottom: 0.55em;
+
+  color: var(--link-preview-muted);
+
+  font-size: 0.66em;
+
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   Group
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-group {
+  display: grid;
+
+  grid-template-columns:
+    5.7em
+    minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 0.55em;
+
+  padding: 0.3em 0;
+}
+
+/* Group間 */
+#kame-link-preview .kame-link-preview-related-group + .kame-link-preview-related-group {
+  border-top: 1px solid rgba(0, 0, 0, 0.045);
+}
+
+/* =========================================================
+   Label / HeadWord
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-label {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 0.25em;
+
+  min-width: 0;
+
+  color: #707783;
+
+  font-size: 0.76em;
+
+  font-weight: 600;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   HeadWord
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-headword {
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: #59616d;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+#kame-link-preview .kame-link-preview-headword:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+
+/* =========================================================
+   Arrow
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-arrow {
+  flex: 0 0 auto;
+
+  color: #a8adb5;
+
+  font-size: 0.9em;
+}
+
+/* =========================================================
+   Links
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-links {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: baseline;
+
+  gap: 0.18em 0.3em;
+
+  min-width: 0;
+}
+
+/* =========================================================
+   Related Link
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-link {
+  display: inline;
+
+  color: #4f6679;
+
+  font-size: 0.78em;
+
+  line-height: 1.55;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+/*
+ * 各ページの間に · を入れる。
+ */
+#kame-link-preview .kame-link-preview-related-link:not(:last-child)::after {
+  content: "·";
+
+  margin-left: 0.3em;
+
+  color: #b8bdc4;
+
+  pointer-events: none;
+}
+
+#kame-link-preview .kame-link-preview-related-link:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+
+/* =========================================================
+   1-hop
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-group.is-1hop .kame-link-preview-related-label {
+  color: var(--link-preview-dark);
+
+  font-weight: 650;
+}
+
+/* =========================================================
+   2-hop
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-group.is-2hop {
+  opacity: 0.95;
+}
+
+/* =========================================================
+   Ungrouped 2-hop
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-related-group.is-ungrouped {
+  opacity: 0.72;
+}
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+  #kame-link-preview .kame-link-preview-related-group {
+    grid-template-columns:
+      4.8em
+      minmax(0, 1fr);
+
+    gap: 0.4em;
+  }
+}

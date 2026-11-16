@@ -1,53 +1,53 @@
 .grid li.pin[data-page-title="Settings"] a .content {
-    background-image: url(https://scrapbox.io/files/6629be20e3382800255e3e4f.png);
+  background-image: url(https://scrapbox.io/files/6629be20e3382800255e3e4f.png);
 }
 .grid li.pin[data-page-title]:nth-of-type(15n) a .content {
-    background-image: url(https://scrapbox.io/files/6629b16aba7a560025562950.png);
+  background-image: url(https://scrapbox.io/files/6629b16aba7a560025562950.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+1) a .content {
-    background-image: url(https://scrapbox.io/files/6629b16e73d818002454a242.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 1) a .content {
+  background-image: url(https://scrapbox.io/files/6629b16e73d818002454a242.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+2) a .content {
-    background-image: url(https://scrapbox.io/files/6629b17103843a00281aa726.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 2) a .content {
+  background-image: url(https://scrapbox.io/files/6629b17103843a00281aa726.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+3) a .content {
-    background-image: url(https://scrapbox.io/files/6629b8f9d8323c0025e3f363.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 3) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f9d8323c0025e3f363.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+4) a .content {
-    background-image: url(https://scrapbox.io/files/6629b17659583100246606b7.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 4) a .content {
+  background-image: url(https://scrapbox.io/files/6629b17659583100246606b7.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+5) a .content {
-    background-image: url(https://scrapbox.io/files/6629b8f25a5edf00232968c5.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 5) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f25a5edf00232968c5.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+6) a .content {
-    background-image: url(https://scrapbox.io/files/6629b8f599258c00240b4d63.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 6) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f599258c00240b4d63.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+7) a .content {
-    background-image: url(https://scrapbox.io/files/6629b8f721ac9a00230d2a5f.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 7) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f721ac9a00230d2a5f.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+8) a .content {
-	background-image: url(https://scrapbox.io/files/6629b16c113181002471bf79.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 8) a .content {
+  background-image: url(https://scrapbox.io/files/6629b16c113181002471bf79.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+9) a .content {
-    background-image: url(https://scrapbox.io/files/6629b8ff460b8c0025e24a5b.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 9) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8ff460b8c0025e24a5b.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+10) a .content {
-    background-image: url(https://scrapbox.io/files/6629b901e924ba00258af0ae.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 10) a .content {
+  background-image: url(https://scrapbox.io/files/6629b901e924ba00258af0ae.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+11) a .content {
-    background-image: url(https://scrapbox.io/files/6629b903d9f3d20024c3d2a8.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 11) a .content {
+  background-image: url(https://scrapbox.io/files/6629b903d9f3d20024c3d2a8.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+12) a .content {
-    background-image: url(https://scrapbox.io/files/6629b90603843a00281b558a.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 12) a .content {
+  background-image: url(https://scrapbox.io/files/6629b90603843a00281b558a.png);
 }
-.grid li.pin[data-page-title]:nth-of-type(15n+13) a .content {
-    background-image: url(https://scrapbox.io/files/6629b908c8dfba0024a35b43.png);
+.grid li.pin[data-page-title]:nth-of-type(15n + 13) a .content {
+  background-image: url(https://scrapbox.io/files/6629b908c8dfba0024a35b43.png);
 }
 .grid li.pin[data-page-title]:nth-of-type(66) a .content {
-    background-image: url(https://scrapbox.io/files/6629bb2ae4d7d000257bd8a5.png);
+  background-image: url(https://scrapbox.io/files/6629bb2ae4d7d000257bd8a5.png);
 }
 /* その他の場合のデフォルト画像 */
 .grid li.pin a .content {
-    background-image: url(https://scrapbox.io/files/6629b8fcd9106f0025fa487b.png);
+  background-image: url(https://scrapbox.io/files/6629b8fcd9106f0025fa487b.png);
 }
 /* https://scrapbox.io/files/6629b17377ddd60025dfb471.png */

@@ -15,8 +15,11 @@ SUM など、Script に実装された関数をテーブルで使います。
 
 | ファイル | 役割 |
 | --- | --- |
-| [script.js](script.js) | 機能の処理・初期化 |
+| [script.js](script.js) | 初期化・イベント・状態の管理 |
 | [style.css](style.css) | 表示・装飾 |
+| [engine.js](engine.js) | 数式の解析・依存関係の評価・エラー処理 |
+| [table-dom.js](table-dom.js) | 表の検出と計算結果の描画 |
+| [types.js](types.js) | 型定義（実行時の配信対象外） |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

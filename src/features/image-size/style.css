@@ -1,6 +1,30 @@
-.level-1 img { width: 16.7%; max-height: none !important; max-width: none !important;}
-.level-2 img { width: 33.3%; max-height: none !important;max-width: none !important;}
-.level-3 img { width: 50%; max-height: none !important;max-width: none !important;}
-.level-4 img { width: 66.7%; max-height: none !important; max-width: none !important;}
-.level-5 img { width: 83.3%; max-height: none !important; max-width: none !important;}
-.level-6 img { width: 100%; max-height: none !important; max-width: none !important;}
+.level-1 img {
+  width: 16.7%;
+  max-height: none !important;
+  max-width: none !important;
+}
+.level-2 img {
+  width: 33.3%;
+  max-height: none !important;
+  max-width: none !important;
+}
+.level-3 img {
+  width: 50%;
+  max-height: none !important;
+  max-width: none !important;
+}
+.level-4 img {
+  width: 66.7%;
+  max-height: none !important;
+  max-width: none !important;
+}
+.level-5 img {
+  width: 83.3%;
+  max-height: none !important;
+  max-width: none !important;
+}
+.level-6 img {
+  width: 100%;
+  max-height: none !important;
+  max-width: none !important;
+}

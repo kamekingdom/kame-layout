@@ -4,24 +4,19 @@
    Hierarchy Fold
    ========================================================= */
 
-
 /* =========================================================
    Line
    ========================================================= */
 
-.lines
-.line {
+.lines .line {
   position: relative;
 }
-
 
 /* =========================================================
    Toggle
    ========================================================= */
 
-.lines
-.line
-.kame-fold-toggle {
+.lines .line .kame-fold-toggle {
   position: absolute;
 
   top: 50%;
@@ -41,11 +36,7 @@
 
   color: #89909a;
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   font-size: 0.63em;
 
@@ -55,8 +46,7 @@
 
   cursor: pointer;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
   opacity: 0.55;
 
@@ -65,38 +55,30 @@
     color 0.12s ease;
 }
 
-
 /* =========================================================
    Hover
    ========================================================= */
 
-.lines
-.line
-.kame-fold-toggle:hover {
+.lines .line .kame-fold-toggle:hover {
   color: #3f4652;
 
   opacity: 1;
 }
 
-
 /* =========================================================
    Collapsed
    ========================================================= */
 
-.lines
-.line.kame-fold-parent-collapsed
-.kame-fold-toggle {
+.lines .line.kame-fold-parent-collapsed .kame-fold-toggle {
   color: #59616e;
 
   opacity: 0.9;
 }
 
-
 /* =========================================================
    Hidden
    ========================================================= */
 
-.lines
-.line.kame-fold-hidden {
+.lines .line.kame-fold-hidden {
   display: none !important;
 }

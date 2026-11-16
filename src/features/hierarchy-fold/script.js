@@ -1,56 +1,19 @@
+/** @typedef {import("./types.js").CosenseLine} CosenseLine */
+/** @typedef {import("./types.js").FoldLineInfo} FoldLineInfo */
+/** @typedef {import("./types.js").KameWindow} KameWindow */
+
+import {
+  getIndentLevel,
+  isBlankLine,
+  getFoldMarkerFromDom,
+  toggleFoldMarkerText,
+} from "./markers.js";
+import { applyVisibility, isOwnToggleMutation } from "./visibility.js";
+
 // Author: kamekingdom (2026-09-29)
 
 (() => {
-  /* =========================================================
-     Types
-     ========================================================= */
-
-  /**
-   * @typedef {'collapsed'|'expanded'} FoldState
-   */
-
-  /**
-   * @typedef {{
-   *   id?: string,
-   *   text?: string
-   * }} CosenseLine
-   */
-
-  /**
-   * @typedef {{
-   *   state: FoldState
-   * }} FoldMarker
-   */
-
-  /**
-   * @typedef {{
-   *   element: HTMLElement,
-   *   indent: number,
-   *   blank: boolean,
-   *   marker: FoldMarker | null,
-   *   hasChildren: boolean
-   * }} FoldLineInfo
-   */
-
-  /**
-   * @typedef {{
-   *   indent: number
-   * }} ActiveFold
-   */
-
-  /**
-   * @typedef {
-   *   Window
-   *   & typeof globalThis
-   *   & {
-   *     __kameHierarchyFoldController?: AbortController
-   *   }
-   * } KameWindow
-   */
-
-  /* =========================================================
-     Initialization
-     ========================================================= */
+  // Initialization
 
   /** @type {KameWindow} */
   const kameWindow = /** @type {KameWindow} */ (window);
@@ -70,9 +33,7 @@
 
   kameWindow.__kameHierarchyFoldController = controller;
 
-  /* =========================================================
-     Cleanup
-     ========================================================= */
+  // Cleanup
 
   document.querySelectorAll(".kame-fold-toggle").forEach((element) => {
     element.remove();
@@ -82,9 +43,7 @@
     element.classList.remove("kame-fold-hidden", "kame-fold-parent-collapsed");
   });
 
-  /* =========================================================
-     State
-     ========================================================= */
+  // State
 
   /** @type {number | null} */
   let refreshFrame = null;
@@ -92,223 +51,7 @@
   /** @type {MutationObserver | null} */
   let observer = null;
 
-  /* =========================================================
-     DOM Fold Marker
-     ========================================================= */
-
-  /**
-   * Cosenseが生成したDOMから
-   * > / < の装飾を探す。
-   *
-   * 対応例:
-   *
-   * [> メール]
-   * [>. メール]
-   * [.> メール]
-   * [.*> メール]
-   *
-   * [< メール]
-   * [<. メール]
-   * [.< メール]
-   * [.*< メール]
-   *
-   * @param {HTMLElement} line
-   * @returns {FoldMarker | null}
-   */
-  function getFoldMarkerFromDom(line) {
-    /** @type {NodeListOf<HTMLElement>} */
-    const elements = line.querySelectorAll("[class]");
-
-    for (const element of elements) {
-      /*
-       * >
-       *
-       * collapsed
-       */
-      if (element.classList.contains("deco->")) {
-        return {
-          state: "collapsed",
-        };
-      }
-
-      /*
-       * <
-       *
-       * expanded
-       */
-      if (element.classList.contains("deco-<")) {
-        return {
-          state: "expanded",
-        };
-      }
-    }
-
-    return null;
-  }
-
-  /* =========================================================
-     Raw Fold Marker
-     ========================================================= */
-
-  /**
-   * 生テキストの文字装飾部分から
-   * > / < を切り替える。
-   *
-   * 装飾順序には依存しない。
-   *
-   * 例:
-   *
-   * [> メール]
-   *   ↓
-   * [< メール]
-   *
-   * [>. メール]
-   *   ↓
-   * [<. メール]
-   *
-   * [.> メール]
-   *   ↓
-   * [.< メール]
-   *
-   * [.*> メール]
-   *   ↓
-   * [.*< メール]
-   *
-   * @param {string} text
-   * @returns {string | null}
-   */
-  function toggleFoldMarkerText(text) {
-    /*
-     * 行頭indent + [文字装飾
-     *
-     * を取得。
-     *
-     * 例:
-     *
-     *     [.> メール]
-     *
-     * indent      = "    "
-     * decorations = ".>"
-     */
-    const match = text.match(/^([\t \u3000]*)\[([^\]\t \u3000]+)(?=[\t \u3000])/u);
-
-    if (!match) {
-      return null;
-    }
-
-    /** @type {string} */
-    const indent = match[1];
-
-    /** @type {string} */
-    const decorations = match[2];
-
-    /* =======================================================
-       > → <
-       ======================================================= */
-
-    if (decorations.includes(">")) {
-      /** @type {string} */
-      const updatedDecorations = decorations.replace(">", "<");
-
-      return text.replace(
-        /^([\t \u3000]*)\[([^\]\t \u3000]+)(?=[\t \u3000])/u,
-
-        () => `${indent}[${updatedDecorations}`,
-      );
-    }
-
-    /* =======================================================
-       < → >
-       ======================================================= */
-
-    if (decorations.includes("<")) {
-      /** @type {string} */
-      const updatedDecorations = decorations.replace("<", ">");
-
-      return text.replace(
-        /^([\t \u3000]*)\[([^\]\t \u3000]+)(?=[\t \u3000])/u,
-
-        () => `${indent}[${updatedDecorations}`,
-      );
-    }
-
-    return null;
-  }
-
-  /* =========================================================
-     Blank Line
-     ========================================================= */
-
-  /**
-   * 空行か判定。
-   *
-   * @param {HTMLElement} line
-   * @returns {boolean}
-   */
-  function isBlankLine(line) {
-    /** @type {HTMLElement | null} */
-    const text = /** @type {HTMLElement | null} */ (line.querySelector(".text"));
-
-    if (!text) {
-      return true;
-    }
-
-    /** @type {string} */
-    const content = (text.textContent || "").replace(/\u200B/g, "").trim();
-
-    return content === "";
-  }
-
-  /* =========================================================
-     Indent
-     ========================================================= */
-
-  /**
-   * DOMからindent階層を取得。
-   *
-   * @param {HTMLElement} line
-   * @returns {number}
-   */
-  function getIndentLevel(line) {
-    /** @type {NodeListOf<HTMLElement>} */
-    const pads = line.querySelectorAll(".indent-mark .pad");
-
-    /*
-     * 通常はこちら。
-     */
-    if (pads.length > 0) {
-      return pads.length;
-    }
-
-    /*
-     * fallback。
-     */
-    /** @type {HTMLElement | null} */
-    const indentMark = /** @type {HTMLElement | null} */ (line.querySelector(".indent-mark"));
-
-    if (!indentMark) {
-      return 0;
-    }
-
-    /** @type {string} */
-    const width = indentMark.style.width;
-
-    const match = width.match(/^([\d.]+)em$/);
-
-    if (!match) {
-      return 0;
-    }
-
-    /*
-     * Cosenseでは通常
-     * 1階層 ≒ 1.5em。
-     */
-    return Math.round(Number(match[1]) / 1.5);
-  }
-
-  /* =========================================================
-     Collect Lines
-     ========================================================= */
+  // Collect Lines
 
   /**
    * 現在表示されている全行を取得。
@@ -334,9 +77,7 @@
       };
     });
 
-    /* =======================================================
-       Child Detection
-       ======================================================= */
+    // Child Detection
 
     /*
      * 「連続している階層」のみを
@@ -381,9 +122,7 @@
     return infos;
   }
 
-  /* =========================================================
-     Page Lines
-     ========================================================= */
+  // Page Lines
 
   /**
    * @returns {CosenseLine[]}
@@ -417,9 +156,7 @@
     /** @type {string} */
     const normalizedDomId = domId.startsWith("L") ? domId.slice(1) : domId;
 
-    /* =======================================================
-       ID Match
-       ======================================================= */
+    // ID Match
 
     /** @type {number} */
     const idIndex = pageLines.findIndex((pageLine) => {
@@ -436,9 +173,7 @@
       return idIndex;
     }
 
-    /* =======================================================
-       Fallback
-       ======================================================= */
+    // Fallback
 
     /*
      * ID一致しない場合のみ
@@ -457,9 +192,7 @@
     return -1;
   }
 
-  /* =========================================================
-     Update Fold
-     ========================================================= */
+  // Update Fold
 
   /**
    * 実際のCosense本文を書き換える。
@@ -527,9 +260,7 @@
     }
   }
 
-  /* =========================================================
-     Toggle Button
-     ========================================================= */
+  // Toggle Button
 
   /**
    * ▶ / ▼ を配置。
@@ -554,9 +285,7 @@
       return;
     }
 
-    /* =======================================================
-       Create
-       ======================================================= */
+    // Create
 
     if (!button) {
       button = document.createElement("button");
@@ -607,9 +336,7 @@
       element.appendChild(button);
     }
 
-    /* =======================================================
-       Appearance
-       ======================================================= */
+    // Appearance
 
     /** @type {boolean} */
     const collapsed = marker.state === "collapsed";
@@ -634,98 +361,7 @@
     element.classList.toggle("kame-fold-parent-collapsed", collapsed);
   }
 
-  /* =========================================================
-     Visibility
-     ========================================================= */
-
-  /**
-   * Fold状態を反映。
-   *
-   * Fold範囲:
-   *
-   * ・親より深いindentが続く間
-   * ・空行まで
-   *
-   * 空行自体は絶対に隠さない。
-   *
-   * @param {FoldLineInfo[]} infos
-   * @returns {void}
-   */
-  function applyVisibility(infos) {
-    /** @type {ActiveFold[]} */
-    const activeFolds = [];
-
-    for (const info of infos) {
-      const { element, indent, blank, marker, hasChildren } = info;
-
-      /* =====================================================
-         Blank
-         ===================================================== */
-
-      if (blank) {
-        /*
-         * 空行は表示。
-         */
-        element.classList.remove("kame-fold-hidden");
-
-        /*
-         * 空行でFold blockを終了。
-         */
-        activeFolds.length = 0;
-
-        continue;
-      }
-
-      /* =====================================================
-         End Fold
-         ===================================================== */
-
-      /*
-       * 同じ階層または
-       * 浅い階層へ戻ったらFold終了。
-       */
-      while (activeFolds.length > 0) {
-        const latest = activeFolds[activeFolds.length - 1];
-
-        if (indent > latest.indent) {
-          break;
-        }
-
-        activeFolds.pop();
-      }
-
-      /* =====================================================
-         Hidden
-         ===================================================== */
-
-      /** @type {boolean} */
-      const hidden = activeFolds.length > 0;
-
-      element.classList.toggle("kame-fold-hidden", hidden);
-
-      /*
-       * 親に隠れている場合は
-       * 子のFoldを開始しない。
-       */
-      if (hidden) {
-        continue;
-      }
-
-      /* =====================================================
-         Start Fold
-         ===================================================== */
-
-      if (marker?.state === "collapsed" && hasChildren) {
-        activeFolds.push({
-          indent,
-        });
-      }
-    }
-  }
-
-  /* =========================================================
-     Refresh
-     ========================================================= */
+  // Refresh
 
   /**
    * @returns {void}
@@ -771,47 +407,7 @@
     });
   }
 
-  /* =========================================================
-     Mutation Helper
-     ========================================================= */
-
-  /**
-   * Toggle自身によるDOM変更か。
-   *
-   * @param {MutationRecord} mutation
-   * @returns {boolean}
-   */
-  function isOwnToggleMutation(mutation) {
-    const target = mutation.target;
-
-    /*
-     * Toggle内部。
-     */
-    if (target instanceof Element && target.closest(".kame-fold-toggle")) {
-      return true;
-    }
-
-    if (target.parentElement?.closest(".kame-fold-toggle")) {
-      return true;
-    }
-
-    /*
-     * Toggleそのものの追加・削除。
-     */
-    const nodes = [...mutation.addedNodes, ...mutation.removedNodes];
-
-    if (nodes.length === 0) {
-      return false;
-    }
-
-    return nodes.every((node) => {
-      return node instanceof HTMLElement && node.classList.contains("kame-fold-toggle");
-    });
-  }
-
-  /* =========================================================
-     Mutation Observer
-     ========================================================= */
+  // Mutation Observer
 
   observer = new MutationObserver((mutations) => {
     /** @type {boolean} */
@@ -832,9 +428,7 @@
     characterData: true,
   });
 
-  /* =========================================================
-     Editor Input
-     ========================================================= */
+  // Editor Input
 
   /*
    * 手入力による変更にも追従。
@@ -856,9 +450,7 @@
     },
   );
 
-  /* =========================================================
-     Navigation
-     ========================================================= */
+  // Navigation
 
   window.addEventListener(
     "popstate",
@@ -880,9 +472,7 @@
     },
   );
 
-  /* =========================================================
-     Cleanup
-     ========================================================= */
+  // Cleanup
 
   signal.addEventListener(
     "abort",
@@ -908,9 +498,7 @@
     },
   );
 
-  /* =========================================================
-     Initial
-     ========================================================= */
+  // Initial
 
   refresh();
 

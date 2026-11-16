@@ -1,25 +1,47 @@
 /* マトリクス記法 */
-  .line:not(.cursor-line) .deco-\| { 
-   display: inline-flex;
-   }
-   .line .deco-\| img.image { 
-   	object-fit: contain;
-   	margin: 0;
-   	top: 0;
-   	}
- /* 太字記法と組み合わせて列数を変える */
- .line [class^="level"] .deco-\| { flex-wrap: wrap }
- .line .level-1 .deco-\| > span { width: calc(100%/1) }
- .line .level-2 .deco-\| > span { width: calc(100%/2) }
- .line .level-3 .deco-\| > span { width: calc(100%/3) }
- .line .level-4 .deco-\| > span { width: calc(100%/4) }
- .line .level-5 .deco-\| > span { width: calc(100%/5) }
- 
- .line [class^="level"] .deco-\| img.image { object-fit: cover; width: 100%; height: 100% }
- 
- /* 並べた画像の間にスキマが欲しい場合はこの2行を追加・ぴっちり敷き詰めたい場合はこの2行は不要 */
- .line .deco-\| > span, .line [class^="level"] .deco-\| > span { overflow: hidden }
- .line .deco-\| img.image, .line [class^="level"] .deco-\| img.image { margin: .2em }
-.line .text .modal-image + span{
-	display: none;
+.line:not(.cursor-line) .deco-\| {
+  display: inline-flex;
+}
+.line .deco-\| img.image {
+  object-fit: contain;
+  margin: 0;
+  top: 0;
+}
+/* 太字記法と組み合わせて列数を変える */
+.line [class^="level"] .deco-\| {
+  flex-wrap: wrap;
+}
+.line .level-1 .deco-\| > span {
+  width: calc(100% / 1);
+}
+.line .level-2 .deco-\| > span {
+  width: calc(100% / 2);
+}
+.line .level-3 .deco-\| > span {
+  width: calc(100% / 3);
+}
+.line .level-4 .deco-\| > span {
+  width: calc(100% / 4);
+}
+.line .level-5 .deco-\| > span {
+  width: calc(100% / 5);
+}
+
+.line [class^="level"] .deco-\| img.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* 並べた画像の間にスキマが欲しい場合はこの2行を追加・ぴっちり敷き詰めたい場合はこの2行は不要 */
+.line .deco-\| > span,
+.line [class^="level"] .deco-\| > span {
+  overflow: hidden;
+}
+.line .deco-\| img.image,
+.line [class^="level"] .deco-\| img.image {
+  margin: 0.2em;
+}
+.line .text .modal-image + span {
+  display: none;
 }

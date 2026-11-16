@@ -1,0 +1,33 @@
+/* =========================================================
+   Search Highlight
+   ========================================================= */
+
+/*
+ * 全一致箇所
+ */
+::highlight(kame-search-match) {
+  background: rgba(255, 213, 79, 0.38);
+}
+
+/*
+ * 現在選択している一致箇所
+ */
+::highlight(kame-search-current) {
+  background: rgba(255, 167, 38, 0.62);
+
+  text-decoration: underline;
+
+  text-decoration-thickness: 2px;
+}
+
+/* =========================================================
+   Highlight API Fallback
+   ========================================================= */
+
+.line.kame-search-fallback-match {
+  background: rgba(255, 213, 79, 0.08);
+}
+
+.line.kame-search-fallback-current {
+  background: rgba(255, 167, 38, 0.16);
+}

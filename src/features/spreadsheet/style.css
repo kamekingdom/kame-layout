@@ -4,18 +4,14 @@
    Kame Spreadsheet
    ========================================================= */
 
-.table-block
-.cell.kame-sheet-formula-cell {
+.table-block .cell.kame-sheet-formula-cell {
   position: relative;
 
   color: transparent !important;
 }
 
-
 /* 計算結果 */
-.table-block
-.cell.kame-sheet-formula-cell
-.kame-sheet-result {
+.table-block .cell.kame-sheet-formula-cell .kame-sheet-result {
   position: absolute;
 
   inset: 0;
@@ -39,16 +35,11 @@
   pointer-events: none;
 }
 
-
 /* hoverすると元の数式を確認できる */
-.table-block
-.cell.kame-sheet-formula-cell:hover {
+.table-block .cell.kame-sheet-formula-cell:hover {
   color: #30343b !important;
 }
 
-
-.table-block
-.cell.kame-sheet-formula-cell:hover
-.kame-sheet-result {
+.table-block .cell.kame-sheet-formula-cell:hover .kame-sheet-result {
   opacity: 0;
 }

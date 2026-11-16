@@ -1,0 +1,27 @@
+/* =========================================================
+   Tablet
+   ========================================================= */
+
+@media screen and (max-width: 1000px) {
+  .line[data-kame-equal-image-row="true"] {
+    --kame-image-card-height: 220px;
+
+    --kame-image-gap: 10px;
+
+    --kame-image-radius: 12px;
+  }
+}
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+  .line[data-kame-equal-image-row="true"] {
+    --kame-image-card-height: 160px;
+
+    --kame-image-gap: 6px;
+
+    --kame-image-radius: 8px;
+  }
+}

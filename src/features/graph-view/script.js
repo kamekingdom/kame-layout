@@ -1,3 +1,8 @@
+import { readRgb, luminance, blend, rgbCss, alphaCss } from "./colors.js";
+import { keyOf, pageUrl, shortTitle } from "./links.js";
+import { CONFIG } from "./config.js";
+import { fetchPages } from "./api.js";
+
 // Author: kamekingdom (2026-10-28)
 // Cosense Graph View v2 — all nodes, adaptive labels and page-matched theme. No dependencies.
 // Install: import '/api/code/kamelayout/グラフビュー/script.js';
@@ -8,11 +13,6 @@
 
   if (window.__kameGraphView?.installed) return;
 
-  const CONFIG = {
-    maxPages: 10000, // API取得上限。増やす場合は描画負荷に注意
-    cacheMs: 5 * 60 * 1000,
-    simulationFrames: 280,
-  };
   const RESERVED = new Set(["api", "settings", "projects", "stream", "pricing", "login", "help"]);
   const app = { installed: true, close: () => {} };
   window.__kameGraphView = app;
@@ -39,14 +39,6 @@
       return null;
     }
   };
-  const keyOf = (value) =>
-    String(value || "")
-      .trim()
-      .toLocaleLowerCase();
-  const shortTitle = (title, limit = 18) =>
-    [...title].length > limit ? [...title].slice(0, limit - 1).join("") + "…" : title;
-  const pageUrl = (project, title) =>
-    `/${encodeURIComponent(project)}/${encodeURIComponent(title)}`;
 
   let overlay = null;
   let ui = null;
@@ -87,23 +79,7 @@
 
   // Cosenseで実際に適用されている色を読み、画面全体を同系統に揃える。
   // ユーザーがライト/ダークCSSを切り替えた場合も、Graph Viewを開き直すと反映される。
-  function readRgb(value) {
-    const v = String(value || "").trim();
-    if (v.startsWith("#")) {
-      const hex = v.slice(1);
-      const norm = hex.length === 3 ? [...hex].map((c) => c + c).join("") : hex;
-      if (/^[a-f0-9]{6}$/i.test(norm))
-        return [0, 2, 4].map((i) => parseInt(norm.slice(i, i + 2), 16));
-    }
-    const m = v.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
-    if (m && !/^rgba\([^)]*,\s*0(?:\.0+)?\)$/.test(v)) return m.slice(1, 4).map(Number);
-    return null;
-  }
-  const blend = (a, b, t) => a.map((v, i) => Math.round(v * (1 - t) + b[i] * t));
-  const rgbCss = (c) =>
-    `rgb(${c.map((v) => Math.max(0, Math.min(255, Math.round(v)))).join(", ")})`;
-  const alphaCss = (c, a) => `rgba(${c.map(Math.round).join(", ")}, ${a})`;
-  const luminance = (c) => c.reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0) / 255;
+
   function syncTheme() {
     if (!overlay) return;
     const root = getComputedStyle(document.documentElement);
@@ -143,7 +119,17 @@
       edge: blend(ink, stage, dark ? 0.56 : 0.6),
     };
     state.theme = theme;
-    const tokens = { bg: stage, paper, ink, subtle, line, accent, hub, mid, leaf };
+    const tokens = {
+      bg: stage,
+      paper,
+      ink,
+      subtle,
+      line,
+      accent,
+      hub,
+      mid,
+      leaf,
+    };
     for (const [k, v] of Object.entries(tokens)) overlay.style.setProperty(`--kgv-${k}`, rgbCss(v));
   }
 
@@ -288,37 +274,6 @@
     state.pointer = null;
   }
   app.close = close;
-
-  async function fetchPages(project, signal, onProgress) {
-    const all = [];
-    let followingId = "";
-    const seen = new Set();
-    for (let i = 0; i < 100 && all.length < CONFIG.maxPages; i++) {
-      const url = new URL(
-        `/api/pages/${encodeURIComponent(project)}/search/titles`,
-        location.origin,
-      );
-      if (followingId) url.searchParams.set("followingId", followingId);
-      const response = await fetch(url.href, {
-        credentials: "same-origin",
-        signal,
-        headers: { Accept: "application/json" },
-      });
-      if (!response.ok)
-        throw new Error(
-          `APIエラー: HTTP ${response.status}（閲覧権限やログイン状態を確認してください）`,
-        );
-      const batch = await response.json();
-      if (!Array.isArray(batch)) throw new Error("APIの応答形式が想定と異なります。");
-      all.push(...batch);
-      onProgress(all.length);
-      const next = response.headers.get("X-Following-Id");
-      if (!next || batch.length === 0 || seen.has(next)) break;
-      seen.add(next);
-      followingId = next;
-    }
-    return all.slice(0, CONFIG.maxPages);
-  }
 
   function prepareData(rawPages) {
     const pages = [];
@@ -750,7 +705,15 @@
       if (isNeighbor) priority += 3000;
       if (isSearch) priority += 6000;
       if (isFocus) priority += 10000;
-      priorityList.push({ node, x, y, priority, isFocus, isSearch, isNeighbor });
+      priorityList.push({
+        node,
+        x,
+        y,
+        priority,
+        isFocus,
+        isSearch,
+        isNeighbor,
+      });
     }
     priorityList.sort((a, b) => b.priority - a.priority);
     ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
@@ -896,6 +859,9 @@
   const mountObserver = new MutationObserver(() => {
     if (!document.querySelector(".kgv-launch")) mountButton();
   });
-  mountObserver.observe(document.documentElement, { subtree: true, childList: true });
+  mountObserver.observe(document.documentElement, {
+    subtree: true,
+    childList: true,
+  });
   console.info("[Kame Graph View] ready");
 })();

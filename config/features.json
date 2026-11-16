@@ -232,6 +232,13 @@
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE",
       "files": {
         "style.css": "src/features/tables/style.css"
+      },
+      "styleFiles": ["cells.css", "header.css", "title.css", "copy-button.css"],
+      "fileDescriptions": {
+        "cells.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "header.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "title.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "copy-button.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -267,7 +274,13 @@
         "script.js": "src/features/external-favicons/script.js",
         "style.css": "src/features/external-favicons/style.css"
       },
-      "notes": ["favicon の取得先など、既存の外部リソースへの参照を維持しています。"]
+      "notes": ["favicon の取得先など、既存の外部リソースへの参照を維持しています。"],
+      "typeFiles": ["types.js"],
+      "dataFiles": ["links.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "links.js": "外部リンクの判定・除外ルール・favicon URL"
+      }
     },
     {
       "id": "inline-quote",
@@ -300,6 +313,12 @@
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AEuserCSS",
       "files": {
         "style.css": "src/features/code-blocks/style.css"
+      },
+      "styleFiles": ["panel.css", "title.css", "content.css"],
+      "fileDescriptions": {
+        "panel.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "title.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "content.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -528,6 +547,19 @@
       "files": {
         "script.js": "src/features/find-replace/script.js",
         "style.css": "src/features/find-replace/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["text.js", "ranges.js", "controls.js"],
+      "styleFiles": ["search.css", "replace.css", "highlights.css", "responsive.css"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "text.js": "正規表現のエスケープと置換文字列の展開",
+        "ranges.js": "本文テキストとDOM Rangeの対応付け",
+        "controls.js": "検索・置換のUI部品",
+        "search.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "replace.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "highlights.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "responsive.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -618,7 +650,14 @@
       "files": {
         "script.js": "src/features/checkbox-toggle/script.js"
       },
-      "notes": ["表示をまとめて利用する場合は checkbox-style の CSS も有効にします。"]
+      "notes": ["表示をまとめて利用する場合は checkbox-style の CSS も有効にします。"],
+      "typeFiles": ["types.js"],
+      "dataFiles": ["model.js", "links.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "model.js": "チェック状態の遷移と対象トークンの置換",
+        "links.js": "チェックボックスリンクの判定とイベント抑制"
+      }
     },
     {
       "id": "quote-bar",
@@ -640,6 +679,16 @@
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%AB%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E3%81%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84",
       "files": {
         "script.js": "src/features/random-pages/script.js"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["config.js", "api.js", "cards.js", "layout.js", "styles.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "config.js": "カード数とDOM IDの設定",
+        "api.js": "プロジェクト判定とランダムページの取得",
+        "cards.js": "カードDOMの生成・削除",
+        "layout.js": "既存カードの寸法測定とレイアウト同期",
+        "styles.js": "Scriptが挿入するカード専用CSS"
       }
     },
     {
@@ -664,6 +713,11 @@
       "files": {
         "script.js": "src/features/audio-player/script.js",
         "style.css": "src/features/audio-player/style.css"
+      },
+      "dataFiles": ["players.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "players.js": "音声リンクの判定とプレイヤーDOMの管理"
       }
     },
     {
@@ -675,6 +729,14 @@
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC%E6%A9%9F%E8%83%BD",
       "files": {
         "script.js": "src/features/table-copy/script.js"
+      },
+      "dataFiles": ["csv.js", "icons.js", "config.js", "styles.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "csv.js": "CSV解析とTSV変換",
+        "icons.js": "コピー・完了アイコンのSVG",
+        "config.js": "ボタンの識別子",
+        "styles.js": "Scriptが挿入するボタン専用CSS"
       }
     },
     {
@@ -687,6 +749,18 @@
       "files": {
         "script.js": "src/features/link-preview/script.js",
         "style.css": "src/features/link-preview/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["config.js", "model.js"],
+      "styleFiles": ["panel.css", "content.css", "footer.css", "related-pages.css"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "config.js": "表示件数・遅延・余白の設定",
+        "model.js": "本文の解析と関連ページの分類",
+        "panel.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "content.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "footer.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "related-pages.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -699,6 +773,13 @@
       "files": {
         "script.js": "src/features/hierarchy-fold/script.js",
         "style.css": "src/features/hierarchy-fold/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["markers.js", "visibility.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "markers.js": "折りたたみ記法・空行・インデントの解析",
+        "visibility.js": "子階層の表示制御とMutationの判定"
       }
     },
     {
@@ -711,6 +792,13 @@
       "files": {
         "script.js": "src/features/spreadsheet/script.js",
         "style.css": "src/features/spreadsheet/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["engine.js", "table-dom.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "engine.js": "数式の解析・依存関係の評価・エラー処理",
+        "table-dom.js": "表の検出と計算結果の描画"
       }
     },
     {
@@ -723,6 +811,12 @@
       "files": {
         "script.js": "src/features/status-icons/script.js",
         "style.css": "src/features/status-icons/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["states.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "states.js": "状態一覧と対象アイコン・トークンの解析"
       }
     },
     {
@@ -735,6 +829,16 @@
       "files": {
         "script.js": "src/features/equal-image-rows/script.js",
         "style.css": "src/features/equal-image-rows/style.css"
+      },
+      "typeFiles": ["types.js"],
+      "dataFiles": ["layout.js"],
+      "styleFiles": ["layout.css", "counts.css", "responsive.css"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "layout.js": "画像枚数ごとの寸法計算とDOMへの適用",
+        "layout.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "counts.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "responsive.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -757,6 +861,13 @@
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%922%E3%82%AB%E3%83%A9%E3%83%A0%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88%E3%81%AB%E3%81%99%E3%82%8B",
       "files": {
         "style.css": "src/features/two-column-links/style.css"
+      },
+      "styleFiles": ["base.css", "desktop.css", "responsive.css", "toolbar.css"],
+      "fileDescriptions": {
+        "base.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "desktop.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "responsive.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "toolbar.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
     },
     {
@@ -838,7 +949,14 @@
       "files": {
         "script.js": "src/features/bookmark-menu/script.js"
       },
-      "notes": ["表示をまとめて利用する場合は bookmark-style の CSS も有効にします。"]
+      "notes": ["表示をまとめて利用する場合は bookmark-style の CSS も有効にします。"],
+      "typeFiles": ["types.js"],
+      "dataFiles": ["headings.js", "scroll.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "headings.js": "見出しのインデント・階層・ラベルの解析",
+        "scroll.js": "固定ヘッダーを考慮したスクロール"
+      }
     },
     {
       "id": "sort-lines",
@@ -887,7 +1005,15 @@
       "notes": [
         "専用 CSS は script.js の import.meta.url を基準に取得します。元の Settings にあった stlye.css の誤字を直して全体 CSS へ追加すると適用範囲が変わるため、Script による読み込みを維持しています。"
       ],
-      "styleLoading": "script"
+      "styleLoading": "script",
+      "dataFiles": ["colors.js", "links.js", "config.js", "api.js"],
+      "fileDescriptions": {
+        "script.js": "初期化・イベント・状態の管理",
+        "colors.js": "テーマ色の解析・混色・輝度計算",
+        "links.js": "ページ名の比較・省略表示・URL生成",
+        "config.js": "取得上限・キャッシュ・描画回数の設定",
+        "api.js": "ページ一覧の取得とページ送り"
+      }
     }
   ]
 }

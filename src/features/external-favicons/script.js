@@ -1,23 +1,16 @@
+/** @typedef {import("./types.js").KameWindow} KameWindow */
+
+import {
+  getGoogleFaviconURL,
+  getDuckDuckGoFaviconURL,
+  getDirectFaviconURL,
+  getExternalURL,
+} from "./links.js";
+
 // Author: kamekingdom (2026-10-27)
 
 (() => {
-  /* =========================================================
-     Types
-     ========================================================= */
-
-  /**
-   * @typedef {
-   *   Window
-   *   & typeof globalThis
-   *   & {
-   *     __kameExternalFaviconController?: AbortController
-   *   }
-   * } KameWindow
-   */
-
-  /* =========================================================
-     Settings
-     ========================================================= */
+  // Settings
 
   /*
    * `.lines` に限定しない。
@@ -27,13 +20,7 @@
    */
   const LINK_SELECTOR = "a[href]";
 
-  const FAVICON_SIZE = 64;
-
-  const IGNORED_HOSTS = ["scrapbox.io", "cosense.com"];
-
-  /* =========================================================
-     Initialization
-     ========================================================= */
+  // Initialization
 
   /** @type {KameWindow} */
   const kameWindow = /** @type {KameWindow} */ (window);
@@ -48,9 +35,7 @@
 
   kameWindow.__kameExternalFaviconController = controller;
 
-  /* =========================================================
-     Cleanup Old Version
-     ========================================================= */
+  // Cleanup Old Version
 
   document.querySelectorAll(".kame-external-favicon").forEach((element) => {
     element.remove();
@@ -64,129 +49,7 @@
     }
   });
 
-  /* =========================================================
-     Utilities
-     ========================================================= */
-
-  /**
-   * @param {string} hostname
-   * @returns {string}
-   */
-  function normalizeHostname(hostname) {
-    return hostname.toLowerCase().replace(/^www\./, "");
-  }
-
-  /**
-   * @param {string} hostname
-   * @returns {boolean}
-   */
-  function isIgnoredHost(hostname) {
-    const normalized = normalizeHostname(hostname);
-
-    return IGNORED_HOSTS.some((ignored) => {
-      const target = normalizeHostname(ignored);
-
-      return normalized === target || normalized.endsWith(`.${target}`);
-    });
-  }
-
-  /**
-   * Cosense本文のリンクかどうか。
-   *
-   * 通常行・テーブル・コード等を含む。
-   *
-   * ヘッダーや関連ページ一覧などには
-   * faviconを付けない。
-   *
-   * @param {HTMLAnchorElement} anchor
-   * @returns {boolean}
-   */
-  function isContentLink(anchor) {
-    /*
-     * 通常本文
-     */
-    if (anchor.closest(".lines")) {
-      return true;
-    }
-
-    /*
-     * テーブルが.linesの外側に
-     * 描画される環境へのFallback。
-     */
-    if (anchor.closest(".table-block")) {
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * @param {HTMLAnchorElement} anchor
-   * @returns {URL | null}
-   */
-  function getExternalURL(anchor) {
-    if (!isContentLink(anchor)) {
-      return null;
-    }
-
-    try {
-      const rawHref = anchor.getAttribute("href");
-
-      if (!rawHref) {
-        return null;
-      }
-
-      const url = new URL(rawHref, location.href);
-
-      if (url.protocol !== "https:" && url.protocol !== "http:") {
-        return null;
-      }
-
-      if (isIgnoredHost(url.hostname)) {
-        return null;
-      }
-
-      return url;
-    } catch {
-      return null;
-    }
-  }
-
-  /* =========================================================
-     Favicon URLs
-     ========================================================= */
-
-  /**
-   * @param {URL} url
-   * @returns {string}
-   */
-  function getGoogleFaviconURL(url) {
-    return (
-      "https://www.google.com/s2/favicons" +
-      `?sz=${FAVICON_SIZE}` +
-      `&domain_url=${encodeURIComponent(url.origin)}`
-    );
-  }
-
-  /**
-   * @param {URL} url
-   * @returns {string}
-   */
-  function getDuckDuckGoFaviconURL(url) {
-    return "https://icons.duckduckgo.com/ip3/" + `${encodeURIComponent(url.hostname)}.ico`;
-  }
-
-  /**
-   * @param {URL} url
-   * @returns {string}
-   */
-  function getDirectFaviconURL(url) {
-    return `${url.origin}/favicon.ico`;
-  }
-
-  /* =========================================================
-     Create Icon
-     ========================================================= */
+  // Create Icon
 
   /**
    * @param {URL} url
@@ -262,18 +125,14 @@
     return icon;
   }
 
-  /* =========================================================
-     Add Favicon
-     ========================================================= */
+  // Add Favicon
 
   /**
    * @param {HTMLAnchorElement} anchor
    * @returns {void}
    */
   function addFavicon(anchor) {
-    /* -------------------------------------------------------
-       Already Has Icon
-       ------------------------------------------------------- */
+    // Already Has Icon
 
     const existing = anchor.querySelector(":scope > .kame-external-favicon");
 
@@ -283,9 +142,7 @@
       return;
     }
 
-    /* -------------------------------------------------------
-       URL
-       ------------------------------------------------------- */
+    // URL
 
     const url = getExternalURL(anchor);
 
@@ -293,9 +150,7 @@
       return;
     }
 
-    /* -------------------------------------------------------
-       Image-only Link
-       ------------------------------------------------------- */
+    // Image-only Link
 
     const hasImage = Boolean(anchor.querySelector("img:not(.kame-external-favicon-image)"));
 
@@ -308,15 +163,11 @@
       return;
     }
 
-    /* -------------------------------------------------------
-       Create Icon
-       ------------------------------------------------------- */
+    // Create Icon
 
     const icon = createFavicon(url);
 
-    /* -------------------------------------------------------
-       Insert
-       ------------------------------------------------------- */
+    // Insert
 
     /*
      * リンクの中に入れる。
@@ -331,26 +182,20 @@
     anchor.dataset.kameFaviconProcessed = "true";
   }
 
-  /* =========================================================
-     Process Link
-     ========================================================= */
+  // Process Link
 
   /**
    * @param {Element} element
    * @returns {void}
    */
   function processElement(element) {
-    /* -------------------------------------------------------
-       Element itself
-       ------------------------------------------------------- */
+    // Element itself
 
     if (element instanceof HTMLAnchorElement && element.matches(LINK_SELECTOR)) {
       addFavicon(element);
     }
 
-    /* -------------------------------------------------------
-       Descendants
-       ------------------------------------------------------- */
+    // Descendants
 
     const links = element.querySelectorAll(LINK_SELECTOR);
 
@@ -361,9 +206,7 @@
     }
   }
 
-  /* =========================================================
-     Scan All
-     ========================================================= */
+  // Scan All
 
   /**
    * @returns {void}
@@ -378,21 +221,15 @@
     }
   }
 
-  /* =========================================================
-     Initial Scan
-     ========================================================= */
+  // Initial Scan
 
   scanAll();
 
-  /* =========================================================
-     Mutation Observer
-     ========================================================= */
+  // Mutation Observer
 
   const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
-      /* -------------------------------------------------
-             Added Nodes
-             ------------------------------------------------- */
+      // Added Nodes
 
       for (const node of mutation.addedNodes) {
         if (!(node instanceof Element)) {
@@ -409,9 +246,7 @@
         processElement(node);
       }
 
-      /* -------------------------------------------------
-             href Changed
-             ------------------------------------------------- */
+      // href Changed
 
       if (
         mutation.type === "attributes" &&
@@ -450,9 +285,7 @@
     attributeFilter: ["href"],
   });
 
-  /* =========================================================
-     Periodic Safety Scan
-     ========================================================= */
+  // Periodic Safety Scan
 
   /*
    * Cosense側の特殊な再描画で
@@ -464,9 +297,7 @@
     scanAll();
   }, 2000);
 
-  /* =========================================================
-     Cleanup
-     ========================================================= */
+  // Cleanup
 
   signal.addEventListener(
     "abort",
@@ -490,9 +321,7 @@
     },
   );
 
-  /* =========================================================
-     Loaded
-     ========================================================= */
+  // Loaded
 
   console.log("[Kame External Favicon] loaded");
 })();

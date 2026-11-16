@@ -1,0 +1,203 @@
+/* =========================================================
+   Body
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-body {
+  box-sizing: border-box;
+
+  max-height: 390px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 0.72em 0.9em 0.82em;
+}
+
+/* =========================================================
+   Scrollbar
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar-thumb {
+  background: #c8ccd2;
+}
+
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =========================================================
+   基本行
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line {
+  position: relative;
+
+  box-sizing: border-box;
+
+  /*
+   * 元Scrapboxのindentを再現。
+   */
+  padding-left: calc(var(--preview-indent, 0) * 1.05em);
+
+  padding-top: 0.06em;
+  padding-bottom: 0.06em;
+
+  margin: 0;
+
+  color: var(--link-preview-text);
+
+  font-size: 0.87em;
+
+  line-height: 1.46;
+
+  /*
+   * ASCII図や連続spaceを
+   * なるべく維持する。
+   */
+  white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   階層ガイド
+   ========================================================= */
+
+/*
+ * インデントされた行には
+ * 左に短いガイドを表示。
+ */
+#kame-link-preview .kame-link-preview-line[data-indented="true"]::before {
+  content: "";
+
+  position: absolute;
+
+  left: calc(var(--preview-indent, 0) * 1.05em - 0.62em);
+
+  top: 0.73em;
+
+  width: 0.36em;
+
+  height: 1px;
+
+  background: var(--link-preview-guide);
+
+  opacity: 0.9;
+}
+
+/* =========================================================
+   空行
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.is-blank {
+  height: 0.42em;
+
+  padding: 0;
+
+  margin: 0;
+}
+
+/* =========================================================
+   [. タイトル]
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.type-section {
+  margin-top: 0.28em;
+
+  margin-bottom: 0.18em;
+
+  padding-top: 0.22em;
+  padding-bottom: 0.23em;
+
+  font-size: 0.91em;
+
+  font-weight: 650;
+
+  color: var(--link-preview-dark);
+
+  border-bottom: 1px solid #d9dde2;
+}
+
+/* =========================================================
+   [* 強調]
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.type-strong {
+  padding-top: 0.14em;
+
+  padding-bottom: 0.12em;
+
+  font-weight: 600;
+
+  color: var(--link-preview-dark);
+}
+
+/* =========================================================
+   1. 2. 3.
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.type-number {
+  padding-top: 0.18em;
+
+  padding-bottom: 0.12em;
+
+  font-weight: 600;
+
+  color: var(--link-preview-dark);
+}
+
+/* =========================================================
+   code:
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.type-code {
+  margin-top: 0.16em;
+
+  margin-bottom: 0.08em;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  font-size: 0.78em;
+
+  font-weight: 600;
+
+  color: #68717d;
+}
+
+/* =========================================================
+   table:
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-line.type-table {
+  margin-top: 0.16em;
+
+  margin-bottom: 0.08em;
+
+  font-size: 0.8em;
+
+  font-weight: 600;
+
+  color: #68717d;
+}
+
+/* =========================================================
+   Loading / Empty / Error
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-loading,
+#kame-link-preview .kame-link-preview-empty,
+#kame-link-preview .kame-link-preview-error {
+  padding: 0.35em 0;
+
+  color: var(--link-preview-muted);
+
+  font-size: 0.86em;
+
+  line-height: 1.5;
+}

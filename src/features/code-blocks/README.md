@@ -16,6 +16,9 @@ code: のコードブロックに適用します。
 | ファイル | 役割 |
 | --- | --- |
 | [style.css](style.css) | 表示・装飾 |
+| [panel.css](panel.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
+| [title.css](title.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
+| [content.css](content.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 

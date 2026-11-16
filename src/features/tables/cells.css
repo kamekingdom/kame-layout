@@ -1,0 +1,162 @@
+/* Author: kamekingdom (2026-11-15) */
+
+/* ==========================================
+   Cosense Table — Clean White
+   Minimal / Compact / Always Light
+   ========================================== */
+
+/* ------------------------------------------
+   Design Tokens
+   ------------------------------------------ */
+
+.line .table-block {
+  --table-bg: #ffffff;
+  --table-header-bg: #f8fafc;
+  --table-title-bg: #ffffff;
+
+  --table-text: #334155;
+  --table-heading-text: #475569;
+  --table-muted: #64748b;
+
+  --table-border: #e5e7eb;
+  --table-hover: #f3f6fa;
+  --table-header-hover: #f1f5f9;
+  --table-button-hover: #e2e8f0;
+
+  --table-focus: var(--accent-color, #94a3b8);
+
+  --table-radius: 6px;
+  --table-transition: 0.15s ease;
+}
+
+/* ------------------------------------------
+   Container
+   ------------------------------------------ */
+
+.line .table-block,
+.line:hover .table-block {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Rows
+   ------------------------------------------ */
+
+.line .table-block > .indent,
+.line .table-block > .indent:hover {
+  display: flex !important;
+
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+
+  align-items: stretch;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Cells
+   ------------------------------------------ */
+
+.line .table-block .cell {
+  flex: 1 1 0 !important;
+
+  min-width: 0 !important;
+  max-width: none !important;
+  box-sizing: border-box;
+
+  padding: 0.42em 0.8em !important;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  border: none !important;
+  border-bottom: 1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-size: 0.94em;
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: left;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow: hidden;
+
+  filter: none !important;
+  opacity: 1 !important;
+  cursor: text;
+
+  transition: background-color var(--table-transition);
+}
+
+/* Equal column widths */
+
+.line .table-block .cell[class*="col-"] {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* Text wrapping and empty cells */
+
+.line .table-block .cell > .tab,
+.line .table-block .cell > .tab .char-index {
+  white-space: pre !important;
+}
+
+.line .table-block .cell > .cell-text {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ------------------------------------------
+   Body Hover
+   ------------------------------------------ */
+
+.line .table-block > .indent:hover > .cell,
+.line .table-block .cell:hover {
+  background: var(--table-hover) !important;
+  color: var(--table-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   Cell Focus
+   ------------------------------------------ */
+
+.line .table-block .cell:focus,
+.line .table-block .cell:focus-within {
+  position: relative;
+  z-index: 1;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  outline: 1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+
+  filter: none !important;
+}

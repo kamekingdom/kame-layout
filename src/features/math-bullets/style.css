@@ -1,1 +1,3 @@
-.line.formula-line .dot { display: block }
+.line.formula-line .dot {
+  display: block;
+}

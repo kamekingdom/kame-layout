@@ -175,25 +175,25 @@ body {
   --card-box-shadow: none;
   --card-box-hover-shadow: none;
 }
-.grid li.pin[data-page-title="kame"]:first-of-type a .content{
-   background-image: url(https://scrapbox.io/files/695ce8dd40c4fdbfeb53299e.jpg);
-   background-size: 120%;
-   transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
-  }
-  
-.grid li.pin a .content{
+.grid li.pin[data-page-title="kame"]:first-of-type a .content {
+  background-image: url(https://scrapbox.io/files/695ce8dd40c4fdbfeb53299e.jpg);
+  background-size: 120%;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+}
+
+.grid li.pin a .content {
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
 }
-.grid li.pin a:hover .content{
-	background-size: 70%;
-	transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+.grid li.pin a:hover .content {
+  background-size: 70%;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 }
 
 /* ピンカードの外枠（border/outline/影）を完全に消す */
-.page-list .grid li.pin a{
+.page-list .grid li.pin a {
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -201,7 +201,7 @@ body {
 
 /* クリック/キーボードフォーカス時に出る枠も消す（必要なら） */
 .page-list .grid li.pin a:focus,
-.page-list .grid li.pin a:focus-visible{
+.page-list .grid li.pin a:focus-visible {
   outline: 0 !important;
   box-shadow: none !important;
 }

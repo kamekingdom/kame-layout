@@ -16,10 +16,7 @@
 
   box-sizing: border-box;
 
-  padding:
-    0.55rem
-    1rem
-    0.65rem;
+  padding: 0.55rem 1rem 0.65rem;
 
   color: #44423c;
 
@@ -27,81 +24,58 @@
 
   border: none;
 
-  border-left:
-    4px solid
-    #04B2D9;
+  border-left: 4px solid #04b2d9;
 
-  transform:
-    rotate(-0.6deg);
+  transform: rotate(-0.6deg);
 
-  box-shadow:
-    2px 3px 6px
-    rgba(0, 0, 0, 0.14);
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.14);
 
   line-height: 1.6;
 }
-
 
 /* ========================================
    Hover
    ======================================== */
 
 .line:not(.cursor-line) .deco-\~:hover {
-  transform:
-    rotate(0deg);
+  transform: rotate(0deg);
 
-  box-shadow:
-    2px 4px 8px
-    rgba(0, 0, 0, 0.18);
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.18);
 }
-
 
 /* ========================================
    Color Variants
    ======================================== */
 
 .line .level-2 .deco-\~ {
-  border-left-color:
-    #009175;
+  border-left-color: #009175;
 
-  background-color:
-    #edf8e8;
+  background-color: #edf8e8;
 }
-
 
 .line .level-3 .deco-\~ {
-  border-left-color:
-    #EFBB33;
+  border-left-color: #efbb33;
 
-  background-color:
-    #fff7c7;
+  background-color: #fff7c7;
 }
-
 
 .line .level-4 .deco-\~ {
-  border-left-color:
-    #F23E2E;
+  border-left-color: #f23e2e;
 
-  background-color:
-    #ffede7;
+  background-color: #ffede7;
 }
-
 
 /* ========================================
    Text Decoration
    ======================================== */
 
 .line .deco-\~.deco-- {
-  text-decoration:
-    line-through;
+  text-decoration: line-through;
 }
-
 
 .line .deco-\~.deco-_ {
-  text-decoration:
-    underline;
+  text-decoration: underline;
 }
-
 
 /* ========================================
    Presentation
@@ -115,13 +89,11 @@
   transform: none;
 }
 
-
 /* ========================================
    Mobile
    ======================================== */
 
 @media screen and (max-width: 768px) {
-
   .line:not(.cursor-line) .deco-\~ {
     position: static;
 
@@ -129,22 +101,17 @@
 
     max-width: 100%;
 
-    margin:
-      0.4rem
-      0;
+    margin: 0.4rem 0;
 
-    transform:
-      rotate(-0.3deg);
+    transform: rotate(-0.3deg);
   }
 }
-
 
 /* ========================================
    Print
    ======================================== */
 
 @media print {
-
   .line:not(.cursor-line) .deco-\~ {
     position: static;
 
@@ -152,12 +119,9 @@
 
     transform: none;
 
-    background-color:
-      #fff8c9;
+    background-color: #fff8c9;
 
-    border-left:
-      4px solid
-      #04B2D9;
+    border-left: 4px solid #04b2d9;
 
     box-shadow: none;
   }

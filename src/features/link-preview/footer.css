@@ -1,0 +1,87 @@
+/* =========================================================
+   Footer
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1em;
+
+  min-height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 0.4em 0.85em;
+
+  border-top: 1px solid var(--link-preview-border);
+
+  background: #f0f1f3;
+}
+
+/* =========================================================
+   Metadata
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-meta {
+  color: var(--link-preview-muted);
+
+  font-size: 0.76em;
+}
+
+/* =========================================================
+   Open Button
+   ========================================================= */
+
+#kame-link-preview .kame-link-preview-open {
+  padding: 0;
+
+  border: none;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #555e6b;
+
+  cursor: pointer;
+
+  font-size: 0.79em;
+
+  font-weight: 600;
+}
+
+#kame-link-preview .kame-link-preview-open:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+
+/* =========================================================
+   Preview対象Link
+   ========================================================= */
+
+.lines a.page-link.kame-link-preview-source {
+  background: rgba(63, 70, 82, 0.07);
+}
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media screen and (max-width: 600px) {
+  :root {
+    --link-preview-width: calc(100vw - 24px);
+  }
+
+  #kame-link-preview .kame-link-preview-body {
+    max-height: 300px;
+  }
+
+  #kame-link-preview .kame-link-preview-image {
+    height: 100px;
+  }
+}
