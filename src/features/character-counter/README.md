@@ -22,10 +22,10 @@
 
 ## 旧版・元の試作
 
-- [not-style.css](../../../archive/scrapbox/%E8%A6%8B%E3%81%88%E3%82%8B%E6%96%87%E5%AD%97%E6%95%B0%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC/not-style.css)
-- [not-script.js](../../../archive/scrapbox/%E8%A6%8B%E3%81%88%E3%82%8B%E6%96%87%E5%AD%97%E6%95%B0%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC/not-script.js)
+- [not-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E8%A6%8B%E3%81%88%E3%82%8B%E6%96%87%E5%AD%97%E6%95%B0%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC/not-style.css)
+- [not-script.js](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E8%A6%8B%E3%81%88%E3%82%8B%E6%96%87%E5%AD%97%E6%95%B0%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC/not-script.js)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

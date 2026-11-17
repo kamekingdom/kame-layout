@@ -1,6 +1,6 @@
 # 出典・参考リンク
 
-抽出元は Scrapbox プロジェクト [kamelayout](https://scrapbox.io/kamelayout/) のエクスポートです。各ファイルの元ページ URL は [migration/manifest.json](migration/manifest.json) に記録しています。ソース内の作者コメント・参照情報は元のまま残しています。
+抽出元は Scrapbox プロジェクト [kamelayout](https://scrapbox.io/kamelayout/) のエクスポートです。各ファイルの元ページ URL は [tests/fixtures/original/manifest.json](tests/fixtures/original/manifest.json) に記録しています。ソース内の作者コメント・参照情報は元のまま残しています。
 
 エクスポート内の説明文には、次の参考リンクも記載されていました。
 

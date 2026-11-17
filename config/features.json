@@ -334,7 +334,7 @@
       "usage": "初期状態では無効です。元コードに構文上の問題があり、旧版として保管しています。",
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%BD%E3%83%BC%E3%83%88%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%92%E5%B8%B8%E6%99%82%E5%B1%95%E9%96%8B%E3%81%99%E3%82%8BUserCSS",
       "files": {},
-      "notes": ["元の CSS は閉じていないブロックを含むため、archive に保存しています。"]
+      "notes": ["元の CSS は閉じていないブロックを含むため、Git履歴に保存しています。"]
     },
     {
       "id": "infobox",
@@ -648,7 +648,7 @@
       "name": "おしゃれな見出し",
       "category": "formatting",
       "description": "見出し装飾用の拡張ポイントです。",
-      "usage": "現在の style.css は空です。旧案は archive に保管しています。",
+      "usage": "現在の style.css は空です。旧案は Git履歴に保存しています。",
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%E3%81%AA%E8%A6%8B%E5%87%BA%E3%81%97",
       "files": {
         "style.css": "src/features/headings/style.css"
@@ -904,7 +904,7 @@
       "usage": "初期状態では無効です。元コードに構文上の問題があり、旧版として保管しています。",
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8C%E6%B0%B4%E4%B8%AD%E3%81%AB%E3%81%AA%E3%82%8BuserCSS",
       "files": {},
-      "notes": ["元の CSS は全角空白などの構文上の問題を含むため、archive に保存しています。"]
+      "notes": ["元の CSS は全角空白などの構文上の問題を含むため、Git履歴に保存しています。"]
     },
     {
       "id": "colors",

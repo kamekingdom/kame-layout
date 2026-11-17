@@ -17,7 +17,7 @@ import {
   managedMarker,
 } from "../tools/scrapbox-package.mjs";
 
-const baseline = JSON.parse(read("migration/manifest.json"));
+const baseline = JSON.parse(read("tests/fixtures/original/manifest.json"));
 const mapping = new Map(migration.files.map((file) => [file.originalPath, file]));
 const hash = (text) => crypto.createHash("sha256").update(text).digest("hex");
 const ast = (text) => parse(text, { ecmaVersion: "latest", sourceType: "module", ranges: true });
@@ -73,13 +73,14 @@ function expandDataModules(tree, filename) {
   return tree;
 }
 
-test("all 131 original files are accounted for; archived code and templates are byte-identical", () => {
+test("all 131 original files are accounted for; historical code and templates are byte-identical", () => {
   assert.equal(mapping.size, baseline.files.length);
   assert.equal(new Set([...mapping.values()].map((entry) => entry.path)).size, mapping.size);
   for (const entry of baseline.files) {
     const destination = mapping.get(entry.path);
     assert.ok(destination, entry.path);
-    const current = read(destination.path);
+    const current =
+      destination.kind === "archive" ? originalText(entry.path) : read(destination.path);
     if (destination.kind === "archive" || !/\.(?:js|css)$/.test(entry.path)) {
       assert.equal(hash(current), entry.sha256, destination.path);
     }
@@ -108,7 +109,7 @@ test("JavaScript extraction preserves statements, literals, event handlers and l
 });
 
 test("default Script execution order is unchanged", () => {
-  const previous = ast(read("archive/scrapbox/kame/script.js"))
+  const previous = ast(originalText("src/kame/script.js"))
     .body.filter((node) => node.type === "ImportDeclaration")
     .map((node) => mapping.get(path.posix.normalize(`src/kame/${node.source.value}`)).path);
   const current = ast(read("script.js"))

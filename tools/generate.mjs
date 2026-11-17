@@ -8,6 +8,7 @@ import {
   defaults,
   styleState,
   scriptState,
+  sourceAtBaseline,
 } from "./project.mjs";
 import { createPackage } from "./scrapbox-package.mjs";
 import { compileNativeStyle } from "./native-usercss.mjs";
@@ -39,10 +40,6 @@ outputs.set(
   ].join("\n"),
 );
 
-// Compatibility for the two previously documented internal entry points.
-outputs.set("src/Settings/style.css", '/* Compatibility entry. */\n@import "../../style.css";\n');
-outputs.set("src/kame/script.js", '// Compatibility entry.\nimport "../../script.js";\n');
-
 const catalog = [
   "# 機能一覧",
   "",
@@ -50,7 +47,7 @@ const catalog = [
   "",
   "機能名から各 README を開くと、使い方・ソース・出典・旧版を確認できます。CSS と JS の有効状態は個別です。",
   "",
-  "「任意・無効」は配布対象に含まれますが、初期状態では読み込みません。旧版だけの機能はアーカイブへのリンクを記載しています。",
+  "「任意・無効」は配布対象に含まれますが、初期状態では読み込みません。旧版だけの機能はGit履歴へのリンクを記載しています。",
   "",
 ];
 for (const [category, title] of Object.entries(categories)) {
@@ -102,7 +99,7 @@ for (const feature of config.features) {
     lines.push(`| [${name}](${link(filename, target)}) | ${role} |`);
   }
   if (!Object.keys(entries).length)
-    lines.push("| — | 現行の配布コードはありません。元コードは下の旧版に保管しています。 |");
+    lines.push("| — | 現行の配布コードはありません。元コードは下のGit履歴から参照できます。 |");
   lines.push(
     "",
     "有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。",
@@ -118,10 +115,11 @@ for (const feature of config.features) {
       "## 旧版・元の試作",
       "",
       ...archived.map(
-        (item) => `- [${path.posix.basename(item.path)}](${link(filename, item.path)})`,
+        (item) =>
+          `- [${path.posix.basename(item.originalPath)}](${sourceAtBaseline(item.originalPath)})`,
       ),
       "",
-      "これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。",
+      "これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。",
       "",
     );
   lines.push(

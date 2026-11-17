@@ -21,9 +21,9 @@
 
 ## 旧版・元の試作
 
-- [v1-style.css](../../../archive/scrapbox/!%E8%A1%8C%E3%82%92%E5%9B%9E%E7%AD%94%E9%A2%A8%E3%81%AB%E3%81%99%E3%82%8BUserCSS/v1-style.css)
+- [v1-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/!%E8%A1%8C%E3%82%92%E5%9B%9E%E7%AD%94%E9%A2%A8%E3%81%AB%E3%81%99%E3%82%8BUserCSS/v1-style.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

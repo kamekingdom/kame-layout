@@ -28,10 +28,10 @@
 
 ## 旧版・元の試作
 
-- [non-used-style.css](../../../archive/scrapbox/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3/non-used-style.css)
-- [not-used.css](../../../archive/scrapbox/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3/not-used.css)
+- [non-used-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3/non-used-style.css)
+- [not-used.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3/not-used.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

@@ -21,9 +21,9 @@
 
 ## 旧版・元の試作
 
-- [notused.css](../../../archive/scrapbox/%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%81%A8%E3%83%AA%E3%82%B9%E3%83%88%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0/notused.css)
+- [notused.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%81%A8%E3%83%AA%E3%82%B9%E3%83%88%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0/notused.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const read = (filename) => fs.readFileSync(path.join(root, filename), "utf8");
 export const config = JSON.parse(read("config/features.json"));
-export const migration = JSON.parse(read("migration/paths.json"));
+export const migration = JSON.parse(read("tests/fixtures/original/paths.json"));
 export const features = new Map(config.features.map((feature) => [feature.id, feature]));
 export const categories = {
   theme: "テーマ・配色",

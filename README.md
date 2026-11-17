@@ -14,55 +14,41 @@ Scrapbox / Cosense の見た目と編集機能を拡張する UserCSS・UserScri
 
 ## Scrapbox で使う
 
-GitHub をコードの管理元とし、生成した [Scrapbox 用 JSON](dist/kame-layout.scrapbox.json) をコード配置用のプロジェクトへ取り込みます。Scrapbox の CSP は GitHub / jsDelivr の直接 import を許可していないため、利用時は同じ `scrapbox.io` の `/api/code/` から読み込みます。
+現在は **GitHubを編集元、[kame-layout:delivery](https://scrapbox.io/kamelayout/kame-layout%3Adelivery) の1ページを配信元**にしています。`main` へのpush後にGitHub Actionsが検証・同期し、Scrapboxを再読み込みすると更新されます。iPhone・iPadも標準のUserCSS／UserScriptで利用できます。
 
-1. `dist/kame-layout.scrapbox.json` をダウンロードします。
-2. コード配置先のプロジェクトの Settings → Page Data → Import Pages で取り込みます。管理者権限が必要です。[公式のインポート手順](https://scrapbox.io/help-jp/Import_Pages_%2F_Export_Pages)
-3. 以下の `YOUR_CODE_PROJECT` を、そのプロジェクト名に置き換えます。
-
-JSON に含まれるのは **`kame-layout:delivery` の1ページだけ**です。機能ごとのコードと補助モジュールを同じページに配置します。Settings・ユーザーページ・既存の機能ページは含みません。利用者側で npm をインストールする必要はありません。iPhone・iPadでも通常のUserCSS／UserScriptから利用できます。
-
-### UserCSS：見た目を変える
-
-プロジェクト全体に適用する場合は `Settings` ページ、自分だけに適用する場合は自分のユーザーページに記載します。
-
-```text
-code:style.css
- @import url("/api/code/YOUR_CODE_PROJECT/kame-layout%3Adelivery/style.css");
-```
-
-### UserScript：操作や機能を追加する
-
-プロフィール設定で UserScript を Enabled にし、自分のユーザーページに記載します。設定済みの利用先ではCSSを標準UserCSSへ自動配置し、初回の描画から適用します。Scriptは以下の入口から最新版を読み込みます。PC・iPhone・iPadでも標準機能だけで利用できます。
+- **UserCSS**：設定済みの `kamekingdom/Settings` に結合済みCSSを自動配置し、最初の描画から適用します。
+- **UserScript**：ユーザーページの次の入口から最新版を読み込みます。プロフィール設定のUserScriptをEnabledにします。
 
 ```text
 code:script.js
- import(`/api/code/YOUR_CODE_PROJECT/kame-layout%3Adelivery/loader.js?reload=${crypto.randomUUID()}`).catch(console.error);
+ import(`/api/code/kamelayout/kame-layout%3Adelivery/loader.js?reload=${crypto.randomUUID()}`).catch(console.error);
 ```
 
-既存の読み込みブロックを置き換え、ブラウザを再読み込みします。同じ機能を二重に import すると、イベントやメニューが二重登録される場合があります。
+**更新はActionsの配信成功後に再読み込みしてください。** 既に開いている画面のScriptは自動で差し替えません。利用先SettingsのCSSはScript起動後に交換しないため、旧UIから新UIへの切り替わりを避けられます。
 
-自動同期を有効にすると、`main` への push → 検証 → 配信ページと標準UserCSSの管理範囲を更新 → コードの照合、の順に実行します。Scrapboxで既に開いている画面の実行中コードは置き換えず、**ブラウザを再読み込みしたときに新しい版を読み込みます**。
+別のプロジェクトへ導入する場合は、[自動同期の設定](docs/auto-sync.md)で配信先・UserCSSの適用先・認証を設定します。[更新の仕組み](docs/fresh-delivery.md)にキャッシュ対策と切り替え手順をまとめています。同じ機能の旧importは重複登録を避けるため置き換えてください。
 
-URL中の `%3A` はページ名の `:` をURLエンコードした表記です。Scriptの入口は毎回異なるURLで取得し、補助モジュールへ同じ配信ハッシュを付けます。CSSは、設定済みの利用先のSettingsへ[結合済みCSS](dist/kame-layout.native.css)を自動配置するため、Script起動後の差し替えを行いません。配信成功後に再読み込みしてください。上記の固定CSS importだけで利用する場合は、従来通り配信キャッシュの更新待ちが発生します。[更新の仕組みと切り替え](docs/fresh-delivery.md)
+GitHubやjsDelivrへの直接importはScrapboxのCSPでブロックされるため、同じ `scrapbox.io` の `/api/code/` を使います。自動同期を利用しない場合は [生成JSON](dist/kame-layout.scrapbox.json) をSettings → Page Data → Import Pagesで取り込み、次のCSS入口を使えます。この固定URLの方式には配信キャッシュの更新待ちがあります。[公式インポート手順](https://scrapbox.io/help-jp/Import_Pages_%2F_Export_Pages)
 
-初回の認証設定と有効化は [自動同期の設定](docs/auto-sync.md) を参照してください。認証未設定・同期無効の間はGitHubへのpushだけではScrapboxは更新されません。生成したJSONを手動で取り込むこともできます。
+```text
+code:style.css
+ @import url("/api/code/kamelayout/kame-layout%3Adelivery/style.css");
+```
 
 ## 構成
 
 ```text
-style.css / script.js     公開入口。既存の import URL を維持
+style.css / script.js     生成される読み込み順の入口
 config/features.json      機能の説明、有効・無効、読み込み順
 config/scrapbox-sync.json  同期先プロジェクトと配信用ページ
 src/features/<機能ID>/    機能ごとの CSS・JS・設定データ・README
 src/theme/project.css     プロジェクト共通変数
 src/templates/            抽出したテンプレート本文
-archive/scrapbox/          無効な旧版・試作・元の読み込み入口
 docs/                     機能一覧、構成の理由、開発手順
-migration/                元コードの出典・ハッシュ・移動先
 tools/                    入口とドキュメントの生成、検証
-tests/                    初回コミットとの回帰比較
-dist/                     Scrapbox へ取り込む生成済み JSON
+tests/                    回帰・機能・配信の検証
+tests/fixtures/original/  初回移行の出典・ハッシュ・対応表
+dist/                     配信JSONと標準UserCSSの生成物
 .github/workflows/         検証とmainへのpush後の自動同期
 ```
 
@@ -78,12 +64,13 @@ dist/                     Scrapbox へ取り込む生成済み JSON
 - [編集・検証の手順](docs/development.md)
 - [自動同期・認証・復旧の手順](docs/auto-sync.md)
 - [出典・参考リンク](SOURCES.md)
+- [整理した旧版・ページと復旧方法](docs/cleanup.md)
 
 ## 開発する
 
 Issue・作業ブランチ・PR・検証・マージの進め方は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
-Node.js 22.13 以降と Python 3 を使用します。Python は元 JSON の再抽出時だけ必要です。
+Node.js 22.13 以降と、初回コミットを含むGit履歴が必要です。
 
 ```sh
 npm ci
@@ -96,7 +83,7 @@ npm test
 
 ## 元コードと既存の依存関係
 
-元 JSON から抽出した CSS 82・JS 37・テンプレート12の計131ファイルは、現行コードまたはアーカイブへ対応付けています。変更前は [初回コミット](https://github.com/kamekingdom/kame-layout/tree/68d00aaefdcc5504d59727c23cbe457e38cff19d)、出典は [manifest.json](migration/manifest.json)、移動先は [paths.json](migration/paths.json) で追えます。ユーザー情報を含む元 JSON は公開していません。
+元 JSON から抽出した CSS 82・JS 37・テンプレート12の計131ファイルは、現行コードまたはGit履歴へ対応付けています。変更前は [初回コミット](https://github.com/kamekingdom/kame-layout/tree/68d00aaefdcc5504d59727c23cbe457e38cff19d)、出典は [manifest.json](tests/fixtures/original/manifest.json)、移動先は [paths.json](tests/fixtures/original/paths.json) で追えます。ユーザー情報を含む元 JSON は公開していません。
 
 元の CSS 入口にあった3件の参照切れは、効果のない import として現行入口から除きました。別の装飾を代わりに有効にすることはしていません。グラフの CSS は従来通り Script が読み込みます。
 
@@ -106,4 +93,3 @@ npm test
 
 - [Scrapbox UserCSS](https://scrapbox.io/help-jp/UserCSS)
 - [Scrapbox UserScript](https://scrapbox.io/help-jp/UserScript)
-- [jsDelivr の GitHub 配信](https://github.com/jsdelivr/jsdelivr#github)

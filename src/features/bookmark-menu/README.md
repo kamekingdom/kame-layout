@@ -28,11 +28,11 @@
 
 ## 旧版・元の試作
 
-- [v3-script.js](../../../archive/scrapbox/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v3-script.js)
-- [v2-script.js](../../../archive/scrapbox/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v2-script.js)
-- [v1-script.js](../../../archive/scrapbox/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v1-script.js)
+- [v3-script.js](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v3-script.js)
+- [v2-script.js](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v2-script.js)
+- [v1-script.js](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AFJS/v1-script.js)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

@@ -25,14 +25,14 @@ table: のテーブルに適用します。
 
 ## 旧版・元の試作
 
-- [v2-style.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v2-style.css)
-- [v1-style.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v1-style.css)
-- [not-used-style.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/not-used-style.css)
-- [v3-style.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v3-style.css)
-- [v1style.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v1style.css)
-- [slide-not-user.css](../../../archive/scrapbox/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/slide-not-user.css)
+- [v2-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v2-style.css)
+- [v1-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v1-style.css)
+- [not-used-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/not-used-style.css)
+- [v3-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v3-style.css)
+- [v1style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/v1style.css)
+- [slide-not-user.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E8%A6%8B%E3%81%9F%E7%9B%AE/slide-not-user.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 
