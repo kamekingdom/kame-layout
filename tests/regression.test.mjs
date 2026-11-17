@@ -257,7 +257,8 @@ test("single-page package inlines stylesheet fragments and relocates only JS mod
   const names = new Map(
     sources.map(({ feature, name, filename }) => [filename, deployedName(feature.id, name)]),
   );
-  assert.equal(files.size, sources.length + 3);
+  assert.equal(files.size, sources.length + 4);
+  const version = files.get(`${entryPage}/loader.js`).match(/const version = "([a-f0-9]{64})"/)[1];
   for (const { feature, name, filename } of sources) {
     const deployed = files.get(`${entryPage}/${deployedName(feature.id, name)}`);
     assert.equal(typeof deployed, "string", filename);
@@ -276,7 +277,7 @@ test("single-page package inlines stylesheet fragments and relocates only JS mod
         path.posix.join(path.posix.dirname(filename), literal.value),
       );
       assert.ok(names.has(target), target);
-      literal.value = `./${names.get(target)}`;
+      literal.value = `./${names.get(target)}?v=${version}`;
     };
     const visit = (node) => {
       if (!node || typeof node !== "object") return;
@@ -307,10 +308,13 @@ test("single-page package inlines stylesheet fragments and relocates only JS mod
     const extension = kind === "styles" ? "css" : "js";
     const entry = files.get(`${entryPage}/${kind === "styles" ? "style" : "script"}.${extension}`);
     for (const match of entry.matchAll(/(?:@import|import) "([^"]+)"/g)) {
-      const target = path.posix.normalize(path.posix.join(entryPage, match[1]));
+      const target = path.posix.normalize(path.posix.join(entryPage, match[1].split("?")[0]));
       assert.ok(files.has(target), target);
     }
   }
   const graph = files.get(`${entryPage}/graph-view.script.js`);
-  assert.match(graph, /new URL\(["']\.\/graph-view\.style\.css["'],\s*import\.meta\.url\)/);
+  assert.match(
+    graph,
+    /new URL\(["']\.\/graph-view\.style\.css\?v=[a-f0-9]{64}["'],\s*import\.meta\.url\)/,
+  );
 });
