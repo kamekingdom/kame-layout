@@ -4,5 +4,6 @@
   "usercss": {
     "project": "kamekingdom",
     "page": "Settings"
-  }
+  },
+  "legacyEntrypoints": true
 }

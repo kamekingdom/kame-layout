@@ -35,6 +35,8 @@ code:style.css
  @import url("/api/code/kamelayout/kame-layout%3Adelivery/style.css");
 ```
 
+以前の `Settings/style.css`・`kame/script.js` も互換入口として維持し、push時に現行コードへ同期します。GitHubからのダウンロード用パスも復元しました。[旧URL・更新範囲・キャッシュについて](docs/legacy-entrypoints.md)
+
 ## 構成
 
 ```text
@@ -42,6 +44,8 @@ style.css / script.js     生成される読み込み順の入口
 config/features.json      機能の説明、有効・無効、読み込み順
 config/scrapbox-sync.json  同期先プロジェクトと配信用ページ
 src/features/<機能ID>/    機能ごとの CSS・JS・設定データ・README
+src/Settings/style.css    旧URL向けの結合済みCSS（生成物）
+src/kame/script.js        旧URL向けのScript入口（生成物）
 src/theme/project.css     プロジェクト共通変数
 src/templates/            抽出したテンプレート本文
 docs/                     機能一覧、構成の理由、開発手順

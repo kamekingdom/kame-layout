@@ -1,5 +1,7 @@
 # 旧版と配信ページの整理
 
+後続のIssue [#21](https://github.com/kamekingdom/kame-layout/issues/21)で、既存ユーザー向けの取得先 `src/Settings/style.css`・`src/kame/script.js` を生成物として復元し、Scrapbox側の同名コードブロックも現行配信へ接続しました。[互換入口の仕様](legacy-entrypoints.md)
+
 Issue [#19](https://github.com/kamekingdom/kame-layout/issues/19) の整理記録です。現行CSS・Scriptの処理と、有効・無効の設定は維持します。
 
 ## GitHub

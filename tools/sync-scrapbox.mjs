@@ -6,6 +6,12 @@ import { root, read } from "./project.mjs";
 import { entryPage, managedMarker, packageFiles } from "./scrapbox-package.mjs";
 import { compileNativeStyle, mergeNativeStyle, managedStyleFromCode } from "./native-usercss.mjs";
 
+import {
+  legacyEntrypoints,
+  mergeLegacyEntrypoint,
+  managedLegacyCode,
+} from "./legacy-entrypoints.mjs";
+
 const origin = "https://scrapbox.io";
 const sha256 = (text) => crypto.createHash("sha256").update(text).digest("hex");
 const trimEnd = (lines) => {
@@ -23,6 +29,8 @@ export function planSync(pkg, target) {
   if (target.page !== entryPage || pkg.pages?.length !== 1 || pkg.pages[0].title !== entryPage) {
     throw new Error(`Only the managed ${entryPage} page may be published.`);
   }
+  if (target.legacyEntrypoints !== undefined && typeof target.legacyEntrypoints !== "boolean")
+    throw new Error("Invalid legacy entrypoint configuration.");
   const page = pkg.pages[0];
   if (!Array.isArray(page.lines) || page.lines[0] !== entryPage || page.lines[1] !== managedMarker)
     throw new Error("Missing managed-page marker.");
@@ -41,6 +49,8 @@ export function planSync(pkg, target) {
       Object.keys(target.usercss).some((key) => !["project", "page"].includes(key)))
   )
     throw new Error("Invalid native UserCSS target.");
+  if (target.legacyEntrypoints && target.usercss?.project === target.project)
+    throw new Error("Legacy and consumer UserCSS must use different Settings pages.");
   return {
     project: target.project,
     page: entryPage,
@@ -49,6 +59,14 @@ export function planSync(pkg, target) {
     contentSha256: sha256(JSON.stringify(pkg)),
     url: `${origin}/${target.project}/${encodeURIComponent(entryPage)}`,
     ...(target.usercss ? { usercss: target.usercss } : {}),
+    ...(target.legacyEntrypoints
+      ? {
+          legacyEntrypoints: [
+            { page: "Settings", block: "style.css" },
+            { page: "kame", block: "script.js" },
+          ],
+        }
+      : {}),
   };
 }
 
@@ -120,7 +138,37 @@ export async function verifyPublished(
         }),
       );
     }
-    if (!failures.length) return { ...plan, verifiedCodeBlocks: expected.length };
+    if (!failures.length) {
+      for (const entry of target.legacyEntrypoints ? legacyEntrypoints(pkg, target.project) : []) {
+        const response = await request(
+          fetchImpl,
+          `${origin}/api/code/${target.project}/${entry.page}/${entry.block}?verify=${entry.version}`,
+          { cache: "no-store" },
+          "Legacy entrypoint verification",
+        );
+        const type = response.headers.get("content-type") ?? "";
+        const validType =
+          entry.kind === "css"
+            ? type.includes("text/css")
+            : /(?:text|application)\/javascript/.test(type);
+        try {
+          if (
+            !response.ok ||
+            !validType ||
+            managedLegacyCode(await response.text(), entry).code !== entry.code.trim()
+          )
+            failures.push(`${entry.page}/${entry.block}`);
+        } catch {
+          failures.push(`${entry.page}/${entry.block}`);
+        }
+      }
+      if (!failures.length)
+        return {
+          ...plan,
+          verifiedCodeBlocks: expected.length,
+          ...(target.legacyEntrypoints ? { verifiedLegacyEntrypoints: 2 } : {}),
+        };
+    }
     if (attempt + 1 < retries) await wait(1500);
   }
   throw new Error(
@@ -151,6 +199,74 @@ export async function publishPackage(
   if (typeof profile.id !== "string" || !profile.id) {
     throw new Error("Unexpected Scrapbox profile response. Check the authentication API.");
   }
+  const legacy = target.legacyEntrypoints ? legacyEntrypoints(pkg, target.project) : [];
+  const readLegacy = async (entry) =>
+    jsonResponse(
+      await request(
+        fetchImpl,
+        `${origin}/api/pages/${target.project}/${entry.page}?verify=${crypto.randomUUID()}`,
+        { headers, cache: "no-store" },
+        "Legacy entrypoint preflight",
+      ),
+      "Legacy entrypoint preflight",
+    );
+  for (const entry of legacy) mergeLegacyEntrypoint(await readLegacy(entry), entry);
+  const syncLegacy = async () => {
+    if (!legacy.length) return {};
+    const backups = [],
+      actions = [];
+    for (const entry of legacy) {
+      const current = await readLegacy(entry);
+      const next = mergeLegacyEntrypoint(current, entry);
+      const changed = JSON.stringify(pageLines(current)) !== JSON.stringify(next.lines);
+      if (changed) {
+        backups.push({ title: current.title, lines: pageLines(current) });
+        fs.mkdirSync(backupDirectory, { recursive: true, mode: 0o700 });
+        fs.writeFileSync(
+          path.join(backupDirectory, "previous-legacy.scrapbox.json"),
+          JSON.stringify({ pages: backups }, null, 2) + "\n",
+          { mode: 0o600 },
+        );
+        const writeHeaders = {
+          ...headers,
+          Origin: origin,
+          Referer: `${origin}/${target.project}/`,
+          ...(typeof profile.csrfToken === "string" && profile.csrfToken
+            ? { "X-CSRF-TOKEN": profile.csrfToken }
+            : {}),
+        };
+        const form = new FormData();
+        form.append(
+          "import-file",
+          new Blob([JSON.stringify({ pages: [next] })], { type: "application/octet-stream" }),
+          "kame-layout-legacy.scrapbox.json",
+        );
+        form.append("duplicateFileBetweenProject", "false");
+        await jsonResponse(
+          await request(
+            fetchImpl,
+            `${origin}/api/page-data/import/${target.project}.json`,
+            { method: "POST", headers: writeHeaders, body: form },
+            "Legacy entrypoint update",
+          ),
+          "Legacy entrypoint update",
+        );
+        const finished = await request(
+          fetchImpl,
+          `${origin}/api/page-data/import-finish/${target.project}.json`,
+          { method: "POST", headers: writeHeaders },
+          "Legacy entrypoint finish",
+        );
+        if (!finished.ok) throw new Error(`Legacy entrypoint finish: HTTP ${finished.status}.`);
+      }
+      actions.push({
+        page: entry.page,
+        block: entry.block,
+        action: changed ? "updated" : "unchanged",
+      });
+    }
+    return { legacyEntrypoints: actions };
+  };
   const native = target.usercss ? compileNativeStyle(pkg) : null;
   const readNative = async () =>
     jsonResponse(
@@ -244,8 +360,10 @@ export async function publishPackage(
     if (
       JSON.stringify(trimEnd(pageLines(previous))) === JSON.stringify(trimEnd(pkg.pages[0].lines))
     ) {
+      const legacyResult = await syncLegacy();
       return {
         ...(await verify(pkg, target, { fetchImpl })),
+        ...legacyResult,
         ...(await syncNative()),
         action: "unchanged",
       };
@@ -299,8 +417,10 @@ export async function publishPackage(
     "Import finish",
   );
   if (!finished.ok) throw new Error(`Import finish: HTTP ${finished.status}.`);
+  const legacyResult = await syncLegacy();
   return {
     ...(await verify(pkg, target, { fetchImpl })),
+    ...legacyResult,
     ...(await syncNative()),
     action: previous ? "updated" : "created",
   };

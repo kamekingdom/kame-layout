@@ -13,7 +13,7 @@
 
 大きい機能では、`script.js` が初期化・状態・イベントを担当し、`engine.js`・`model.js`・`api.js` などが計算・解析・取得を担当します。CSSの入口が相対importだけの場合は、同じフォルダの表示部分ごとのCSSを編集します。各ファイルの役割はREADMEの表で確認できます。
 
-`style.css`、`script.js`、各機能 README、`docs/features.md`、`docs/load-order.md`、`dist/kame-layout.scrapbox.json` は生成物です。直接編集せず、設定を更新して `npm run build` を実行します。
+`style.css`、`script.js`、`src/Settings/style.css`、`src/kame/script.js`、各機能 README、`docs/features.md`、`docs/load-order.md`、`dist/kame-layout.scrapbox.json` は生成物です。直接編集せず、設定を更新して `npm run build` を実行します。
 
 ## 通常の検証
 
@@ -62,7 +62,7 @@ WebKitモードには `npx playwright install webkit` でテスト用ブラウ�
 
 公開入口・生成したドキュメント・Scrapbox 用 JSON も一緒にコミットします。[自動同期](auto-sync.md) が設定済みなら `main` へのpush後に配信ページを更新します。手動で確認する場合は `npm run sync:plan` がネットワーク接続・書き込みなしで対象とハッシュを表示します。
 
-セッションを環境変数に設定した環境での `npm run sync:publish` は書き込み操作です。更新対象は `config/scrapbox-sync.json` の配信ページ1件と、設定済み利用先のSettings内のUserCSS管理範囲です。
+セッションを環境変数に設定した環境での `npm run sync:publish` は書き込み操作です。更新対象は `config/scrapbox-sync.json` の配信ページ1件、設定済み利用先のSettings内のUserCSS管理範囲、および有効にした[旧URLの互換入口](legacy-entrypoints.md)2ブロックです。
 
 Scrapbox のページ構造が変更されたときは、その変更に関係する機能のセレクターや DOM 処理を確認してください。
 
