@@ -1,4 +1,5 @@
 import path from "node:path";
+import crypto from "node:crypto";
 import { parse } from "acorn";
 import { generate } from "astring";
 import { config, defaults, read } from "./project.mjs";
@@ -30,7 +31,7 @@ function walk(node, visit) {
 
 // Only module/asset URLs change. Statements, data, module boundaries and evaluation
 // order stay intact; whitespace-only minification keeps the page below 10,000 lines.
-export function compileModule(source, filename, names) {
+export function compileModule(source, filename, names, version = "") {
   const ast = parse(source, { ecmaVersion: "latest", sourceType: "module" });
   const add = (literal) => {
     if (typeof literal?.value !== "string" || !literal.value.startsWith(".")) return;
@@ -39,7 +40,7 @@ export function compileModule(source, filename, names) {
     );
     const name = names.get(target);
     if (!name) throw new Error(`Unresolved deployment dependency: ${filename} -> ${literal.value}`);
-    literal.value = `./${name}`;
+    literal.value = `./${name}${version ? `?v=${version}` : ""}`;
     delete literal.raw;
   };
   walk(ast, (node) => {
@@ -63,30 +64,42 @@ export function codeBlock(name, source) {
   return [`code:${name}`, ...source.split("\n").map((line) => ` ${line}`)];
 }
 
-export function createPackage() {
+export function createPackage(readSource = read) {
   const sources = sourceFiles();
+  const inputs = sources.map(({ name, filename }) => [
+    filename,
+    name.endsWith(".css") ? compileStyles(filename, readSource) : readSource(filename),
+  ]);
+  const theme = readSource("src/theme/project.css");
+  const loader = readSource("tools/delivery-loader.js");
+  const version = crypto
+    .createHash("sha256")
+    .update(
+      JSON.stringify([config, inputs, theme, loader, readSource("tools/scrapbox-package.mjs")]),
+    )
+    .digest("hex");
   const names = new Map(
     sources.map(({ feature, name, filename }) => [filename, deployedName(feature.id, name)]),
   );
   const styles = defaults("styles").map(
-    ({ feature }) => `@import "./${deployedName(feature.id, "style.css")}";`,
+    ({ feature }) => `@import "./${deployedName(feature.id, "style.css")}?v=${version}";`,
   );
   const scripts = defaults("scripts").map(
-    ({ feature }) => `import "./${deployedName(feature.id, "script.js")}";`,
+    ({ feature }) => `import "./${deployedName(feature.id, "script.js")}?v=${version}";`,
   );
   for (const feature of config.features) {
     if (feature.files["style.css"] && !config.defaults.styles.includes(feature.id)) {
       styles.push(
         `/* ${feature.name}${feature.styleLoading === "script" ? "：Scriptが自動読込" : "：無効"} */`,
       );
-      styles.push(`/* @import "./${deployedName(feature.id, "style.css")}"; */`);
+      styles.push(`/* @import "./${deployedName(feature.id, "style.css")}?v=${version}"; */`);
     }
     if (feature.files["script.js"] && !config.defaults.scripts.includes(feature.id)) {
       scripts.push(`// ${feature.name}：無効`);
-      scripts.push(`// import "./${deployedName(feature.id, "script.js")}";`);
+      scripts.push(`// import "./${deployedName(feature.id, "script.js")}?v=${version}";`);
     }
   }
-  styles.push('@import "./project.css";');
+  styles.push(`@import "./project.css?v=${version}";`);
   const lines = [
     entryPage,
     managedMarker,
@@ -98,12 +111,14 @@ export function createPackage() {
     "",
     ...codeBlock("script.js", scripts.join("\n")),
     "",
-    ...codeBlock("project.css", read("src/theme/project.css")),
+    ...codeBlock("project.css", theme),
+    "",
+    ...codeBlock("loader.js", loader.replace("__KAME_LAYOUT_VERSION__", version)),
     "",
   ];
   for (const { feature, name, filename } of sources) {
-    let source = name.endsWith(".css") ? compileStyles(filename) : read(filename);
-    if (name.endsWith(".js")) source = compileModule(source, filename, names);
+    let source = name.endsWith(".css") ? compileStyles(filename, readSource) : readSource(filename);
+    if (name.endsWith(".js")) source = compileModule(source, filename, names, version);
     lines.push(
       `説明：${feature.name} / ${name}`,
       ...codeBlock(deployedName(feature.id, name), source),

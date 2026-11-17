@@ -36,8 +36,25 @@ jobs:
           path: dist/kame-layout.scrapbox.json
           retention-days: 7
 
-  publish:
+  delivery-browser:
     needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium webkit
+      - run: node tools/delivery-check.mjs
+      - run: node tools/delivery-check.mjs --webkit
+
+  publish:
+    needs: [validate, delivery-browser]
     if: >-
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&

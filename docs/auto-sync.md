@@ -13,7 +13,7 @@ mainへpush → 構文・回帰テスト → 配信用1ページを更新 → �
 - リポジトリ：`kamekingdom/kame-layout`
 - プロジェクト：`kamelayout`
 - 更新するページ：`kame-layout:delivery`
-- 入り口：このページの `style.css` と `script.js`
+- 入り口：毎回新しいURLで読む `loader.js`。そこからバージョン付きの `style.css` と `script.js` を読み込みます。
 - 対象設定：[config/scrapbox-sync.json](../config/scrapbox-sync.json)
 
 既存のSettings・ユーザーページ・以前取り込んだ73ページは自動変更・削除しません。配信ページへの切り替えは、公開コードの照合が通った後に行います。ロールバック用の旧importは手元に残してください。
@@ -48,7 +48,7 @@ Scrapboxの通常のPersonal Access TokenとService Accountは読み取り用途
 
 ## 復旧と更新確認
 
-同期が成功しても、開いている画面の実行中JSは差し替えません。Scrapboxを再読み込みしてください。
+同期が成功しても、開いている画面の実行中JSは差し替えません。最新版ローダーへの初回切り替え後は、Scrapboxを再読み込みしてください。配信ジョブが成功する前の再読み込みは、配信済みの直前の版を読み込みます。[初回の切り替えと検証方法](fresh-delivery.md)を参照してください。
 
 以前の配信ページはActionsの`previous-delivery-page`アーティファクトに保存します。復旧する場合は自動同期を`false`にしてから、そのJSONを取り込みます。元のページ群を使うimportへ戻すこともできます。同期処理が失敗したときは、成功扱いにせずActionsを確認します。
 

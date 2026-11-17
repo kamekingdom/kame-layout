@@ -8,6 +8,7 @@ import { root, read, migration } from "./project.mjs";
 import { packageFiles, entryPage } from "./scrapbox-package.mjs";
 
 const live = process.argv.includes("--live");
+const loader = process.argv.includes("--loader");
 const safari = process.argv.includes("--webkit");
 const engine = safari ? "webkit" : "chromium";
 const output = path.join(root, `.cache/browser-${engine}${live ? "-live" : ""}`);
@@ -36,7 +37,9 @@ async function capture(version, viewport) {
     const request = route.request();
     const url = new URL(request.url());
     const isBaseline = url.pathname.startsWith("/__kame-layout-test/baseline/");
-    const isPackage = url.pathname.startsWith(`/api/code/kamelayout/${entryPage}/`);
+    const isPackage = decodeURIComponent(url.pathname).startsWith(
+      `/api/code/kamelayout/${entryPage}/`,
+    );
     if (isPackage && live) return route.continue();
     if (url.hostname === "scrapbox.io" && (isBaseline || isPackage)) {
       const pathname = decodeURIComponent(url.pathname);
@@ -74,15 +77,20 @@ async function capture(version, viewport) {
     version === "baseline"
       ? "https://scrapbox.io/__kame-layout-test/baseline"
       : `https://scrapbox.io/api/code/kamelayout/${entryPage}`;
-  await page.addStyleTag({ url: `${base}/style.css` });
-  const importError = await page.evaluate(async (url) => {
-    try {
-      await import(url);
-      return null;
-    } catch (error) {
-      return error.message;
-    }
-  }, `${base}/script.js`);
+  if (!(loader && version === "current")) await page.addStyleTag({ url: `${base}/style.css` });
+  const importError = await page.evaluate(
+    async (url) => {
+      try {
+        await import(url);
+        return null;
+      } catch (error) {
+        return error.message;
+      }
+    },
+    loader && version === "current"
+      ? `${base}/loader.js?reload=${Date.now()}-${Math.random()}`
+      : `${base}/script.js`,
+  );
   assert.equal(importError, null, `${version} import failed`);
   await page.evaluate(() => document.fonts.ready);
   // The original character-counter waits three seconds before it initialises.
