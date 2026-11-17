@@ -10,9 +10,12 @@ import {
   scriptState,
 } from "./project.mjs";
 import { createPackage } from "./scrapbox-package.mjs";
+import { compileNativeStyle } from "./native-usercss.mjs";
 
 const outputs = new Map();
-outputs.set("dist/kame-layout.scrapbox.json", JSON.stringify(createPackage(), null, 2) + "\n");
+const pkg = createPackage();
+outputs.set("dist/kame-layout.scrapbox.json", JSON.stringify(pkg, null, 2) + "\n");
+outputs.set("dist/kame-layout.native.css", compileNativeStyle(pkg).css + "\n");
 const check = process.argv.includes("--check");
 const label = "<!-- config/features.json から生成。説明・設定は config 側を編集してください。 -->";
 const link = (from, target) => encodeURI(path.posix.relative(path.posix.dirname(from), target));

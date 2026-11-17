@@ -1,5 +1,6 @@
 // Delivered as loader.js. The profile imports this module with a fresh URL per reload.
 const version = "__KAME_LAYOUT_VERSION__";
+const inlineProject = "__KAME_LAYOUT_INLINE_PROJECT__";
 const base = new URL("./", import.meta.url);
 const slot = Symbol.for("kame-layout.delivery");
 
@@ -16,6 +17,25 @@ function isEntry(href) {
 }
 
 async function install() {
+  if (decodeURIComponent(location.pathname.split("/")[1] || "") === inlineProject) {
+    // In the configured project, CSS is already the native Settings stylesheet.
+    // Do not paint an older stylesheet and replace it after JavaScript starts.
+    const deadline = Date.now() + 20000;
+    while (
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--kame-layout-inline-version")
+        .replace(/["'\s]/g, "") !== version
+    ) {
+      if (Date.now() > deadline)
+        throw new Error(
+          "Native UserCSS is not the published version. Reload after deployment succeeds.",
+        );
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    await import(new URL(`script.js?v=${version}`, base).href);
+    document.documentElement.dataset.kameLayoutVersion = version;
+    return { version };
+  }
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = new URL(`style.css?v=${version}`, base).href;
@@ -55,6 +75,7 @@ async function install() {
   for (const old of [...document.querySelectorAll('link[rel="stylesheet"]')])
     if (old !== link && isEntry(old.href)) old.remove();
   await import(new URL(`script.js?v=${version}`, base).href);
+  document.documentElement.dataset.kameLayoutVersion = version;
   return { version };
 }
 

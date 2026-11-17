@@ -71,7 +71,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run build
-      - name: Update only the managed delivery page and verify every code block
+      - name: Update delivery and managed native UserCSS, then verify both
         run: npm run sync:publish
         env:
           SCRAPBOX_SID: ${{ secrets.SCRAPBOX_SID }}

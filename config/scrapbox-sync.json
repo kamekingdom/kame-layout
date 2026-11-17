@@ -1,4 +1,8 @@
 {
   "project": "kamelayout",
-  "page": "kame-layout:delivery"
+  "page": "kame-layout:delivery",
+  "usercss": {
+    "project": "kamekingdom",
+    "page": "Settings"
+  }
 }

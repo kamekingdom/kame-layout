@@ -1,0 +1,3758 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,500;1,600;1,700;1,800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
+@font-face {
+  font-family: "l-safe";
+  src: local("Bahnschrift"), local("DIN"), local("ＭＳ Ｐゴシック"), local("MS PGothic");
+  unicode-range: U+006C;
+}
+html,
+body,
+#editor,
+.grid li {
+  font-family:
+    "l-safe", "calibri", "Zen Kaku Gothic New", "YuGothic", "Yu Gothic", "Font Awesome 5 Free",
+    "Font Awesome 5 Brands", "Roboto", "メイリオ", "Meiryo", "Osaka", "ＭＳ Ｐゴシック",
+    "MS PGothic", "sans-serif";
+}
+.navbar .navbar-menu > li > a {
+  color: #90c030;
+}
+.navbar .navbar-menu > li > a:hover,
+.navbar .navbar-menu > li > a:active,
+.navbar .navbar-menu > li > a:focus {
+  color: #000;
+}
+[data-hover-visible] .new-button:hover {
+  --new-button-horizontal-color: #5e8af7;
+  --new-button-vertical-color: #3d72f5;
+}
+.dropdown-menu > li > a.selected,
+[data-hover-visible] .dropdown-menu > li > a.selected {
+  color: var(--exist-color);
+}
+.global-menu li a.updated,
+.global-menu li a.highlight {
+  border-left: 2px solid #646262;
+}
+.global-menu .project-list-filter a:focus-within,
+.drawer .drawer-menu ul .project-list-filter a:focus-within {
+  box-shadow: 0 0px 0px 3px #b37e7e;
+}
+/* カウンターのスタイル */
+#__charCounter__ span {
+  cursor: pointer;
+  font: 88%/1 monospace;
+  opacity: 0.35; /* ←マウスを乗せてないときの濃さ 35% */
+  transition: opacity 0.2s ease-out;
+}
+#__charCounter__ span:hover {
+  opacity: 1;
+}
+/* ←マウスを乗せたときの濃さ 100% */
+#__charCounter__ {
+  z-index: 30;
+  position: sticky;
+  bottom: 0;
+  text-align: right;
+}
+/* ポップアップのスタイル */
+#__charCounterPopup__ {
+  z-index: 30;
+  position: absolute;
+  bottom: 2em;
+  right: -1em;
+  border-radius: 0.25em;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 8px 1px rgba(8, 8, 8, 0.1);
+  padding: 0.8em;
+  background-color: azure;
+  color: #5f9ea0;
+  font: 13.5px/1.4 monospace;
+  transition: opacity 0.3s ease-out;
+}
+/* プレゼンモードのときは非表示にする */
+.presentation #__charCounter__,
+.presentation #__charCounterPopup__ {
+  display: none;
+}
+.grid li.pin[data-page-title="Settings"] a .content {
+  background-image: url(https://scrapbox.io/files/6629be20e3382800255e3e4f.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n) a .content {
+  background-image: url(https://scrapbox.io/files/6629b16aba7a560025562950.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 1) a .content {
+  background-image: url(https://scrapbox.io/files/6629b16e73d818002454a242.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 2) a .content {
+  background-image: url(https://scrapbox.io/files/6629b17103843a00281aa726.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 3) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f9d8323c0025e3f363.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 4) a .content {
+  background-image: url(https://scrapbox.io/files/6629b17659583100246606b7.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 5) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f25a5edf00232968c5.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 6) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f599258c00240b4d63.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 7) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8f721ac9a00230d2a5f.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 8) a .content {
+  background-image: url(https://scrapbox.io/files/6629b16c113181002471bf79.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 9) a .content {
+  background-image: url(https://scrapbox.io/files/6629b8ff460b8c0025e24a5b.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 10) a .content {
+  background-image: url(https://scrapbox.io/files/6629b901e924ba00258af0ae.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 11) a .content {
+  background-image: url(https://scrapbox.io/files/6629b903d9f3d20024c3d2a8.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 12) a .content {
+  background-image: url(https://scrapbox.io/files/6629b90603843a00281b558a.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(15n + 13) a .content {
+  background-image: url(https://scrapbox.io/files/6629b908c8dfba0024a35b43.png);
+}
+.grid li.pin[data-page-title]:nth-of-type(66) a .content {
+  background-image: url(https://scrapbox.io/files/6629bb2ae4d7d000257bd8a5.png);
+}
+/* その他の場合のデフォルト画像 */
+.grid li.pin a .content {
+  background-image: url(https://scrapbox.io/files/6629b8fcd9106f0025fa487b.png);
+}
+/* https://scrapbox.io/files/6629b17377ddd60025dfb471.png */
+:root {
+  /* 基本次の４色 */
+  --main-color: #F5F5F5;
+  --accent-color: #757575;
+  --base-color: #B5B5B5;
+  --exist-color: #149180;
+  --non-exist-color: #19A8BA;
+
+  /* 以下詳細 */
+  --body-bg: var(--main-color); /* 全体背景 */
+  --navbar-bg: var(--main-color); /* ヘッダー背景 */
+  --tool-text-color: var(--main-color); /* プロジェクト名 */
+  --new-button-bg: transparent; /* 新規作成ボタン ↓ */
+  --new-button-hover-bg: transparent;
+  --new-button-active-bg: transparent;
+  --new-button-horizontal-color: var(--exist-color);
+  --new-button-vertical-color: var(--non-exist-color); /* ↑ */
+  --search-form-bg: var(--main-color); /* 検索画面 */
+  --search-form-icon-color: var(--accent-color); /* 🔍 */
+  --search-form-text-color: var(--accent-color); /* 検索の文字 */
+  --navbar-icon-color: var(--accent-color); /* ^ */
+  --navbar-icon-hovered-color: var(--exist-color); /* ^:hover */
+  --navbar-icon-active-color: var(--accent-color);
+
+  /* --telomere-updated: #ffb186; /* テロメア編集 */
+  /* --telomere-unread: #ffcbae; /* テロメア未読 */
+  /* --- 関連ページ ラベルデザイン --- */
+  /* --relation-label-bg: var(--main-color); */
+  /* --relation-label-empty-bg: var(--main-color); */
+  /* --relation-label-links-bg: var(--main-color); */
+  /* --relation-label-text:#304ea2; */
+  /* --relation-label-empty-text: #b10e0e; */
+  /* --relation-label-links-text: #304ea2; */
+  /* --- リンクの色 ---*/
+}
+.app .navbar .row {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.line:not(.cursor-line) [class="deco-\> deco-\<"] > [class="formula"] {
+  margin: 0px;
+}
+.related-page-list.has-literal-database {
+  position: relative;
+  left: 0;
+  padding: 0;
+  overflow: visible;
+  table.literal-database {
+    margin-top: 1em;
+    tr:nth-of-type(even) {
+      background-color: #f7f7f7;
+    }
+    th:first-of-type {
+      min-width: 10em;
+    }
+    th,
+    td {
+      border: none;
+      padding: 1em 0.5em 1em;
+    }
+    a:hover {
+      color: var(--page-link-hover-color);
+      text-decoration: none;
+    }
+  }
+}
+.page-menu .infobox-menu {
+  table.infobox thead th {
+    a:hover {
+      color: var(--page-link-hover-color);
+    }
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .related-page-list.has-literal-database {
+    table.literal-database {
+      background-color: var(--page-bg);
+      thead th {
+        background-color: #374151;
+        color: #c0c9d5;
+      }
+      tr:nth-of-type(even) {
+        background-color: #1b212a;
+      }
+    }
+  }
+  .page-menu .infobox-menu {
+    color: #d3d3d3;
+    table.infobox thead th {
+      background-color: #374151;
+    }
+  }
+}
+/* # Author: kamekingdom (2026-05-01) */
+/* --- 通常カード全体：Random Pagesカードに寄せる --- */
+.grid li.pin a,
+.grid li.page-list-item a {
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #fffdf7 0%, #f2f7ff 100%);
+  border: 1px solid rgba(120, 140, 180, 0.16);
+  box-shadow: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+/* --- hover時 --- */
+.grid li.pin a:hover,
+.grid li.page-list-item a:hover {
+  border-radius: 5px;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  border-color: rgba(120, 140, 180, 0.28);
+}
+/* --- pinアイコンは非表示 --- */
+.grid li.page-list-item a .pin {
+  display: none;
+}
+/* --- pinカード内部 --- */
+.grid li.pin a .content {
+  height: 100%;
+  flex-direction: row-reverse;
+  background: transparent;
+}
+/* --- カード間隔 --- */
+.page-list .grid li {
+  margin: 0 0 1.4em 0;
+  box-shadow: none;
+}
+/* --- related page list --- */
+.related-page-list {
+  padding: 0 3px;
+}
+/* --- 通常カードのアウトラインを消して、borderに統一 --- */
+.grid li.page-list-item:not(.pin) a {
+  outline: none;
+}
+.grid li.page-list-item:not(.pin) a:hover {
+  outline: none;
+}
+/* --- unreadカードだけは少し強調 --- */
+.grid li.page-list-item.unread a {
+  border-color: #6ac983;
+}
+.grid li.page-list-item.unread a:hover {
+  border-color: var(--non-exist-color);
+}
+/* --- 画像領域 --- */
+.grid li.page-list-item a .icon {
+  position: relative;
+  padding: 0;
+  margin: auto;
+}
+.grid li.page-list-item a .icon img {
+  width: auto;
+  max-height: 360px;
+  max-width: 90%;
+  border-radius: 5px;
+}
+/* --- カード内ヘッダー：余白をRandom Pagesカードに寄せる --- */
+.grid li.page-list-item a .header {
+  padding: 16px 16px 8px;
+  border-top: none;
+  background: transparent;
+  box-sizing: border-box;
+}
+/* --- pinカードのヘッダーも通常カードと揃える --- */
+.grid li.pin a .header.pinned,
+.grid li.page-list-item a .header.pinned {
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 12px;
+
+  width: 100%;
+  padding: 0 14px;
+  background: transparent;
+  border-bottom: none;
+  box-sizing: border-box;
+  z-index: 2;
+}
+/* --- タイトル：Random Pagesカードに寄せる --- */
+.grid li.page-list-item a .title,
+.grid li.pin a .title {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 700 !important;
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0;
+
+  text-align: left;
+  color: #333;
+
+  background-image: none;
+  background-size: auto;
+  background-position: initial;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+
+  transition: none;
+  box-sizing: border-box;
+}
+/* --- pinカードの下部タイトルだけ少し余白を整える --- */
+.grid li.pin a .title {
+  padding: 0 0 2px 0;
+}
+/* --- タイトルhover時も色やグラデーションを変えない --- */
+.grid li.pin a:hover .title,
+.grid li.page-list-item a:hover .title {
+  color: #333;
+  background-image: none;
+  background-position: initial;
+}
+/* --- descriptionも左詰め・薄めに統一 --- */
+.grid li.page-list-item a .description {
+  padding: 0 16px 14px;
+  margin: 0;
+
+  font-size: 0.78em;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #666;
+  opacity: 0.85;
+
+  text-align: left;
+  box-sizing: border-box;
+}
+/* --- hoverレイヤーを透明化 --- */
+.grid li.page-list-item a .hover {
+  background: transparent;
+}
+[data-hover-visible] .grid li.page-list-item.pin a:hover .hover {
+  opacity: 0;
+}
+/* --- カード下部影を消す --- */
+body {
+  --card-box-shadow: none;
+  --card-box-hover-shadow: none;
+}
+.grid li.pin[data-page-title="kame"]:first-of-type a .content {
+  background-image: url(https://scrapbox.io/files/695ce8dd40c4fdbfeb53299e.jpg);
+  background-size: 120%;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+}
+.grid li.pin a .content {
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+}
+.grid li.pin a:hover .content {
+  background-size: 70%;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+/* ピンカードの外枠（border/outline/影）を完全に消す */
+.page-list .grid li.pin a {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+/* クリック/キーボードフォーカス時に出る枠も消す（必要なら） */
+.page-list .grid li.pin a:focus,
+.page-list .grid li.pin a:focus-visible {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+.navbar-brand img,
+.navbar-brand span {
+  display: none !important;
+}
+.navbar .navbar-brand {
+  min-width: 0px;
+}
+.navbar-brand::before {
+  content: "\f0c9";
+  font-family: FontAwesome;
+  font-size: 28px;
+  color: #bbbbbb;
+}
+.kamon-caret-down:before {
+  display: none !important;
+}
+.navbar-brand::before {
+  /* content: '\f0c9'; font-family: 'Font Awesome 5 Free' font-weight: 900; font-size: 28px */
+  /* content: 'S'; font-family: 'Font Awesome 5 Free'; font-weght: 900; font-size: 28px; color: #bbbbbb; */
+  /* ☰Ⲷ */
+  content: "📒";
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--accent-color); /* #bbbbbb */
+}
+/* Author: kamekingdom (2026-09-29) */
+.line.line-title {
+  margin-bottom: -0.2em;
+}
+.line.line-title .text {
+  text-align: left;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-indent: 0;
+  padding-left: 0.3em;
+  line-height: 1.25;
+}
+/* Author: kamekingdom (2026-09-29) */
+/* 画像を包むリンク */
+.line a:has(img.image) {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: top;
+}
+/* 画像 */
+.line img.image {
+  display: block !important;
+  margin: 0;
+  border-radius: 8px;
+  border: 2px solid #efefef;
+}
+/* 動画は中央寄せのまま */
+.video-player video,
+.iframe-video-player iframe {
+  display: block !important;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 2px solid #efefef;
+}
+.video-player video {
+  max-height: 360px;
+}
+.line img.icon {
+  border-radius: 2px;
+  margin-left: 2px;
+  transform: translateY(2px);
+}
+.expandable-menu {
+  background-color: #f7f7f7;
+  z-index: 2;
+  max-width: calc(100% - 85px);
+}
+.expandable-menu .page-menu .tool-btn i::before {
+  color: #646262;
+}
+.expandable-menu .toggle-button {
+  color: #646262;
+  opacity: 1;
+}
+.page-menu.xs {
+  margin-bottom: -0.5em;
+}
+@media (max-width: 767px) {
+  .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home {
+    width: 41px;
+    color: transparent;
+    border-radius: 50%;
+  }
+  .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    background-image: url(https://i.gyazo.com/03f922af4c0eb1659d4630db6b619aac.png);
+    background-size: 100%;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+  }
+  .app:has(.expandable-menu .toggle-button.open) .quick-launch .btn.project-home:hover::after {
+    background-size: 110%;
+    transition: cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+  }
+}
+.related-page-list .grid li {
+  margin: 0 14.4px 15.4px 0;
+}
+.grid li.relation-label a {
+  border-radius: 5px;
+}
+/* カードの基本スタイルを適用した後、ピン留めのタイトルを整える。 */
+.grid li.pin[data-page-title="kame"]:first-of-type a .header.pinned {
+  background-color: transparent;
+  border-bottom: 2px solid #fff;
+}
+.grid li.pin[data-page-title="kame"]:first-of-type a .title {
+  font-family: "jost";
+  font-style: italic;
+  font-weight: 500;
+  /*font-size: 5.3em;*/
+  padding: 13px 18px 0px 24px;
+  letter-spacing: 8px;
+  display: inline;
+  background-image: linear-gradient(to right, #646262 50%, #000 50%);
+}
+.grid li.page-list-item a .header.pinned {
+  position: absolute;
+  bottom: 25px;
+  right: 0;
+  padding: 0;
+  width: auto;
+  display: block;
+  background-color: #fff;
+  z-index: 2;
+}
+.grid li.pin a .icon img {
+  display: none;
+}
+.grid li.pin a .description {
+  display: none;
+}
+.grid li.pin a .title {
+  color: transparent;
+  -webkit-background-clip: text;
+  /* background-image: linear-gradient(to right,#000 50%,#8c8b8b 50%); */
+  background-image: linear-gradient(to right, var(--non-exist-color) 50%, #4d4d4d 50%);
+  background-size: 200% 100%;
+  background-position-x: 100%;
+  padding: 0 5px 0 7px;
+  width: auto;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
+}
+.grid li.pin a:hover .title {
+  background-position-x: 0;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+}
+body {
+  /* カードの下部影 */
+  --card-box-shadow: none;
+  --card-box-hover-shadow: none;
+}
+.grid li.page-list-item.unread a {
+  outline: 3px solid #6ac983;
+}
+.grid li.page-list-item.unread a:hover {
+  outline: 3px solid var(--non-exist-color);
+}
+@media (767 <= width < 992px) {
+  .page-list .grid li.pin {
+    padding: 0 7px;
+    margin: 0 0 1.1em 0;
+  }
+  .grid li.pin[data-page-title="kame"]:first-of-type a .icon img {
+    object-position: 0 -140px;
+  }
+}
+.brand-icon {
+  display: none;
+}
+.navbar {
+  box-shadow: none;
+  border-bottom: 7px solid #efefef;
+}
+.page {
+  box-shadow: none;
+}
+/* pinのタイトルを kame と同じデザインに統一 */
+.grid li.pin a .header.pinned {
+  background-color: transparent;
+  border-bottom: 2px solid #fff;
+
+  /* もともと下に出す設計は維持 */
+  position: absolute;
+  bottom: 12px;
+  right: 0;
+  padding: 0;
+  width: auto;
+  display: block;
+  z-index: 2;
+}
+.grid li.pin a .title {
+  font-family: "jost";
+  font-style: italic;
+  font-weight: 500;
+
+  padding: 13px 18px 0px 24px;
+  letter-spacing: 3px;
+  display: inline;
+
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  background-image: linear-gradient(to right, #646262 50%, #000 50%);
+}
+/* 余白を枠に持たせ、タイトル全体をカード幅の中に収める。 */
+.grid li.pin a .header.pinned {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 18px 0 24px;
+}
+/* 1行で省略する。文字列自体は残し、リンク名やページ名を保持する。 */
+.grid li.pin a .header.pinned .title {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.plan-badge {
+  display: none !important;
+}
+.deco-\! {
+  color: #fff; /* 白文字 */
+  background-color: #ee6666; /* 赤背景 */
+  padding: 0.1em 0.2em 0.1em 0.2em;
+}
+.deco-\+ {
+  background: linear-gradient(transparent 80%, rgb(254, 244, 0) 60%);
+}
+/* Author: kamekingdom (2026-08-21) */
+/* チェックボックスになるタグ v2 Font Awesome版 */
+/* 元のタグ文字を非表示 */
+.line:not(.cursor-line) a[href$="/o"]:not(.icon) span,
+.line:not(.cursor-line) a[href$="/v"]:not(.icon) span,
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) span {
+  display: inline-block;
+  width: 0;
+  text-indent: -9999px;
+}
+/* 共通設定 */
+.line:not(.cursor-line) a[href$="/o"]:not(.icon)::after,
+.line:not(.cursor-line) a[href$="/v"]:not(.icon)::after,
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::after {
+  display: inline-block;
+  min-width: 1.15em;
+  padding-left: 1px;
+
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  font-size: 120%;
+
+  text-align: center;
+  vertical-align: top;
+
+  position: relative;
+  top: -0.9px;
+}
+/* [o]：未チェック */
+.line:not(.cursor-line) a[href$="/o"]:not(.icon)::after {
+  content: "\f0c8";
+  color: var(--non-exist-color);
+}
+/* [v]：チェック済み */
+.line:not(.cursor-line) a[href$="/v"]:not(.icon)::after {
+  content: "\f14a";
+  color: var(--exist-color);
+}
+/* [x] のリンクを基準位置にする */
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) {
+  position: relative;
+}
+/* [x]：外枠は [o] と同じ正方形 */
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::after {
+  content: "\f0c8";
+  color: #ff3f3f;
+
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+/* [x]：中の× */
+.line:not(.cursor-line) a[href$="/x"]:not(.icon)::before {
+  content: "\f00d";
+
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-45%, -55%);
+
+  color: #ff3f3f;
+
+  font-size: 0.8em;
+  line-height: 1;
+
+  z-index: 1;
+  pointer-events: none;
+}
+/* チェックボックスをクリック可能にする */
+.line:not(.cursor-line) a[href$="/o"]:not(.icon),
+.line:not(.cursor-line) a[href$="/v"]:not(.icon),
+.line:not(.cursor-line) a[href$="/x"]:not(.icon) {
+  cursor: pointer;
+  text-decoration: none;
+}
+/* ＃で始まるタグをラベル風にする */
+a[type="hashTag"] {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 0 8px 10px 0;
+  background: transparent; /* 一旦透過で様子見 */
+  font-size: 0.8em;
+  border-radius: 3px;
+  transition: 0.3s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+/* 統一性の観点からリンク色とリンク */
+a[type="hashTag"].page-link {
+  border: 1px solid var(--exist-color);
+}
+a[type="hashTag"].empty-page-link {
+  border: 1px solid var(--non-exist-color);
+}
+/* ホバー時のモーションが肝 */
+a[type="hashTag"]:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+/* Author: kamekingdom (2026-10-06) */
+/* ========================================
+   Sticky Note
+   ======================================== */
+.line:not(.cursor-line) .deco-\~ {
+  display: inline-block;
+
+  position: absolute;
+
+  top: -0.6em;
+  right: -2vw;
+
+  max-width: 40%;
+
+  box-sizing: border-box;
+
+  padding: 0.55rem 1rem 0.65rem;
+
+  color: #44423c;
+
+  background-color: #fff8c9;
+
+  border: none;
+
+  border-left: 4px solid #04b2d9;
+
+  transform: rotate(-0.6deg);
+
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.14);
+
+  line-height: 1.6;
+}
+/* ========================================
+   Hover
+   ======================================== */
+.line:not(.cursor-line) .deco-\~:hover {
+  transform: rotate(0deg);
+
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.18);
+}
+/* ========================================
+   Color Variants
+   ======================================== */
+.line .level-2 .deco-\~ {
+  border-left-color: #009175;
+
+  background-color: #edf8e8;
+}
+.line .level-3 .deco-\~ {
+  border-left-color: #efbb33;
+
+  background-color: #fff7c7;
+}
+.line .level-4 .deco-\~ {
+  border-left-color: #f23e2e;
+
+  background-color: #ffede7;
+}
+/* ========================================
+   Text Decoration
+   ======================================== */
+.line .deco-\~.deco-- {
+  text-decoration: line-through;
+}
+.line .deco-\~.deco-_ {
+  text-decoration: underline;
+}
+/* ========================================
+   Presentation
+   ======================================== */
+.presentation .line .deco-\~ {
+  position: static;
+
+  max-width: 100%;
+
+  transform: none;
+}
+/* ========================================
+   Mobile
+   ======================================== */
+@media screen and (max-width: 768px) {
+  .line:not(.cursor-line) .deco-\~ {
+    position: static;
+
+    display: inline-block;
+
+    max-width: 100%;
+
+    margin: 0.4rem 0;
+
+    transform: rotate(-0.3deg);
+  }
+}
+/* ========================================
+   Print
+   ======================================== */
+@media print {
+  .line:not(.cursor-line) .deco-\~ {
+    position: static;
+
+    max-width: 100%;
+
+    transform: none;
+
+    background-color: #fff8c9;
+
+    border-left: 4px solid #04b2d9;
+
+    box-shadow: none;
+  }
+}
+/* Author: kamekingdom (2026-09-07) */
+/* ========================================
+   [. タイトル] の見出し表示
+   ======================================== */
+.app:not(.presentation) .line .deco-\. {
+  font-weight: bold;
+
+  width: 100%;
+  display: inline-block;
+
+  padding: 0.2em 0.5em;
+
+  color: #494949;
+
+  border-bottom: solid 2px #d7d7d7;
+
+  margin-bottom: 0.5em;
+  margin-top: 0;
+}
+@media screen and (max-width: 990px) {
+  .app:not(.presentation) .line .deco-\.::after {
+    position: static;
+    padding-left: 0.3em;
+  }
+}
+/* ========================================
+   Bookmarks
+   ======================================== */
+button#Bookmarks.tool-btn {
+  position: relative;
+}
+button#Bookmarks.tool-btn::before {
+  position: absolute;
+
+  content: "";
+
+  width: 26px;
+  height: 26px;
+
+  -webkit-mask-image: url("https://scrapbox.io/files/6629f6817393d100238acf00.png");
+
+  mask-image: url("https://scrapbox.io/files/6629f6817393d100238acf00.png");
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  background-color: currentColor;
+}
+button#Bookmarks.tool-btn img {
+  opacity: 0;
+}
+a[type="link"].page-link,
+a[type="hashTag"].page-link,
+.line a.link {
+  color: var(--exist-color) !important;
+}
+a[type="link"].empty-page-link,
+a[type="hashTag"].empty-page-link {
+  color: var(--non-exist-color) !important;
+}
+/* コード記法の行番号を表示 -- ウィンドウ幅768px以上で適用 */
+@media screen and (min-width: 768px) {
+  .section-title,
+  .code-block-start {
+    counter-reset: codeline;
+  }
+  .code-block code > span:not([class]) {
+    counter-increment: codeline;
+  }
+  .code-block code > span:not([class])::before {
+    content: counter(codeline);
+    position: absolute;
+    display: inline-block;
+    left: -4em;
+    z-index: 10;
+    min-width: 50px;
+    text-align: right;
+    vertical-align: bottom;
+
+    /* ↓行番号のフォントとか色とかの指定はここ */
+    font-family: monospace;
+    color: grey;
+  }
+
+  /* カーソル行の行番号を濃く表示する */
+  .code-block code > span:not([class])::before {
+    opacity: 0.5;
+  }
+  .cursor-line .code-block code > span:not([class])::before {
+    opacity: 1;
+    font-weight: bolder;
+  }
+}
+/* テーブルの見た目: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-11-15) */
+/* ==========================================
+   Cosense Table — Clean White
+   Minimal / Compact / Always Light
+   ========================================== */
+/* ------------------------------------------
+   Design Tokens
+   ------------------------------------------ */
+.line .table-block {
+  --table-bg: #ffffff;
+  --table-header-bg: #f8fafc;
+  --table-title-bg: #ffffff;
+
+  --table-text: #334155;
+  --table-heading-text: #475569;
+  --table-muted: #64748b;
+
+  --table-border: #e5e7eb;
+  --table-hover: #f3f6fa;
+  --table-header-hover: #f1f5f9;
+  --table-button-hover: #e2e8f0;
+
+  --table-focus: var(--accent-color, #94a3b8);
+
+  --table-radius: 6px;
+  --table-transition: 0.15s ease;
+}
+/* ------------------------------------------
+   Container
+   ------------------------------------------ */
+.line .table-block,
+.line:hover .table-block {
+  display: block !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* ------------------------------------------
+   Rows
+   ------------------------------------------ */
+.line .table-block > .indent,
+.line .table-block > .indent:hover {
+  display: flex !important;
+
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+
+  align-items: stretch;
+  box-sizing: border-box;
+
+  background: transparent !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* ------------------------------------------
+   Cells
+   ------------------------------------------ */
+.line .table-block .cell {
+  flex: 1 1 0 !important;
+
+  min-width: 0 !important;
+  max-width: none !important;
+  box-sizing: border-box;
+
+  padding: 0.42em 0.8em !important;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  border: none !important;
+  border-bottom: 1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-size: 0.94em;
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: left;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow: hidden;
+
+  filter: none !important;
+  opacity: 1 !important;
+  cursor: text;
+
+  transition: background-color var(--table-transition);
+}
+/* Equal column widths */
+.line .table-block .cell[class*="col-"] {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+/* Text wrapping and empty cells */
+.line .table-block .cell > .tab,
+.line .table-block .cell > .tab .char-index {
+  white-space: pre !important;
+}
+.line .table-block .cell > .cell-text {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+/* ------------------------------------------
+   Body Hover
+   ------------------------------------------ */
+.line .table-block > .indent:hover > .cell,
+.line .table-block .cell:hover {
+  background: var(--table-hover) !important;
+  color: var(--table-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* ------------------------------------------
+   Cell Focus
+   ------------------------------------------ */
+.line .table-block .cell:focus,
+.line .table-block .cell:focus-within {
+  position: relative;
+  z-index: 1;
+
+  background: var(--table-bg) !important;
+  color: var(--table-text) !important;
+
+  outline: 1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+
+  filter: none !important;
+}
+/* ==========================================
+   Header
+   ========================================== */
+/* ------------------------------------------
+   Header Cells
+   ------------------------------------------ */
+.line:has(.table-block-start) + .line .table-block .cell {
+  padding: 0.52em 0.8em !important;
+
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  font-size: 0.9em;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-align: left;
+
+  border: none !important;
+  border-bottom: 1px solid var(--table-border) !important;
+
+  border-radius: 0 !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* Rounded header corners */
+.line:has(.table-block-start) + .line .table-block .cell:first-child {
+  border-top-left-radius: var(--table-radius) !important;
+}
+.line:has(.table-block-start) + .line .table-block .cell:last-child {
+  border-top-right-radius: var(--table-radius) !important;
+}
+/* ------------------------------------------
+   Header Hover
+   ------------------------------------------ */
+.line:has(.table-block-start) + .line .table-block > .indent:hover > .cell,
+.line:has(.table-block-start) + .line .table-block .cell:hover {
+  background: var(--table-header-hover) !important;
+  color: var(--table-heading-text) !important;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* ------------------------------------------
+   Header Focus
+   ------------------------------------------ */
+.line:has(.table-block-start) + .line .table-block .cell:focus,
+.line:has(.table-block-start) + .line .table-block .cell:focus-within {
+  background: var(--table-header-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  outline: 1.5px solid var(--table-focus) !important;
+  outline-offset: -2px;
+}
+/* ==========================================
+   Table Title
+   ========================================== */
+.line .table-block .table-block-start,
+.line .table-block .table-block-start:hover {
+  display: inline-flex !important;
+
+  width: auto !important;
+  max-width: fit-content !important;
+
+  align-items: center;
+  box-sizing: border-box;
+
+  padding: 0.3em 0.75em !important;
+
+  background: var(--table-title-bg) !important;
+  color: var(--table-heading-text) !important;
+
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+
+  filter: none !important;
+  opacity: 1 !important;
+}
+/* Title row */
+.line:has(.table-block-start) .table-block > .indent {
+  display: inline-flex !important;
+
+  width: auto !important;
+  max-width: max-content !important;
+  flex: 0 0 auto !important;
+}
+/* Title links */
+.line .table-block .table-block-start a,
+.line .table-block .table-block-start a:hover {
+  color: var(--table-heading-text) !important;
+
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+/* ==========================================
+   Copy Button
+   ========================================== */
+.kame-table-copy-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  margin-left: 0.4em;
+  padding: 3px;
+
+  border: none;
+  border-radius: 4px !important;
+
+  background: transparent !important;
+  color: #64748b !important;
+
+  cursor: pointer;
+  vertical-align: middle;
+
+  opacity: 0.65;
+  transition: opacity 0.15s ease;
+}
+.kame-table-copy-button:hover {
+  background: #e2e8f0 !important;
+  opacity: 1;
+}
+.kame-table-copy-button svg {
+  display: block;
+  flex: 0 0 auto;
+}
+/* ==========================================
+   Accessibility
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  .line .table-block .cell,
+  .kame-table-copy-button {
+    transition: none !important;
+  }
+}
+:root {
+  --li-color-1: #479e3e;
+  --li-color-2: #9e3e46;
+  --li-color-3: #3e479e;
+  --li-color-4: #953e9e;
+  --li-color-5: #A2C254;
+  --li-color-0: var(--accent-color);
+}
+.line .indent-mark .dot::before {
+  display: block;
+  position: absolute;
+  right: -5px;
+  top: -10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 6px;
+  content: var(--ul-bullet, "\f068");
+  color: var(--li-color-0);
+}
+/* 既存のバレットを消す */
+.line .indent-mark .dot {
+  background-color: transparent;
+}
+.line .indent-mark .dot {
+  background-color: transparent;
+}
+.line .indent-mark .c-0 + .dot::before {
+  color: var(--li-color-1);
+}
+.line .indent-mark .c-1 + .dot::before {
+  color: var(--li-color-2);
+}
+.line .indent-mark .c-2 + .dot::before {
+  color: var(--li-color-3);
+}
+.line .indent-mark .c-3 + .dot::before {
+  color: var(--li-color-4);
+}
+.line .indent-mark .c-4 + .dot::before {
+  color: var(--li-color-5);
+}
+@media screen {
+  .quick-launch .left-box {
+    position: fixed;
+    top: -2px;
+    left: -1000px; /* アイコンを遠くに消す */
+    z-index: 1000;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .quick-launch .left-box {
+    left: 55px;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1260px) {
+  .quick-launch .left-box {
+    left: 70px;
+  }
+}
+@media screen and (min-width: 1261px) {
+  .quick-launch .left-box {
+    left: calc((100% - 1280px) / 2 + 80px);
+  }
+}
+.navbar-form .dropdown.open .dropdown-menu {
+  min-width: 100%;
+  max-height: calc(100vh - 130px) !important;
+  overflow-y: auto;
+}
+/* Author: kamekingdom (2026-10-27) */
+/* =========================================================
+   External Link
+   ========================================================= */
+a.kame-link-with-favicon {
+  text-decoration: inherit;
+}
+/* =========================================================
+   Icon
+   ========================================================= */
+/* Author: kamekingdom (2026-10-27) */
+.kame-external-favicon {
+  display: inline-flex;
+
+  width: 15px;
+
+  height: 15px;
+
+  flex: 0 0 15px;
+
+  margin-left: 3px;
+
+  margin-right: 5px;
+
+  padding: 0;
+
+  align-items: center;
+
+  justify-content: center;
+
+  vertical-align: -2px;
+
+  opacity: 0.82;
+
+  line-height: 1;
+
+  text-decoration: none !important;
+
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+/* =========================================================
+   Image
+   ========================================================= */
+.kame-external-favicon-image {
+  display: block !important;
+
+  width: 15px !important;
+
+  height: 15px !important;
+
+  min-width: 15px !important;
+
+  min-height: 15px !important;
+
+  max-width: 15px !important;
+
+  max-height: 15px !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  border-radius: 3px;
+
+  background: transparent !important;
+
+  object-fit: contain;
+
+  box-shadow: none !important;
+}
+/* =========================================================
+   Table
+   ========================================================= */
+/*
+ * テーブルセル内でも
+ * faviconを普通のインライン要素として扱う。
+ */
+.table-block a.kame-link-with-favicon .kame-external-favicon {
+  display: inline-flex;
+
+  margin-right: 7px;
+
+  vertical-align: -2px;
+}
+/* =========================================================
+   Hover
+   ========================================================= */
+a.kame-link-with-favicon:hover .kame-external-favicon {
+  opacity: 1;
+
+  transform: translateY(-1px);
+}
+/* =========================================================
+   Cursor Line
+   ========================================================= */
+.line.cursor-line .kame-external-favicon {
+  opacity: 0.72;
+}
+/* =========================================================
+   Dark Mode
+   ========================================================= */
+@media (prefers-color-scheme: dark) {
+  .kame-external-favicon-image {
+    filter: saturate(0.95) brightness(0.95);
+  }
+}
+.deco-\" {
+  border-radius: 0.2em;
+  padding: 0 0.4em;
+  background-color: rgba(128, 128, 128, 0.1);
+  font-size: 95%;
+}
+.line:not(.cursor-line) .deco-\"::before {
+  color: #a0a0a0;
+  font-size: 85%;
+  /* font-family: 'FontAwesome'; */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f10d";
+  position: relative;
+  top: -0.5em;
+  left: -0.2em;
+}
+/* コードブロックのuserCSS: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-09-07) */
+/* =========================================================
+   Code Block - Compact Chic Style
+   ========================================================= */
+:root {
+  /* コード本文 */
+  --code-panel-bg: #f6f7f8;
+  --code-text: #30343b;
+
+  /* code:xxx タイトル */
+  --code-tab-bg: #3f4652;
+  --code-tab-text: #f5f6f7;
+
+  /*
+   * Cosenseの1インデント分
+   *
+   * code:title と本文の左端の差を補正する。
+   */
+  --code-indent-width: 1.5em;
+
+  /*
+   * コード本体を右側へ少し広げる量。
+   *
+   * 大きくしすぎるとサイドバー側へ
+   * はみ出す可能性がある。
+   */
+  --code-right-extension: 1em;
+}
+/* =========================================================
+   Code Block 共通
+   ========================================================= */
+.line > .text.code-block {
+  /*
+   * 少しだけコードを小さくする。
+   */
+  font-size: 95%;
+
+  /*
+   * コンパクトな行間。
+   */
+  line-height: 1.45em;
+
+  color: var(--code-text);
+
+  /*
+   * .text.code-block 自体には背景を付けない。
+   *
+   * Cosenseではコードの各行ごとに
+   * .text.code-block が存在するため。
+   */
+  background: transparent !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+/* =========================================================
+   Code領域
+   ========================================================= */
+.line > .text.code-block > .indent {
+  display: block !important;
+
+  position: relative;
+
+  box-sizing: border-box;
+}
+/* =========================================================
+   Code本文パネル
+   ========================================================= */
+/*
+ * Cosenseでは例えば
+ *
+ * code:vm.txt
+ *     Hardware
+ *
+ * のように、
+ * 本文がタイトルより1インデント深くなる。
+ *
+ * そのため、灰色背景だけを1.5em左へ移動する。
+ */
+.line > .text.code-block:not(.start) > .indent {
+  background-color: var(--code-panel-bg);
+
+  /*
+   * =====================================
+   * 左端
+   * =====================================
+   *
+   * タイトルとコード本体の左端を揃える。
+   */
+  transform: translateX(calc(-1 * var(--code-indent-width)));
+
+  /*
+   * =====================================
+   * 横幅
+   * =====================================
+   *
+   * width: 100% は使用しない。
+   *
+   * Cosense側には
+   *
+   * margin-left: 6em
+   *
+   * のようなinline styleが付くため、
+   * 100%にすると右にはみ出す。
+   *
+   * autoなら残りの利用可能幅になる。
+   */
+  width: auto !important;
+
+  max-width: none !important;
+
+  /*
+   * =====================================
+   * 右側
+   * =====================================
+   *
+   * auto幅からさらに少し右へ広げる。
+   *
+   * widthを直接増やすより、
+   * negative marginの方が
+   * Cosenseのインデント構造と相性が良い。
+   */
+  margin-right: calc(-1 * var(--code-right-extension)) !important;
+
+  /*
+   * 左へ移動した分、
+   * コード文字自体は元の位置へ戻す。
+   *
+   * 1em:
+   *   通常のコード内padding
+   *
+   * 1.5em:
+   *   背景を左へ移動した分
+   */
+  padding-left: calc(1em + var(--code-indent-width));
+
+  padding-right: 1em;
+
+  /*
+   * Cosenseの行高を壊さないため、
+   * 縦方向にはpaddingを入れない。
+   */
+  padding-top: 0 !important;
+
+  padding-bottom: 0 !important;
+
+  /*
+   * 外枠なし。
+   */
+  border: none !important;
+
+  box-shadow: none !important;
+
+  /*
+   * 灰色のコード本体は完全に四角。
+   */
+  border-radius: 0 !important;
+
+  margin-top: 0 !important;
+
+  margin-bottom: 0 !important;
+}
+/* =========================================================
+   Codeタイトル
+   ========================================================= */
+/*
+ * vm.txt
+ * container.txt
+ * javascript
+ * などのタイトル部分。
+ *
+ * こちらは角丸を残す。
+ */
+.line > .text.code-block.start .code-block-start {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.35em;
+
+  /*
+   * タイトル自体は動かさない。
+   *
+   * 灰色の本文側を左へ寄せている。
+   */
+  margin-left: 0 !important;
+
+  padding: 0.25em 0.65em;
+
+  background-color: var(--code-tab-bg);
+
+  color: var(--code-tab-text);
+
+  border-radius: 6px;
+
+  font-size: 0.82em;
+
+  font-weight: 600;
+
+  letter-spacing: 0.025em;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+/* =========================================================
+   Codeタイトル Link
+   ========================================================= */
+.line > .text.code-block.start .code-block-start a {
+  color: var(--code-tab-text) !important;
+
+  padding: 0 !important;
+
+  text-decoration: none !important;
+
+  opacity: 0.94;
+}
+.line > .text.code-block.start .code-block-start a:hover {
+  color: #ffffff !important;
+
+  opacity: 1;
+
+  text-decoration: none !important;
+}
+/* =========================================================
+   Copy Button
+   ========================================================= */
+.line > .text.code-block.start .code-block-start .tool-buttons {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-left: 0.1em;
+}
+.line > .text.code-block.start .code-block-start .tool-buttons .button {
+  color: var(--code-tab-text) !important;
+
+  opacity: 0.72;
+
+  transition: opacity 0.12s ease;
+}
+.line > .text.code-block.start .code-block-start .tool-buttons .button:hover {
+  opacity: 1;
+}
+/* =========================================================
+   Code本文
+   ========================================================= */
+.line > .text.code-block code.code-body {
+  color: var(--code-text);
+
+  background: transparent !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+  font-size: inherit;
+
+  line-height: inherit;
+}
+/* =========================================================
+   Syntax Highlighting
+   ========================================================= */
+.line > .text.code-block code.code-body.highlight {
+  background: transparent !important;
+}
+/* Native code lines stay separate so editing and the copy handler remain intact. */
+.line > .text.code-block.start .code-start {
+  display: block;
+}
+.line > .text.code-block.start .code-block-start {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  gap: 8px;
+  padding: 8px 12px 8px 20px;
+  background: #f3f4f5;
+  color: #171717;
+  border: 1px solid #e5e7e9;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+.line > .text.code-block.start .code-block-start::before {
+  content: "‹/›";
+  flex: 0 0 auto;
+  font-family: monospace;
+}
+.line > .text.code-block.start .code-block-start > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.line > .text.code-block.start .code-block-start a,
+.line > .text.code-block.start .code-block-start a:hover {
+  color: #171717 !important;
+  opacity: 1;
+}
+.line > .text.code-block.start .code-block-start .tool-buttons {
+  /* Native Copy replaces the whole button with plain text "Copied". */
+  flex: 0 0 56px;
+  width: 56px;
+  height: 28px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-end;
+  white-space: nowrap;
+  font-size: 11px;
+  line-height: 16px;
+  margin-left: auto;
+}
+.line > .text.code-block.start .code-block-start .tool-buttons .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 12px;
+  border-radius: 14px;
+  color: #171717 !important;
+  opacity: 1;
+}
+.line > .text.code-block.start .code-block-start .tool-buttons .button:hover {
+  background: #e6e8ea;
+}
+.line > .text.code-block:not(.start) > .indent {
+  background: #f3f4f5;
+  margin-right: calc(-1 * var(--code-indent-width)) !important;
+  padding-left: 20px;
+  padding-right: 12px;
+  box-shadow:
+    inset 1px 0 #e5e7e9,
+    inset -1px 0 #e5e7e9 !important;
+}
+.line:has(> .text.code-block.start) + .line > .text.code-block:not(.start) > .indent {
+  padding-top: 6px !important;
+}
+.line:has(> .text.code-block:not(.start)):not(:has(+ .line > .text.code-block:not(.start)))
+  > .text.code-block
+  > .indent {
+  padding-bottom: 18px !important;
+  border-radius: 0 0 24px 24px !important;
+  border-bottom: 1px solid #e5e7e9 !important;
+}
+/* Empty blocks still get a complete rounded panel. */
+.line:has(> .text.code-block.start):not(:has(+ .line > .text.code-block:not(.start)))
+  .code-block-start {
+  border-radius: 24px;
+  border-bottom: 1px solid #e5e7e9;
+}
+.line > .text.code-block code.code-body {
+  color: #171717;
+  /* Fill the available line instead of moving an entire path or token early. */
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+/* リンクを2カラムレイアウトにする: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-09-29) */
+/* ========================================
+   Related Page List / Links Sidebar
+   ======================================== */
+/* ========================================
+   Scrollbar
+   ======================================== */
+.related-page-list::-webkit-scrollbar {
+  display: none;
+}
+.drag-and-drop-enter::-webkit-scrollbar {
+  width: 5px;
+}
+.drag-and-drop-enter::-webkit-scrollbar-thumb {
+  background-color: #7d899b;
+  border-radius: 3px;
+}
+.drag-and-drop-enter::-webkit-scrollbar-track {
+  background-color: #111827;
+}
+/* ========================================
+   Box Sizing
+   ======================================== */
+.related-page-list,
+.related-page-list *,
+.related-page-list *::before,
+.related-page-list *::after {
+  box-sizing: border-box;
+}
+/* ========================================
+   Desktop Layout
+   ======================================== */
+@media screen and (min-width: 1500px) {
+  /* ========================================
+     Layout Variables
+     ======================================== */
+
+  :root {
+    /*
+     * 左Sidebar・本文・右Menuを
+     * まとめて右へ移動する量。
+     *
+     * 60px〜100px程度で調整。
+     */
+    --kame-layout-shift: 90px;
+  }
+
+  /* ========================================
+     Main Page
+     ======================================== */
+
+  /*
+   * 中央の白いページ本体を右へ移動。
+   */
+  .col-page .page {
+    position: relative;
+
+    left: var(--kame-layout-shift);
+  }
+
+  /* ========================================
+     Right Page Menu
+     ======================================== */
+
+  /*
+   * 右側の縦アイコン列
+   *
+   * info
+   * document
+   * translate
+   * shuffle
+   * edit
+   * bookmark
+   * etc...
+   *
+   * を現在位置から右へ移動。
+   */
+  .page-menu {
+    translate: var(--kame-layout-shift) 0;
+  }
+
+  /* ========================================
+     Sidebar Container
+     ======================================== */
+
+  .related-page-list {
+    /*
+     * 本文領域の想定幅
+     */
+    --kame-main-width: 1040px;
+
+    /*
+     * Sidebarと本文の間隔
+     */
+    --kame-sidebar-gap: 8px;
+
+    /*
+     * 画面左端との最低余白
+     */
+    --kame-screen-gap: 12px;
+
+    /*
+     * Sidebar最大幅
+     */
+    --kame-sidebar-max-width: 240px;
+
+    /*
+     * 画面幅に応じてSidebar幅を自動調整。
+     */
+    --kame-sidebar-width: min(
+        var(--kame-sidebar-max-width),
+        calc(
+          (100vw - var(--kame-main-width)) / 2
+          - var(--kame-sidebar-gap)
+          - var(--kame-screen-gap)
+        )
+      );
+
+    position: fixed;
+
+    top: 100px;
+
+    /*
+     * 本文左端のすぐ左に配置しつつ、
+     * 本文と同じだけ右へ移動。
+     */
+    left: calc(
+      50vw - var(--kame-main-width) / 2 - var(--kame-sidebar-gap) - var(--kame-sidebar-width) +
+        var(--kame-layout-shift)
+    );
+
+    transform: none;
+
+    width: var(--kame-sidebar-width);
+
+    height: calc(100vh - 120px);
+
+    max-height: 90vh;
+
+    margin: 0;
+
+    padding: 34px 8px 0 8px !important;
+
+    border-radius: 5px;
+
+    background-color: transparent;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+  }
+
+  /* ========================================
+     Search
+     ======================================== */
+
+  .related-page-list .search-form,
+  .related-page-list form {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    box-sizing: border-box;
+  }
+
+  .related-page-list input {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    box-sizing: border-box;
+  }
+
+  /* ========================================
+     Toolbar
+     ======================================== */
+
+  .related-page-list .toolbar {
+    display: flex;
+
+    flex-direction: column-reverse;
+
+    width: 100%;
+
+    margin-bottom: 2em;
+
+    gap: 12px;
+
+    color: #666b70;
+
+    opacity: 1;
+  }
+
+  .related-page-list .toolbar,
+  .related-page-list .toolbar *,
+  .related-page-list .toolbar button,
+  .related-page-list .toolbar select,
+  .related-page-list .toolbar span,
+  .related-page-list .toolbar label {
+    color: #666b70 !important;
+
+    opacity: 1 !important;
+
+    visibility: visible;
+  }
+
+  /* ========================================
+     Toolbar Button
+     ======================================== */
+
+  .related-page-list .toolbar button {
+    width: 100%;
+
+    padding: 5px 8px;
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 4px;
+
+    background-color: #ffffff;
+
+    color: #666b70 !important;
+
+    font-size: 0.9em;
+
+    font-weight: 500;
+
+    cursor: pointer;
+  }
+
+  .related-page-list .toolbar button:hover {
+    color: #303438 !important;
+
+    background-color: #f4f5f6;
+
+    border-color: #cdd2d7;
+  }
+
+  /* ========================================
+     Toolbar Select
+     ======================================== */
+
+  .related-page-list .toolbar select {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    padding: 5px 7px;
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 4px;
+
+    background-color: #ffffff;
+
+    color: #666b70 !important;
+
+    font-size: 0.9em;
+  }
+
+  /* ========================================
+     Grid
+     ======================================== */
+
+  .related-page-list ul.grid {
+    display: flex;
+
+    flex-direction: column;
+
+    flex-wrap: nowrap;
+
+    gap: 11px;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    padding: 0;
+  }
+
+  /* ========================================
+     Relation Label
+     ======================================== */
+
+  .related-page-list .grid li.relation-label {
+    width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+  }
+
+  .related-page-list .grid li.relation-label a {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    background-color: transparent;
+  }
+
+  .related-page-list .grid li.relation-label a .icon-lg {
+    display: none;
+  }
+
+  .related-page-list .grid li.relation-label a .title {
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    color: #777c81;
+
+    font-weight: 600;
+
+    font-size: 0.9em;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .related-page-list .grid li.relation-label .arrow {
+    display: none;
+  }
+
+  .related-page-list .grid li.relation-label.links a,
+  .related-page-list .grid li.relation-label.project-links a {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    color: #707172;
+  }
+
+  /* ========================================
+     Splitter
+     ======================================== */
+
+  .related-page-list .grid li.splitter.splitter {
+    height: 5px;
+
+    min-height: 5px;
+  }
+
+  /* ========================================
+     Grid Item
+     ======================================== */
+
+  .related-page-list .grid li {
+    width: 100%;
+
+    min-width: 0;
+
+    height: 37px;
+
+    margin: 0 !important;
+  }
+
+  /* ========================================
+     Page List Item
+     ======================================== */
+
+  .related-page-list .grid li.page-list-item a {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    height: 100%;
+
+    background-color: #fefefe;
+
+    outline: 1px solid transparent !important;
+
+    overflow: hidden;
+
+    transition:
+      background-color 100ms cubic-bezier(0.2, 0.91, 0.85, 0.96),
+      outline-color 100ms cubic-bezier(0.2, 0.91, 0.85, 0.96);
+  }
+
+  /* ========================================
+     Header
+     ======================================== */
+
+  .related-page-list .grid li.page-list-item a .header {
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    min-width: 0;
+
+    padding: 10px 10px 8px;
+  }
+
+  .related-page-list .grid li.page-list-item a .header > .title {
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    color: #6c7075;
+
+    font-size: 1em;
+
+    text-align: left;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  /* ========================================
+     Icon
+     ======================================== */
+
+  .related-page-list .grid li.page-list-item a .icon {
+    position: absolute;
+
+    left: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 100%;
+
+    height: 100%;
+
+    opacity: 0;
+
+    overflow: hidden;
+
+    transition: opacity 200ms cubic-bezier(0.2, 0.91, 0.85, 0.96);
+  }
+
+  .related-page-list .grid li.page-list-item a .icon img {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    margin: 0;
+
+    object-fit: cover;
+
+    filter: brightness(1);
+  }
+
+  /* ========================================
+     Description
+     ======================================== */
+
+  .related-page-list .grid li.page-list-item a .description {
+    display: none;
+  }
+
+  /* ========================================
+     Hover
+     ======================================== */
+
+  .related-page-list .grid li.page-list-item a:hover {
+    background-color: #f5f5f5;
+
+    outline: 1px solid #374151 !important;
+
+    transition:
+      background-color 300ms cubic-bezier(0.2, 0.91, 0.85, 0.96),
+      outline-color 300ms cubic-bezier(0.2, 0.91, 0.85, 0.96);
+  }
+
+  .related-page-list .grid li.page-list-item a:hover .icon {
+    opacity: 1;
+
+    transition: opacity 400ms cubic-bezier(0.2, 0.91, 0.85, 0.96);
+  }
+
+  .related-page-list .grid li.page-list-item a:hover .header > .title {
+    color: #232323;
+
+    transition: color 300ms cubic-bezier(0.2, 0.91, 0.85, 0.96);
+  }
+
+  /* ========================================
+     Relation Label Background
+     ======================================== */
+
+  .related-page-list .grid li.relation-label.empty-links a,
+  .related-page-list .grid li.relation-label.links a,
+  .related-page-list .grid li.relation-label.project-links a,
+  .related-page-list div.links-2-hop ul.grid:hover .relation-label a {
+    background-color: transparent;
+  }
+}
+/* ========================================
+   Smaller Displays
+   ======================================== */
+@media screen and (max-width: 1499px) {
+  /* ========================================
+     Related Page List
+     ======================================== */
+
+  .related-page-list {
+    position: static;
+
+    top: auto;
+
+    left: auto;
+
+    transform: none;
+
+    width: auto;
+
+    max-width: none;
+
+    height: auto;
+
+    max-height: none;
+
+    margin: 0;
+
+    padding: 0 !important;
+
+    overflow: visible;
+  }
+
+  /* ========================================
+     Reset Main Page
+     ======================================== */
+
+  .col-page .page {
+    position: static;
+
+    left: auto;
+  }
+
+  /* ========================================
+     Reset Page Menu
+     ======================================== */
+
+  .page-menu {
+    translate: none;
+  }
+}
+/* Author: kamekingdom (2026-09-29) */
+/* ========================================
+   Related Page Toolbar Icon Fix
+   ======================================== */
+.related-page-list .toolbar button,
+.related-page-list .toolbar button *,
+.related-page-list .toolbar button i,
+.related-page-list .toolbar button i::before {
+  color: #666b70 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+/* SVGアイコンの場合 */
+.related-page-list .toolbar button svg {
+  color: #666b70 !important;
+
+  opacity: 1 !important;
+
+  visibility: visible !important;
+
+  fill: currentColor !important;
+
+  stroke: currentColor !important;
+}
+.line.formula-line .dot {
+  display: block;
+}
+.deco-\" {
+  border-radius: 0.2em;
+  padding: 0 0.4em;
+  background-color: #8080801a;
+  font-size: 95%;
+  font-style: italic;
+}
+.line:not(.cursor-line) .deco-\"::before {
+  color: #404040;
+  font-size: 50%;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  content: "\f10d";
+  position: relative;
+  top: -0.5em;
+  left: -0.4em; /* スペースを広げるために値を調整 */
+  margin-right: 0.2em; /* 文字列との間にスペースを追加 */
+}
+.line:not(.cursor-line) .deco-\"::after {
+  color: #404040;
+  font-size: 50%;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  content: "\f10e";
+  position: relative;
+  top: -0.5em;
+  right: -0.4em; /* スペースを広げるために値を調整 */
+  margin-left: 0.2em; /* 文字列との間にスペースを追加 */
+}
+.line.number-list .dot {
+  display: list-item;
+}
+/* 表示する */
+.line.number-list .dot::before {
+  position: inherit;
+  top: -11px;
+  content: "\f292"; /* #: 通常 */
+  font-size: 8px; /* 適切なサイズに変更 */
+}
+/* Author: kamekingdom (2026-06-12) */
+/* ========================================
+   行頭が「!」の行だけを青くする
+   ======================================== */
+/* 行頭の「!」と、それ以降の文字 */
+.line .text > span:first-child > .char-index:first-child[data-char="!"],
+.line .text > span:first-child > .char-index:first-child[data-char="!"] ~ .char-index,
+
+/* インデントされた行の行頭にある「!」と、それ以降の文字 */
+.line .text > span .indent .char-index:first-child[data-char="!"],
+.line .text > span .indent .char-index:first-child[data-char="!"] ~ .char-index {
+  background-color: rgba(0, 0, 255, 0.1);
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+  padding: 3px 0;
+  color: blue;
+}
+/* 行頭の「!」の左側を丸める */
+.line .text > span:first-child > .char-index:first-child[data-char="!"],
+.line .text > span .indent .char-index:first-child[data-char="!"] {
+  padding-left: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+/* 行末の文字の右側を丸める */
+.line .text > span:first-child > .char-index:first-child[data-char="!"] ~ .char-index:last-child,
+.line .text > span .indent .char-index:first-child[data-char="!"] ~ .char-index:last-child {
+  padding-right: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+/* 「!」だけの行にも右側の丸みを付ける */
+.line .text > span:first-child > .char-index:first-child[data-char="!"]:last-child,
+.line .text > span .indent .char-index:first-child[data-char="!"]:last-child {
+  padding-right: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.line [class="deco-\#"] {
+  color: #9f9f9f;
+}
+.line.cursor-line [class="deco-\#"] {
+  color: #888;
+}
+.line:not(.cursor-line) [class="deco-\#"] {
+  font-size: 0.9em;
+}
+.line:not(.cursor-line) [class="deco-\#"] a.page-link {
+  color: #93aef0;
+}
+.line:not(.cursor-line) [class="deco-\#"] a.empty-page-link {
+  color: #ffa1a1;
+}
+/* "| "（パイプ+スペース）で始まる行のパイプをNotion風の縦棒にする */
+/* 1. まずパイプ記号自体をターゲットにする */
+.line .text > span:first-child > .char-index[data-char="|"],
+.line .text > span .indent > .char-index[data-char="|"],
+.line .text > span > span .char-index[data-char="|"] {
+  /* 文字としての「|」を透明にして見えなくする */
+  color: transparent;
+
+  /* 左側に縦線を引く（これが引用の棒になります） */
+  border-left: 3px solid #808080; /* 線の色（濃いグレー） */
+
+  /* 線のサイズと位置調整 */
+  margin-right: 10px; /* 本文との間の余白 */
+  margin-left: 0px; /* 左側の微調整 */
+  padding: 0;
+
+  /* 高さや配置の微調整 */
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 0px; /* 幅をなくしてborderだけに見せる */
+  height: 1.3em; /* 線の高さ */
+}
+/* 補足：もし「|」の後ろの文字色も変えたい場合（例：薄いグレーにする等）は、
+  ご提示いただいたコードのように ~ .char-index を追加して color を指定してください。
+  現状は棒が出るだけで、文字は標準の黒のままになります。
+*/
+/* # Author: kamekingdom (2026-08-21) */
+.kame-audio-player {
+  display: block;
+  width: min(500px, 90%);
+
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.kame-audio-player audio {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+/* リンクホバー詳細プレビュー: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-09-07) */
+/* =========================================================
+   Link Preview - Chic Hierarchical Style
+   ========================================================= */
+:root {
+  --link-preview-width: 410px;
+
+  --link-preview-bg: #f6f7f8;
+
+  --link-preview-dark: #3f4652;
+  --link-preview-dark-text: #f5f6f7;
+
+  --link-preview-text: #30343b;
+
+  --link-preview-muted: #858b95;
+
+  --link-preview-border: #e1e4e8;
+
+  --link-preview-guide: #d1d5da;
+}
+/* =========================================================
+   Preview本体
+   ========================================================= */
+#kame-link-preview {
+  position: fixed !important;
+
+  top: 0;
+  left: 0;
+
+  z-index: 2147483647 !important;
+
+  width: min(var(--link-preview-width), calc(100vw - 24px));
+
+  max-height: calc(100vh - 24px);
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background: var(--link-preview-bg) !important;
+
+  color: var(--link-preview-text) !important;
+
+  border: 1px solid var(--link-preview-border);
+
+  /*
+   * これまでのテーブル等に合わせて
+   * 角丸なし。
+   */
+  border-radius: 0 !important;
+
+  box-shadow: 0 10px 32px rgba(25, 30, 38, 0.18);
+
+  opacity: 0 !important;
+
+  visibility: hidden !important;
+
+  pointer-events: none !important;
+
+  transform: translateY(4px);
+
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+/* =========================================================
+   Visible
+   ========================================================= */
+#kame-link-preview.is-visible {
+  opacity: 1 !important;
+
+  visibility: visible !important;
+
+  pointer-events: auto !important;
+
+  transform: translateY(0);
+}
+/* =========================================================
+   Header
+   ========================================================= */
+#kame-link-preview .kame-link-preview-header {
+  display: flex;
+
+  align-items: center;
+
+  min-height: 36px;
+
+  box-sizing: border-box;
+
+  padding: 0.48em 0.85em;
+
+  background: var(--link-preview-dark) !important;
+
+  color: var(--link-preview-dark-text) !important;
+}
+/* =========================================================
+   Title
+   ========================================================= */
+#kame-link-preview .kame-link-preview-title {
+  min-width: 0;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+
+  font-size: 0.92em;
+
+  font-weight: 600;
+
+  letter-spacing: 0.015em;
+}
+/* =========================================================
+   Image
+   ========================================================= */
+#kame-link-preview .kame-link-preview-image {
+  display: block;
+
+  width: 100%;
+
+  height: 125px;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  border: none;
+
+  border-radius: 0 !important;
+
+  border-bottom: 1px solid var(--link-preview-border);
+}
+#kame-link-preview .kame-link-preview-image[hidden] {
+  display: none !important;
+}
+/* =========================================================
+   Body
+   ========================================================= */
+#kame-link-preview .kame-link-preview-body {
+  box-sizing: border-box;
+
+  max-height: 390px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 0.72em 0.9em 0.82em;
+}
+/* =========================================================
+   Scrollbar
+   ========================================================= */
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar {
+  width: 5px;
+}
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar-thumb {
+  background: #c8ccd2;
+}
+#kame-link-preview .kame-link-preview-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* =========================================================
+   基本行
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line {
+  position: relative;
+
+  box-sizing: border-box;
+
+  /*
+   * 元Scrapboxのindentを再現。
+   */
+  padding-left: calc(var(--preview-indent, 0) * 1.05em);
+
+  padding-top: 0.06em;
+  padding-bottom: 0.06em;
+
+  margin: 0;
+
+  color: var(--link-preview-text);
+
+  font-size: 0.87em;
+
+  line-height: 1.46;
+
+  /*
+   * ASCII図や連続spaceを
+   * なるべく維持する。
+   */
+  white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
+
+  word-break: break-word;
+}
+/* =========================================================
+   階層ガイド
+   ========================================================= */
+/*
+ * インデントされた行には
+ * 左に短いガイドを表示。
+ */
+#kame-link-preview .kame-link-preview-line[data-indented="true"]::before {
+  content: "";
+
+  position: absolute;
+
+  left: calc(var(--preview-indent, 0) * 1.05em - 0.62em);
+
+  top: 0.73em;
+
+  width: 0.36em;
+
+  height: 1px;
+
+  background: var(--link-preview-guide);
+
+  opacity: 0.9;
+}
+/* =========================================================
+   空行
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.is-blank {
+  height: 0.42em;
+
+  padding: 0;
+
+  margin: 0;
+}
+/* =========================================================
+   [. タイトル]
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.type-section {
+  margin-top: 0.28em;
+
+  margin-bottom: 0.18em;
+
+  padding-top: 0.22em;
+  padding-bottom: 0.23em;
+
+  font-size: 0.91em;
+
+  font-weight: 650;
+
+  color: var(--link-preview-dark);
+
+  border-bottom: 1px solid #d9dde2;
+}
+/* =========================================================
+   [* 強調]
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.type-strong {
+  padding-top: 0.14em;
+
+  padding-bottom: 0.12em;
+
+  font-weight: 600;
+
+  color: var(--link-preview-dark);
+}
+/* =========================================================
+   1. 2. 3.
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.type-number {
+  padding-top: 0.18em;
+
+  padding-bottom: 0.12em;
+
+  font-weight: 600;
+
+  color: var(--link-preview-dark);
+}
+/* =========================================================
+   code:
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.type-code {
+  margin-top: 0.16em;
+
+  margin-bottom: 0.08em;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  font-size: 0.78em;
+
+  font-weight: 600;
+
+  color: #68717d;
+}
+/* =========================================================
+   table:
+   ========================================================= */
+#kame-link-preview .kame-link-preview-line.type-table {
+  margin-top: 0.16em;
+
+  margin-bottom: 0.08em;
+
+  font-size: 0.8em;
+
+  font-weight: 600;
+
+  color: #68717d;
+}
+/* =========================================================
+   Loading / Empty / Error
+   ========================================================= */
+#kame-link-preview .kame-link-preview-loading,
+#kame-link-preview .kame-link-preview-empty,
+#kame-link-preview .kame-link-preview-error {
+  padding: 0.35em 0;
+
+  color: var(--link-preview-muted);
+
+  font-size: 0.86em;
+
+  line-height: 1.5;
+}
+/* =========================================================
+   Footer
+   ========================================================= */
+#kame-link-preview .kame-link-preview-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1em;
+
+  min-height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 0.4em 0.85em;
+
+  border-top: 1px solid var(--link-preview-border);
+
+  background: #f0f1f3;
+}
+/* =========================================================
+   Metadata
+   ========================================================= */
+#kame-link-preview .kame-link-preview-meta {
+  color: var(--link-preview-muted);
+
+  font-size: 0.76em;
+}
+/* =========================================================
+   Open Button
+   ========================================================= */
+#kame-link-preview .kame-link-preview-open {
+  padding: 0;
+
+  border: none;
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #555e6b;
+
+  cursor: pointer;
+
+  font-size: 0.79em;
+
+  font-weight: 600;
+}
+#kame-link-preview .kame-link-preview-open:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+/* =========================================================
+   Preview対象Link
+   ========================================================= */
+.lines a.page-link.kame-link-preview-source {
+  background: rgba(63, 70, 82, 0.07);
+}
+/* =========================================================
+   Mobile
+   ========================================================= */
+@media screen and (max-width: 600px) {
+  :root {
+    --link-preview-width: calc(100vw - 24px);
+  }
+
+  #kame-link-preview .kame-link-preview-body {
+    max-height: 300px;
+  }
+
+  #kame-link-preview .kame-link-preview-image {
+    height: 100px;
+  }
+}
+/* Author: kamekingdom (2026-09-08) */
+/* =========================================================
+   Link Preview - Related Pages
+   ========================================================= */
+/* =========================================================
+   Related Pages全体
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related {
+  margin-top: 0.8em;
+
+  padding-top: 0.65em;
+
+  border-top: 1px solid var(--link-preview-border);
+}
+/* =========================================================
+   RELATED PAGES
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-heading {
+  margin-bottom: 0.55em;
+
+  color: var(--link-preview-muted);
+
+  font-size: 0.66em;
+
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+/* =========================================================
+   Group
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-group {
+  display: grid;
+
+  grid-template-columns:
+    5.7em
+    minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 0.55em;
+
+  padding: 0.3em 0;
+}
+/* Group間 */
+#kame-link-preview .kame-link-preview-related-group + .kame-link-preview-related-group {
+  border-top: 1px solid rgba(0, 0, 0, 0.045);
+}
+/* =========================================================
+   Label / HeadWord
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-label {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 0.25em;
+
+  min-width: 0;
+
+  color: #707783;
+
+  font-size: 0.76em;
+
+  font-weight: 600;
+
+  line-height: 1.55;
+}
+/* =========================================================
+   HeadWord
+   ========================================================= */
+#kame-link-preview .kame-link-preview-headword {
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: #59616d;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+#kame-link-preview .kame-link-preview-headword:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+/* =========================================================
+   Arrow
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-arrow {
+  flex: 0 0 auto;
+
+  color: #a8adb5;
+
+  font-size: 0.9em;
+}
+/* =========================================================
+   Links
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-links {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: baseline;
+
+  gap: 0.18em 0.3em;
+
+  min-width: 0;
+}
+/* =========================================================
+   Related Link
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-link {
+  display: inline;
+
+  color: #4f6679;
+
+  font-size: 0.78em;
+
+  line-height: 1.55;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+/*
+ * 各ページの間に · を入れる。
+ */
+#kame-link-preview .kame-link-preview-related-link:not(:last-child)::after {
+  content: "·";
+
+  margin-left: 0.3em;
+
+  color: #b8bdc4;
+
+  pointer-events: none;
+}
+#kame-link-preview .kame-link-preview-related-link:hover {
+  color: var(--link-preview-dark);
+
+  text-decoration: underline;
+}
+/* =========================================================
+   1-hop
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-group.is-1hop .kame-link-preview-related-label {
+  color: var(--link-preview-dark);
+
+  font-weight: 650;
+}
+/* =========================================================
+   2-hop
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-group.is-2hop {
+  opacity: 0.95;
+}
+/* =========================================================
+   Ungrouped 2-hop
+   ========================================================= */
+#kame-link-preview .kame-link-preview-related-group.is-ungrouped {
+  opacity: 0.72;
+}
+/* =========================================================
+   Mobile
+   ========================================================= */
+@media screen and (max-width: 600px) {
+  #kame-link-preview .kame-link-preview-related-group {
+    grid-template-columns:
+      4.8em
+      minmax(0, 1fr);
+
+    gap: 0.4em;
+  }
+}
+/* Author: kamekingdom (2026-09-29) */
+/* =========================================================
+   Hierarchy Fold
+   ========================================================= */
+/* =========================================================
+   Line
+   ========================================================= */
+.lines .line {
+  position: relative;
+}
+/* =========================================================
+   Toggle
+   ========================================================= */
+.lines .line .kame-fold-toggle {
+  position: absolute;
+
+  top: 50%;
+  left: -1.25em;
+
+  z-index: 20;
+
+  width: 1.1em;
+  height: 1.3em;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #89909a;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  font-size: 0.63em;
+
+  line-height: 1;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  opacity: 0.55;
+
+  transition:
+    opacity 0.12s ease,
+    color 0.12s ease;
+}
+/* =========================================================
+   Hover
+   ========================================================= */
+.lines .line .kame-fold-toggle:hover {
+  color: #3f4652;
+
+  opacity: 1;
+}
+/* =========================================================
+   Collapsed
+   ========================================================= */
+.lines .line.kame-fold-parent-collapsed .kame-fold-toggle {
+  color: #59616e;
+
+  opacity: 0.9;
+}
+/* =========================================================
+   Hidden
+   ========================================================= */
+.lines .line.kame-fold-hidden {
+  display: none !important;
+}
+/* Author: kamekingdom (2026-09-29) */
+/* =========================================================
+   Kame Spreadsheet
+   ========================================================= */
+.table-block .cell.kame-sheet-formula-cell {
+  position: relative;
+
+  color: transparent !important;
+}
+/* 計算結果 */
+.table-block .cell.kame-sheet-formula-cell .kame-sheet-result {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding: inherit;
+
+  color: #30343b !important;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  pointer-events: none;
+}
+/* hoverすると元の数式を確認できる */
+.table-block .cell.kame-sheet-formula-cell:hover {
+  color: #30343b !important;
+}
+.table-block .cell.kame-sheet-formula-cell:hover .kame-sheet-result {
+  opacity: 0;
+}
+/* Author: kamekingdom (2026-10-05) */
+a[href*="/kameLayout/AC.icon"],
+a[href*="/kameLayout/NWJ.icon"],
+a[href*="/kameLayout/WJ.icon"],
+a[href*="/kameLayout/WA.icon"],
+a[href*="/kameLayout/RE.icon"],
+a[href*="/kameLayout/TLE.icon"] {
+  cursor: pointer;
+}
+a[href*="/kameLayout/AC.icon"]:hover,
+a[href*="/kameLayout/NWJ.icon"]:hover,
+a[href*="/kameLayout/WJ.icon"]:hover,
+a[href*="/kameLayout/WA.icon"]:hover,
+a[href*="/kameLayout/RE.icon"]:hover,
+a[href*="/kameLayout/TLE.icon"]:hover {
+  opacity: 0.75;
+}
+/* テキスト置換機能: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-10-06) */
+/* =========================================================
+   Standard Search + Replace
+   ========================================================= */
+/* =========================================================
+   Enhanced Search Form
+   ========================================================= */
+.in-page-search-form.kame-replace-enhanced {
+  width: min(720px, calc(100vw - 32px)) !important;
+
+  max-width: calc(100vw - 32px) !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    auto
+    42px
+    42px
+    42px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 10px !important;
+
+  box-sizing: border-box;
+}
+/* =========================================================
+   Native Search Input
+   ========================================================= */
+.in-page-search-form.kame-replace-enhanced > input.search-form {
+  min-width: 0;
+
+  width: 100% !important;
+
+  height: 34px;
+
+  margin: 0 !important;
+}
+/* =========================================================
+   Native Result Counter
+   ========================================================= */
+.in-page-search-form.kame-replace-enhanced > .search-result {
+  min-width: 62px;
+
+  padding: 0 4px;
+
+  color: #555b62;
+
+  font-variant-numeric: tabular-nums;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+/* =========================================================
+   Native Buttons
+   ========================================================= */
+.in-page-search-form.kame-replace-enhanced > button.btn.tool-btn {
+  width: 42px;
+
+  height: 34px;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+/* =========================================================
+   Replace Row
+   ========================================================= */
+.kame-replace-row {
+  grid-column: 1 / -1;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    auto
+    auto;
+
+  gap: 8px;
+
+  align-items: center;
+
+  padding-top: 1px;
+}
+/* =========================================================
+   Replace Input
+   ========================================================= */
+.kame-replace-value {
+  width: 100%;
+
+  min-width: 0;
+
+  height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 5px 10px;
+
+  color: #30343b;
+
+  background: #ffffff;
+
+  border: 1px solid #d5d9de;
+
+  border-radius: 3px;
+
+  outline: none;
+
+  font: inherit;
+}
+.kame-replace-value:focus {
+  border-color: #9099a3;
+}
+/* =========================================================
+   Replace Buttons
+   ========================================================= */
+.kame-replace-action {
+  height: 34px;
+
+  box-sizing: border-box;
+
+  padding: 5px 12px;
+
+  color: #4c5259;
+
+  background: #f6f7f8;
+
+  border: 1px solid #d8dce1;
+
+  border-radius: 3px;
+
+  font: inherit;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+.kame-replace-action:hover {
+  color: #30343b;
+
+  background: #eceff1;
+
+  border-color: #c9ced4;
+}
+.kame-replace-all {
+  font-weight: 500;
+}
+/* =========================================================
+   Options Row
+   ========================================================= */
+.kame-replace-options {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  padding-top: 1px;
+}
+/* =========================================================
+   Option Button
+   ========================================================= */
+.kame-replace-option {
+  height: 28px;
+
+  min-width: 34px;
+
+  box-sizing: border-box;
+
+  padding: 2px 8px;
+
+  color: #626971;
+
+  background: transparent;
+
+  border: 1px solid transparent;
+
+  border-radius: 3px;
+
+  font: inherit;
+
+  font-size: 0.88em;
+
+  cursor: pointer;
+}
+.kame-replace-option:hover {
+  color: #30343b;
+
+  background: #f1f3f4;
+
+  border-color: #d9dde1;
+}
+/* ON */
+.kame-replace-option.is-active {
+  color: #f5f6f7;
+
+  background: #3f4652;
+
+  border-color: #3f4652;
+
+  font-weight: 600;
+}
+/* =========================================================
+   Status
+   ========================================================= */
+.kame-replace-status {
+  min-width: 0;
+
+  margin-left: auto;
+
+  color: #8a9097;
+
+  font-size: 0.82em;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+.kame-replace-status.is-error {
+  color: #a44a4a;
+}
+/* =========================================================
+   Search Highlight
+   ========================================================= */
+/*
+ * 全一致箇所
+ */
+::highlight(kame-search-match) {
+  background: rgba(255, 213, 79, 0.38);
+}
+/*
+ * 現在選択している一致箇所
+ */
+::highlight(kame-search-current) {
+  background: rgba(255, 167, 38, 0.62);
+
+  text-decoration: underline;
+
+  text-decoration-thickness: 2px;
+}
+/* =========================================================
+   Highlight API Fallback
+   ========================================================= */
+.line.kame-search-fallback-match {
+  background: rgba(255, 213, 79, 0.08);
+}
+.line.kame-search-fallback-current {
+  background: rgba(255, 167, 38, 0.16);
+}
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media screen and (max-width: 760px) {
+  .in-page-search-form.kame-replace-enhanced {
+    grid-template-columns:
+      minmax(120px, 1fr)
+      auto
+      36px
+      36px
+      36px;
+
+    gap: 5px;
+  }
+
+  .kame-replace-row {
+    grid-template-columns:
+      1fr
+      auto;
+  }
+
+  .kame-replace-row .kame-replace-all {
+    grid-column: 1 / -1;
+  }
+
+  .kame-replace-status {
+    display: none;
+  }
+}
+/* 画像を一行に均等に配置する: imports are ordered to preserve the cascade. */
+/* Author: kamekingdom (2026-10-28) */
+/* =========================================================
+   Equal Image Row - Settings
+   ========================================================= */
+.line[class*="image-line-"] {
+  /*
+   * デスクトップ時の基本高さ。
+   */
+  --kame-image-card-height: 270px;
+
+  /*
+   * 画像同士の間隔。
+   */
+  --kame-image-gap: 14px;
+
+  /*
+   * 角丸。
+   */
+  --kame-image-radius: 16px;
+}
+/* =========================================================
+   Prevent Initial Layout Flash
+   ========================================================= */
+/*
+ * Cosense標準の画像配置が一瞬見えるのを防ぐ。
+ *
+ * UserScriptによる処理が終わるまで
+ * visibility:hidden。
+ *
+ * display:noneにはしない。
+ */
+.line[class*="image-line-"]:not([data-kame-equal-image-row="true"]) {
+  visibility: hidden !important;
+}
+/*
+ * UserScriptによるレイアウト処理完了後。
+ */
+.line[data-kame-equal-image-row="true"] {
+  visibility: visible !important;
+}
+/* =========================================================
+   Image Card
+   ========================================================= */
+.line[data-kame-equal-image-row="true"] .modal-image {
+  background: #f6f7f8;
+
+  border-radius: var(--kame-image-radius);
+
+  overflow: hidden;
+}
+/* =========================================================
+   Image
+   ========================================================= */
+.line[data-kame-equal-image-row="true"] .modal-image img.image {
+  border: 1px solid #e8eaec !important;
+
+  border-radius: var(--kame-image-radius) !important;
+
+  background: #ffffff !important;
+
+  box-shadow: none !important;
+
+  /*
+   * UserScript側でも指定しているが
+   * 念のためCSS側でも固定。
+   */
+  width: 100% !important;
+
+  height: 100% !important;
+
+  object-fit: cover !important;
+
+  object-position: center center !important;
+
+  transition:
+    opacity 120ms ease,
+    filter 120ms ease;
+}
+/* =========================================================
+   Image Link
+   ========================================================= */
+.line[data-kame-equal-image-row="true"] .modal-image > a {
+  width: 100% !important;
+
+  height: 100% !important;
+
+  text-decoration: none !important;
+
+  overflow: hidden !important;
+
+  border-radius: var(--kame-image-radius) !important;
+}
+/* =========================================================
+   Hover
+   ========================================================= */
+.line[data-kame-equal-image-row="true"] .modal-image > a:hover img.image {
+  opacity: 0.95;
+
+  filter: brightness(0.98);
+}
+/* =========================================================
+   2 Images
+   ========================================================= */
+.line[data-kame-equal-image-count="2"] {
+  --kame-image-card-height: 300px;
+
+  --kame-image-gap: 14px;
+}
+/* =========================================================
+   3 Images
+   ========================================================= */
+.line[data-kame-equal-image-count="3"] {
+  --kame-image-card-height: 270px;
+
+  --kame-image-gap: 14px;
+}
+/* =========================================================
+   4 Images
+   ========================================================= */
+.line[data-kame-equal-image-count="4"] {
+  --kame-image-card-height: 230px;
+
+  --kame-image-gap: 10px;
+
+  --kame-image-radius: 14px;
+}
+/* =========================================================
+   5 Images
+   ========================================================= */
+.line[data-kame-equal-image-count="5"] {
+  --kame-image-card-height: 200px;
+
+  --kame-image-gap: 8px;
+
+  --kame-image-radius: 12px;
+}
+/* =========================================================
+   6 Images
+   ========================================================= */
+.line[data-kame-equal-image-count="6"] {
+  --kame-image-card-height: 180px;
+
+  --kame-image-gap: 8px;
+
+  --kame-image-radius: 12px;
+}
+/* =========================================================
+   Tablet
+   ========================================================= */
+@media screen and (max-width: 1000px) {
+  .line[data-kame-equal-image-row="true"] {
+    --kame-image-card-height: 220px;
+
+    --kame-image-gap: 10px;
+
+    --kame-image-radius: 12px;
+  }
+}
+/* =========================================================
+   Mobile
+   ========================================================= */
+@media screen and (max-width: 768px) {
+  .line[data-kame-equal-image-row="true"] {
+    --kame-image-card-height: 160px;
+
+    --kame-image-gap: 6px;
+
+    --kame-image-radius: 8px;
+  }
+}
+/* インデント見栄え変更CSS：無効 */
+/* @import "./indent-guides.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* ページリストの大きさ変更CSS：無効 */
+/* @import "./card-size.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 画像サイズCSS：無効 */
+/* @import "./image-size.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 画像中心CSS：無効 */
+/* @import "./image-center.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 画像を並べるUserCSS：無効 */
+/* @import "./image-gallery.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 文字揃えCSS：無効 */
+/* @import "./text-alignment.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 電光掲示板UserCSS：無効 */
+/* @import "./marquee.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 空白ページ非表示CSS：無効 */
+/* @import "./hide-untitled.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* テンプレートCSS：無効 */
+/* @import "./template-style.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* アップロードしたファイルリンクのデザインをボタンにするUserCSS：無効 */
+/* @import "./file-buttons.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* 画像に連番を振るUserCSS：無効 */
+/* @import "./figure-numbers.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* クイックラウンチメニュー：無効 */
+/* @import "./quick-launch.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* ヘッダー画像を追加する：無効 */
+/* @import "./header-image.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+/* Obsidian風グラフビュー：Scriptが自動読込 */
+/* @import "./graph-view.style.css?v=111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; */
+:root {
+  --bulletin-board: "Scrapbox Helpfeel Cosense Project";
+}
+:root { --kame-layout-inline-version: "111c2c9addd6deefebbbe4d63d56fe48f00db250e155ac4abaa3968b86b7c611"; }

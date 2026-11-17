@@ -9,15 +9,29 @@ const engine = safari ? "webkit" : "chromium";
 const out = `.cache/code-blocks/${engine}${live ? "-live" : ""}`;
 fs.mkdirSync(out, { recursive: true });
 const headerBaseline = process.argv.includes("--header-baseline");
-const baseline = headerBaseline
-  ? "b596a99c9c44a90464567b115e75813066b4a468"
-  : "1aeafc15e8ed55cc0306cb7d1fe628c127f2b10a";
+const widthBaseline = process.argv.includes("--width-baseline");
+const baseline = widthBaseline
+  ? "2ed01b21a35dae4963d114c5f48fa013d68b7a0a"
+  : headerBaseline
+    ? "b596a99c9c44a90464567b115e75813066b4a468"
+    : "1aeafc15e8ed55cc0306cb7d1fe628c127f2b10a";
 const before = compileStyles("style.css", (f) =>
   execFileSync("git", ["show", `${baseline}:${f}`], {
     encoding: "utf8",
   }),
 );
 const after = compileStyles("style.css");
+let liveStyles;
+if (live) {
+  const base = "https://scrapbox.io/api/code/kamelayout/kame-layout%3Adelivery/";
+  const response = await fetch(base + "loader.js?reload=" + crypto.randomUUID(), {
+    cache: "no-store",
+  });
+  assert.ok(response.ok, "Published loader is available");
+  const revision = (await response.text()).match(/const version = "([a-f0-9]{64})"/)?.[1];
+  assert.ok(revision, "Published loader exposes its revision");
+  liveStyles = base + "style.css?v=" + revision;
+}
 const escape = (s) => s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 const line = (text, level = 0, start = false) =>
   `<div class="line"><span class="text code-block${start ? " start" : ""}"><span class="indent-mark" style="width:${level * 1.5}em"></span><span class="indent" style="margin-left:${level * 1.5}em">${start ? `<code class="code-start"><span class="code-block-start"><span title="json"><a href="#">${escape(text)}</a></span><span class="tool-buttons"><span title="Copy" class="button copy"><i class="far fa-copy"></i></span></span></span></code>` : `<code class="code-body highlight"><span>${text}</span></code>`}</span></span></div>`;
@@ -31,7 +45,7 @@ const block = (name = "JSON", level = 0) =>
   ]
     .map((s) => line(s, level + 1))
     .join("");
-const html = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="https://scrapbox.io/assets/css/app.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"><style>body{padding:24px;background:white}.lines{position:relative;margin:0}.fixture{margin:0 auto 30px;max-width:880px}.line{position:relative}.outside{margin:12px 0}</style><main>${["sample", "nested", "adjacent", "empty", "long"].map((id) => `<section class="fixture lines" id="${id}">${id === "sample" ? block() : id === "nested" ? block("nested.json", 2) : id === "adjacent" ? block() + block("next.json") : id === "empty" ? line("empty.json", 0, true) : block("very-long-code-block-file-name-without-spaces.json")}</section>`).join("")}<p class="outside">通常の本文</p></main>`;
+const html = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="https://scrapbox.io/assets/css/app.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"><style>body{padding:24px;background:white}.lines{position:relative;margin:0}.fixture{margin:0 auto 30px;max-width:880px}.line{position:relative}.outside{margin:12px 0}</style><main>${["sample", "wide", "nested", "adjacent", "empty", "long"].map((id) => `<section class="fixture lines" id="${id}">${id === "sample" ? block() : id === "wide" ? line("bash", 0, true) + line(escape('cd /d "C:\\sample\\' + "long-folder-name-".repeat(24) + '"'), 1) : id === "nested" ? block("nested.json", 2) : id === "adjacent" ? block() + block("next.json") : id === "empty" ? line("empty.json", 0, true) : block("very-long-code-block-file-name-without-spaces.json")}</section>`).join("")}<p class="outside">通常の本文</p></main>`;
 const browser = await (safari ? webkit.launch() : chromium.launch({ channel: "chrome" }));
 try {
   for (const width of [1440, 834, 390]) {
@@ -44,13 +58,14 @@ try {
     await page.evaluate(() => document.fonts.ready);
     const original = await page.locator("main").textContent();
     await page.locator("#sample").screenshot({ path: `${out}/before-${width}.png` });
+    await page.locator("#wide").screenshot({ path: `${out}/wide-before-${width}.png` });
     const normal = await page
       .locator(".outside")
       .evaluate((e) => getComputedStyle(e).cssText + e.getBoundingClientRect().width);
     await sheet.evaluate((e) => e.remove());
     if (live)
       await page.addStyleTag({
-        url: "https://scrapbox.io/api/code/kamelayout/kame-layout%3Adelivery/style.css",
+        url: liveStyles,
       });
     else await page.addStyleTag({ content: after });
     await page.waitForLoadState("networkidle");
@@ -121,6 +136,32 @@ try {
       "Syntax colors remain",
     );
     await page.locator("#sample").screenshot({ path: `${out}/after-${width}.png` });
+    const fit = await page.locator("#wide .code-body").evaluate((e) => {
+      const span = e.querySelector("span"),
+        range = document.createRange();
+      range.selectNodeContents(span);
+      const rects = [...range.getClientRects()].filter((r) => r.width > 0),
+        panel = e.closest(".indent").getBoundingClientRect();
+      return {
+        gap: panel.right - 12 - rects[0].right,
+        rows: rects.length,
+        padding: getComputedStyle(e.closest(".indent")).paddingRight,
+      };
+    });
+    assert.ok(
+      fit.rows > 1 && fit.gap >= -0.5 && fit.gap < 12,
+      "Long code fills the available width before wrapping",
+    );
+    assert.equal(fit.padding, "12px");
+    const iconGap = await page
+      .locator("#sample .fa-copy")
+      .evaluate(
+        (e) =>
+          e.closest(".code-block-start").getBoundingClientRect().right -
+          e.getBoundingClientRect().right,
+      );
+    assert.ok(iconGap <= 14, `Copy icon is close to the right edge (${iconGap})`);
+    await page.locator("#wide").screenshot({ path: `${out}/wide-after-${width}.png` });
     const bounds = () =>
       page
         .locator(".code-block-start, .tool-buttons, .code-body")
