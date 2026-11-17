@@ -3,7 +3,7 @@
   display: block;
 }
 
-.line > .text.code-block.start .code-block-start {
+.line > .text.code-block.start .code-start .code-block-start {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -23,51 +23,75 @@
   letter-spacing: normal;
 }
 
-.line > .text.code-block.start .code-block-start::before {
+.line > .text.code-block.start .code-start .code-block-start::before {
   content: "‹/›";
   flex: 0 0 auto;
   font-family: monospace;
 }
 
-.line > .text.code-block.start .code-block-start > span:first-child {
+.line > .text.code-block.start .code-start .code-block-start > span:first-child {
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
-.line > .text.code-block.start .code-block-start a,
-.line > .text.code-block.start .code-block-start a:hover {
+.line > .text.code-block.start .code-start .code-block-start a,
+.line > .text.code-block.start .code-start .code-block-start a:hover {
   color: #171717 !important;
   opacity: 1;
 }
 
-.line > .text.code-block.start .code-block-start .tool-buttons {
-  /* Native Copy replaces the whole button with plain text "Copied". */
-  flex: 0 0 56px;
-  width: 56px;
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons {
+  /* Native Copy replaces the button with plain text; keep one circular slot. */
+  flex: 0 0 28px;
+  width: 28px;
   height: 28px;
   box-sizing: border-box;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   white-space: nowrap;
-  font-size: 11px;
-  line-height: 16px;
+  /* Keep native Copied text in the DOM; show a fixed-size check visually. */
+  font-size: 0;
+  line-height: 1;
+  border-radius: 50%;
+  clip-path: circle(50%);
   margin-left: auto;
 }
 
-.line > .text.code-block.start .code-block-start .tool-buttons .button {
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .button {
   display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  height: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
   padding: 0;
   font-size: 12px;
-  border-radius: 14px;
+  border-radius: 50%;
   color: #171717 !important;
   opacity: 1;
 }
 
-.line > .text.code-block.start .code-block-start .tool-buttons .button:hover {
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .fa-copy {
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+}
+
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons:not(:has(.button)):not(:empty) {
+  background: #e6e8ea;
+  cursor: default;
+}
+
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons:not(:has(.button)):not(:empty)::after {
+  content: "✓";
+  font-size: 14px;
+  line-height: 1;
+  color: #171717;
+}
+
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .button:hover {
   background: #e6e8ea;
 }
 
