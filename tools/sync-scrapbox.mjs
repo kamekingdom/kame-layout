@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 import { root, read } from "./project.mjs";
 import { entryPage, managedMarker, packageFiles } from "./scrapbox-package.mjs";
+import { compileNativeStyle, mergeNativeStyle, managedStyleFromCode } from "./native-usercss.mjs";
 
 const origin = "https://scrapbox.io";
 const sha256 = (text) => crypto.createHash("sha256").update(text).digest("hex");
@@ -33,6 +34,13 @@ export function planSync(pkg, target) {
   }
   if (Object.keys(page).some((key) => !["title", "lines"].includes(key)))
     throw new Error("Unexpected page metadata.");
+  if (
+    target.usercss &&
+    (!/^[a-z0-9][a-z0-9-]*$/.test(target.usercss.project) ||
+      target.usercss.page !== "Settings" ||
+      Object.keys(target.usercss).some((key) => !["project", "page"].includes(key)))
+  )
+    throw new Error("Invalid native UserCSS target.");
   return {
     project: target.project,
     page: entryPage,
@@ -40,6 +48,7 @@ export function planSync(pkg, target) {
     codeBlocks: packageFiles(pkg).size,
     contentSha256: sha256(JSON.stringify(pkg)),
     url: `${origin}/${target.project}/${encodeURIComponent(entryPage)}`,
+    ...(target.usercss ? { usercss: target.usercss } : {}),
   };
 }
 
@@ -142,6 +151,79 @@ export async function publishPackage(
   if (typeof profile.id !== "string" || !profile.id) {
     throw new Error("Unexpected Scrapbox profile response. Check the authentication API.");
   }
+  const native = target.usercss ? compileNativeStyle(pkg) : null;
+  const readNative = async () =>
+    jsonResponse(
+      await request(
+        fetchImpl,
+        `${origin}/api/pages/${target.usercss.project}/${encodeURIComponent(target.usercss.page)}`,
+        { headers, cache: "no-store" },
+        "Native UserCSS preflight",
+      ),
+      "Native UserCSS preflight",
+    );
+  // Validate the explicitly configured consumer before writing either project.
+  if (native) mergeNativeStyle(await readNative(), target.usercss, target.project, native.css);
+  const syncNative = async () => {
+    if (!native) return {};
+    // Re-read immediately before merging, preserving user changes outside our markers.
+    const current = await readNative();
+    const next = mergeNativeStyle(current, target.usercss, target.project, native.css);
+    const changed = JSON.stringify(pageLines(current)) !== JSON.stringify(next.lines);
+    if (changed) {
+      const nativeHeaders = {
+        ...headers,
+        Origin: origin,
+        Referer: `${origin}/${target.usercss.project}/`,
+        ...(typeof profile.csrfToken === "string" && profile.csrfToken
+          ? { "X-CSRF-TOKEN": profile.csrfToken }
+          : {}),
+      };
+      const form = new FormData();
+      form.append(
+        "import-file",
+        new Blob([JSON.stringify({ pages: [next] })], { type: "application/octet-stream" }),
+        "kame-layout-usercss.scrapbox.json",
+      );
+      form.append("duplicateFileBetweenProject", "false");
+      await jsonResponse(
+        await request(
+          fetchImpl,
+          `${origin}/api/page-data/import/${target.usercss.project}.json`,
+          { method: "POST", headers: nativeHeaders, body: form },
+          "Native UserCSS update",
+        ),
+        "Native UserCSS update",
+      );
+      const finished = await request(
+        fetchImpl,
+        `${origin}/api/page-data/import-finish/${target.usercss.project}.json`,
+        { method: "POST", headers: nativeHeaders },
+        "Native UserCSS finish",
+      );
+      if (!finished.ok) throw new Error(`Native UserCSS finish: HTTP ${finished.status}.`);
+    }
+    const response = await request(
+      fetchImpl,
+      `${origin}/api/code/${target.usercss.project}/${encodeURIComponent(target.usercss.page)}/style.css?verify=${native.version}`,
+      { headers, cache: "no-store" },
+      "Native UserCSS verification",
+    );
+    if (!response.ok || !response.headers.get("content-type")?.includes("text/css"))
+      throw new Error("Native UserCSS verification failed.");
+    if (managedStyleFromCode(await response.text()) !== native.css.trim())
+      throw new Error("Native UserCSS content does not match.");
+    // Never log or upload the private Settings page or its custom CSS.
+    return {
+      nativeUsercss: {
+        project: target.usercss.project,
+        page: target.usercss.page,
+        version: native.version,
+        action: changed ? "updated" : "unchanged",
+        verified: true,
+      },
+    };
+  };
   const pageUrl = `${origin}/api/pages/${plan.project}/${encodeURIComponent(plan.page)}`;
   const currentResponse = await request(
     fetchImpl,
@@ -162,7 +244,11 @@ export async function publishPackage(
     if (
       JSON.stringify(trimEnd(pageLines(previous))) === JSON.stringify(trimEnd(pkg.pages[0].lines))
     ) {
-      return { ...(await verify(pkg, target, { fetchImpl })), action: "unchanged" };
+      return {
+        ...(await verify(pkg, target, { fetchImpl })),
+        ...(await syncNative()),
+        action: "unchanged",
+      };
     }
     fs.mkdirSync(backupDirectory, { recursive: true, mode: 0o700 });
     fs.writeFileSync(
@@ -215,6 +301,7 @@ export async function publishPackage(
   if (!finished.ok) throw new Error(`Import finish: HTTP ${finished.status}.`);
   return {
     ...(await verify(pkg, target, { fetchImpl })),
+    ...(await syncNative()),
     action: previous ? "updated" : "created",
   };
 }

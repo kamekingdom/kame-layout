@@ -9,7 +9,7 @@
   min-width: 0;
   box-sizing: border-box;
   gap: 8px;
-  padding: 8px 20px;
+  padding: 8px 12px 8px 20px;
   background: #f3f4f5;
   color: #171717;
   border: 1px solid #e5e7e9;
@@ -47,7 +47,7 @@
   height: 28px;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   white-space: nowrap;
   font-size: 11px;
   line-height: 16px;
@@ -57,9 +57,10 @@
 .line > .text.code-block.start .code-block-start .tool-buttons .button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
   height: 100%;
+  padding: 0;
   font-size: 12px;
   border-radius: 14px;
   color: #171717 !important;
@@ -74,7 +75,7 @@
   background: #f3f4f5;
   margin-right: calc(-1 * var(--code-indent-width)) !important;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 12px;
   box-shadow:
     inset 1px 0 #e5e7e9,
     inset -1px 0 #e5e7e9 !important;
@@ -101,4 +102,7 @@
 
 .line > .text.code-block code.code-body {
   color: #171717;
+  /* Fill the available line instead of moving an entire path or token early. */
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }

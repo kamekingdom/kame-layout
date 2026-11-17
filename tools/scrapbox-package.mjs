@@ -72,10 +72,19 @@ export function createPackage(readSource = read) {
   ]);
   const theme = readSource("src/theme/project.css");
   const loader = readSource("tools/delivery-loader.js");
+  const target = JSON.parse(readSource("config/scrapbox-sync.json"));
   const version = crypto
     .createHash("sha256")
     .update(
-      JSON.stringify([config, inputs, theme, loader, readSource("tools/scrapbox-package.mjs")]),
+      JSON.stringify([
+        config,
+        inputs,
+        theme,
+        loader,
+        target,
+        readSource("tools/scrapbox-package.mjs"),
+        readSource("tools/native-usercss.mjs"),
+      ]),
     )
     .digest("hex");
   const names = new Map(
@@ -113,7 +122,12 @@ export function createPackage(readSource = read) {
     "",
     ...codeBlock("project.css", theme),
     "",
-    ...codeBlock("loader.js", loader.replace("__KAME_LAYOUT_VERSION__", version)),
+    ...codeBlock(
+      "loader.js",
+      loader
+        .replace("__KAME_LAYOUT_VERSION__", version)
+        .replace("__KAME_LAYOUT_INLINE_PROJECT__", target.usercss?.project ?? ""),
+    ),
     "",
   ];
   for (const { feature, name, filename } of sources) {

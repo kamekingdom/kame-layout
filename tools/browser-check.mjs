@@ -6,9 +6,15 @@ import { execFileSync } from "node:child_process";
 import { chromium, webkit } from "@playwright/test";
 import { root, read, migration } from "./project.mjs";
 import { packageFiles, entryPage } from "./scrapbox-package.mjs";
+import { compileNativeStyle } from "./native-usercss.mjs";
 
 const live = process.argv.includes("--live");
-const loader = process.argv.includes("--loader");
+const nativeMode = process.argv.includes("--native");
+const loader = process.argv.includes("--loader") || nativeMode;
+if (nativeMode && live)
+  throw new Error(
+    "Native mode uses a public fixture. Verify the configured consumer with a normal reload.",
+  );
 const safari = process.argv.includes("--webkit");
 const engine = safari ? "webkit" : "chromium";
 const output = path.join(root, `.cache/browser-${engine}${live ? "-live" : ""}`);
@@ -28,7 +34,9 @@ const browser = await (safari
   ? webkit.launch({ headless: true })
   : chromium.launch({ channel: "chrome", headless: true }));
 const report = [];
-const packaged = packageFiles(JSON.parse(read("dist/kame-layout.scrapbox.json")));
+const pkg = JSON.parse(read("dist/kame-layout.scrapbox.json"));
+const packaged = packageFiles(pkg);
+const nativeStyle = compileNativeStyle(pkg);
 
 async function capture(version, viewport) {
   const context = await browser.newContext({ viewport, serviceWorkers: "block" });
@@ -46,7 +54,12 @@ async function capture(version, viewport) {
       const filename = pathname.slice(
         isBaseline ? "/__kame-layout-test/baseline/".length : "/api/code/kamelayout/".length,
       );
-      const body = isBaseline ? baseline.get(filename) : packaged.get(filename);
+      let body = isBaseline ? baseline.get(filename) : packaged.get(filename);
+      if (nativeMode && !isBaseline && filename.endsWith("/loader.js"))
+        body = body.replace(
+          /const inlineProject = "[^"]*";/,
+          'const inlineProject = "kamelayout";',
+        );
       const contentType = filename.endsWith(".css")
         ? "text/css"
         : filename.endsWith(".js")
@@ -77,7 +90,8 @@ async function capture(version, viewport) {
     version === "baseline"
       ? "https://scrapbox.io/__kame-layout-test/baseline"
       : `https://scrapbox.io/api/code/kamelayout/${entryPage}`;
-  if (!(loader && version === "current")) await page.addStyleTag({ url: `${base}/style.css` });
+  if (nativeMode && version === "current") await page.addStyleTag({ content: nativeStyle.css });
+  else if (!(loader && version === "current")) await page.addStyleTag({ url: `${base}/style.css` });
   const importError = await page.evaluate(
     async (url) => {
       try {
@@ -119,7 +133,9 @@ async function capture(version, viewport) {
           [...document.querySelectorAll(selector)].slice(0, 15).map((element) => {
             const style = getComputedStyle(element);
             return Object.fromEntries(
-              [...style].map((property) => [property, style.getPropertyValue(property)]),
+              [...style]
+                .filter((property) => property !== "--kame-layout-inline-version")
+                .map((property) => [property, style.getPropertyValue(property)]),
             );
           }),
         ]),

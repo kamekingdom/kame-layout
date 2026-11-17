@@ -17,6 +17,7 @@ const hashes = versions.map(
   (files) => files.get(`${entryPage}/loader.js`).match(/const version = "([a-f0-9]{64})"/)[1],
 );
 const base = `https://scrapbox.io/api/code/kamelayout/${encodeURIComponent(entryPage)}/`;
+const nativeFixture = "https://scrapbox.io/kamekingdom/__kame-layout-test/native";
 const fixture = "https://scrapbox.io/__kame-layout-test/delivery";
 const html = `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="${base}local.css"><p class="marker">最新バージョンの読み込み確認</p><p class="local">Settingsの独自CSS</p>`;
 const browser = await (safari
@@ -29,6 +30,16 @@ let revision = 0,
 const requests = [];
 await context.route("**/*", async (route) => {
   const url = new URL(route.request().url());
+  if (url.href === nativeFixture)
+    return route.fulfill({
+      contentType: "text/html",
+      body: `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="https://scrapbox.io/api/code/kamekingdom/Settings/style.css"><p class="marker">Native CSS first</p><p class="local">Local CSS</p>`,
+    });
+  if (url.pathname === "/api/code/kamekingdom/Settings/style.css")
+    return route.fulfill({
+      contentType: "text/css",
+      body: `:root {--kame-layout-inline-version:"${hashes[revision]}"} .marker {color:rgb(0,80,${revision + 100})} .local {color:rgb(123,45,67)}`,
+    });
   if (url.href === fixture) return route.fulfill({ contentType: "text/html", body: html });
   if (!decodeURIComponent(url.pathname).startsWith(`/api/code/kamelayout/${entryPage}/`))
     return route.continue();
@@ -53,6 +64,11 @@ await context.route("**/*", async (route) => {
     );
     if (fail && name === "style.css")
       return route.fulfill({ status: 503, contentType: type, body: "unavailable" });
+    if (
+      name === "script.js" &&
+      new URL(route.request().frame().url()).pathname.includes("/kamekingdom/")
+    )
+      await new Promise((resolve) => setTimeout(resolve, 500));
     if (name === "style.css")
       body = `@import "./asset.css?v=${hash}"; .marker {color:rgb(0,80,${revision + 100})}`;
     else if (name === "script.js")
@@ -120,6 +136,45 @@ try {
       `PASS ${engine}: release ${revision + 1}, stale cache bypass, nested CSS/JS, local CSS and duplicate guard`,
     );
   }
+  revision = 1;
+  await page.goto(nativeFixture);
+  const nativeColor = await page.locator(".marker").evaluate((e) => getComputedStyle(e).color);
+  assert.equal(
+    nativeColor,
+    "rgb(0, 80, 101)",
+    "Latest native CSS is present before any loader runs",
+  );
+  const nativeRequestsStart = requests.length;
+  await page.evaluate((base) => {
+    window.loading = import(base + "loader.js?reload=" + crypto.randomUUID());
+  }, base);
+  await page.waitForTimeout(150);
+  assert.equal(
+    await page.locator(".marker").evaluate((e) => getComputedStyle(e).color),
+    nativeColor,
+    "Delayed Script does not repaint or hide native CSS",
+  );
+  assert.equal(
+    await page.locator(".marker").evaluate((e) => getComputedStyle(e).visibility),
+    "visible",
+  );
+  await page.evaluate(() => window.loading);
+  assert.equal(
+    await page.locator("link[data-kame-layout-version]").count(),
+    0,
+    "Native mode never injects a replacement CSS link",
+  );
+  assert.ok(
+    !requests.slice(nativeRequestsStart).some((r) => r.name === "style.css"),
+    "Native mode does not request a late CSS entry",
+  );
+  assert.equal(
+    await page.evaluate(() => document.documentElement.dataset.kameLayoutVersion),
+    hashes[revision],
+  );
+  console.log(
+    `PASS ${engine}: latest native CSS on first display; no style replacement during delayed Script startup`,
+  );
   revision = 1;
   fail = true;
   await page.goto(fixture);
