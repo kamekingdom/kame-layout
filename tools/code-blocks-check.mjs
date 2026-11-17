@@ -8,8 +8,12 @@ const safari = process.argv.includes("--webkit"),
 const engine = safari ? "webkit" : "chromium";
 const out = `.cache/code-blocks/${engine}${live ? "-live" : ""}`;
 fs.mkdirSync(out, { recursive: true });
+const headerBaseline = process.argv.includes("--header-baseline");
+const baseline = headerBaseline
+  ? "b596a99c9c44a90464567b115e75813066b4a468"
+  : "1aeafc15e8ed55cc0306cb7d1fe628c127f2b10a";
 const before = compileStyles("style.css", (f) =>
-  execFileSync("git", ["show", `1aeafc15e8ed55cc0306cb7d1fe628c127f2b10a:${f}`], {
+  execFileSync("git", ["show", `${baseline}:${f}`], {
     encoding: "utf8",
   }),
 );
@@ -92,7 +96,18 @@ try {
       "24px",
     );
     const button = await page.locator("#sample .copy").boundingBox();
-    assert.ok(button.width >= 36 && button.height >= 36, "Copy target remains usable");
+    assert.ok(
+      await page
+        .locator("#sample .code-block-start")
+        .evaluate(
+          (e) =>
+            parseFloat(getComputedStyle(e).fontSize) <
+            parseFloat(getComputedStyle(document.querySelector("#sample .code-body")).fontSize),
+        ),
+      "Header typography stays smaller than code",
+    );
+    assert.equal(button.width, 56);
+    assert.equal(button.height, 28);
     assert.ok(await page.locator("#sample .copy").isVisible());
     assert.ok(
       (await page
@@ -106,6 +121,29 @@ try {
       "Syntax colors remain",
     );
     await page.locator("#sample").screenshot({ path: `${out}/after-${width}.png` });
+    const bounds = () =>
+      page
+        .locator(".code-block-start, .tool-buttons, .code-body")
+        .evaluateAll((es) => es.map((e) => e.getBoundingClientRect().toJSON()));
+    const normalBounds = await bounds();
+    await page.locator(".tool-buttons").evaluateAll((es) =>
+      es.forEach((e) => {
+        e.dataset.normal = e.innerHTML;
+        e.textContent = "Copied";
+      }),
+    );
+    assert.deepEqual(
+      await bounds(),
+      normalBounds,
+      "Copied does not move or resize headers, controls or code",
+    );
+    await page.locator("#sample").screenshot({ path: `${out}/copied-${width}.png` });
+    await page.locator(".tool-buttons").evaluateAll((es) =>
+      es.forEach((e) => {
+        e.innerHTML = e.dataset.normal;
+        delete e.dataset.normal;
+      }),
+    );
     assert.ok(
       await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
       "No page overflow",
@@ -137,7 +175,21 @@ try {
     const expected = await copiedText();
     assert.ok(expected.length > 100);
     await page.addStyleTag({ content: after });
+    await copy.waitFor({ state: "visible" });
+    const header = page.locator('.code-block-start:has(a[href$="/style.css"])');
+    const normalSize = await header.evaluate((e) => ({
+      header: e.getBoundingClientRect().toJSON(),
+      control: e.querySelector(".tool-buttons").getBoundingClientRect().toJSON(),
+    }));
     assert.equal(await copiedText(), expected, "Native copy result remains unchanged");
+    const copiedSize = await header.evaluate((e) => ({
+      header: e.getBoundingClientRect().toJSON(),
+      control: e.querySelector(".tool-buttons").getBoundingClientRect().toJSON(),
+    }));
+    assert.equal(copiedSize.header.height, normalSize.header.height);
+    assert.equal(copiedSize.header.width, normalSize.header.width);
+    assert.equal(copiedSize.control.width, normalSize.control.width);
+    assert.equal(copiedSize.control.height, normalSize.control.height);
     console.log("PASS native Scrapbox copy: identical code before and after CSS change");
     await context.close();
   }
