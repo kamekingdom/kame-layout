@@ -13,6 +13,12 @@ code:script.js
 
 必要なら標準の「UserScriptを読み込む」を押し、再読み込みします。別の配置先では `kamelayout` を変更してください。PC・iPhone・iPadでも各端末の標準UserScriptを有効にします。拡張機能やGitHubへの直接アクセスは不要です。
 
+利用側で切り替えた読み込み入口：
+
+![Scrapbox標準UserScriptに設定した最新版の入口](images/fresh-delivery-entry.jpg)
+
+2026年11月17日、実際のScrapboxで撮影。コードブロック部分だけを掲載しています。固定URLの旧CSSではヘッダー16px・背景 `#e9e9e9` だった画面が、再読み込み後に12px・`#f3f4f5` へ変わることを確認しました。再度の再読み込みでも配信ハッシュが一致し、グラフボタンが重複せず、Settingsの独自CSSが残ることを確認しています。
+
 Settingsにある従来のCSS importと独自CSSは保存したままにできます。ローダーは、新しいCSSの読み込みに成功してから、その画面のCSSOMにある旧配信importだけを除外します。Settingsの保存内容は変更せず、独自のCSS宣言と優先順位も保ちます。UserScriptを無効にした環境では固定UserCSSの表示へ戻るため、従来通りキャッシュ更新を待つ場合があります。
 
 ## 仕組み
