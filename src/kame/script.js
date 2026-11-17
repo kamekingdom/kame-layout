@@ -1,3 +1,3 @@
 // kame-layout:legacy-js:start
-import "/api/code/kamelayout/kame-layout%3Adelivery/script.js?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf";
+import "/api/code/kamelayout/kame-layout%3Adelivery/script.js?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2";
 // kame-layout:legacy-js:end

@@ -1724,7 +1724,7 @@ a.kame-link-with-favicon:hover .kame-external-favicon {
 .line > .text.code-block.start .code-start {
   display: block;
 }
-.line > .text.code-block.start .code-block-start {
+.line > .text.code-block.start .code-start .code-block-start {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -1743,46 +1743,67 @@ a.kame-link-with-favicon:hover .kame-external-favicon {
   font-weight: 500;
   letter-spacing: normal;
 }
-.line > .text.code-block.start .code-block-start::before {
+.line > .text.code-block.start .code-start .code-block-start::before {
   content: "‹/›";
   flex: 0 0 auto;
   font-family: monospace;
 }
-.line > .text.code-block.start .code-block-start > span:first-child {
+.line > .text.code-block.start .code-start .code-block-start > span:first-child {
   min-width: 0;
   overflow-wrap: anywhere;
 }
-.line > .text.code-block.start .code-block-start a,
-.line > .text.code-block.start .code-block-start a:hover {
+.line > .text.code-block.start .code-start .code-block-start a,
+.line > .text.code-block.start .code-start .code-block-start a:hover {
   color: #171717 !important;
   opacity: 1;
 }
-.line > .text.code-block.start .code-block-start .tool-buttons {
-  /* Native Copy replaces the whole button with plain text "Copied". */
-  flex: 0 0 56px;
-  width: 56px;
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons {
+  /* Native Copy replaces the button with plain text; keep one circular slot. */
+  flex: 0 0 28px;
+  width: 28px;
   height: 28px;
   box-sizing: border-box;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   white-space: nowrap;
-  font-size: 11px;
-  line-height: 16px;
+  /* Keep native Copied text in the DOM; show a fixed-size check visually. */
+  font-size: 0;
+  line-height: 1;
+  border-radius: 50%;
+  clip-path: circle(50%);
   margin-left: auto;
 }
-.line > .text.code-block.start .code-block-start .tool-buttons .button {
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .button {
   display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  height: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
   padding: 0;
   font-size: 12px;
-  border-radius: 14px;
+  border-radius: 50%;
   color: #171717 !important;
   opacity: 1;
 }
-.line > .text.code-block.start .code-block-start .tool-buttons .button:hover {
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .fa-copy {
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+}
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons:not(:has(.button)):not(:empty) {
+  background: #e6e8ea;
+  cursor: default;
+}
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons:not(:has(.button)):not(:empty)::after {
+  content: "✓";
+  font-size: 14px;
+  line-height: 1;
+  color: #171717;
+}
+.line > .text.code-block.start .code-start .code-block-start .tool-buttons .button:hover {
   background: #e6e8ea;
 }
 .line > .text.code-block:not(.start) > .indent {
@@ -3726,35 +3747,35 @@ a[href*="/kameLayout/TLE.icon"]:hover {
   }
 }
 /* インデント見栄え変更CSS：無効 */
-/* @import "./indent-guides.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./indent-guides.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* ページリストの大きさ変更CSS：無効 */
-/* @import "./card-size.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./card-size.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 画像サイズCSS：無効 */
-/* @import "./image-size.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./image-size.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 画像中心CSS：無効 */
-/* @import "./image-center.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./image-center.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 画像を並べるUserCSS：無効 */
-/* @import "./image-gallery.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./image-gallery.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 文字揃えCSS：無効 */
-/* @import "./text-alignment.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./text-alignment.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 電光掲示板UserCSS：無効 */
-/* @import "./marquee.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./marquee.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 空白ページ非表示CSS：無効 */
-/* @import "./hide-untitled.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./hide-untitled.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* テンプレートCSS：無効 */
-/* @import "./template-style.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./template-style.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* アップロードしたファイルリンクのデザインをボタンにするUserCSS：無効 */
-/* @import "./file-buttons.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./file-buttons.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* 画像に連番を振るUserCSS：無効 */
-/* @import "./figure-numbers.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./figure-numbers.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* クイックラウンチメニュー：無効 */
-/* @import "./quick-launch.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./quick-launch.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* ヘッダー画像を追加する：無効 */
-/* @import "./header-image.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./header-image.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 /* Obsidian風グラフビュー：Scriptが自動読込 */
-/* @import "./graph-view.style.css?v=213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; */
+/* @import "./graph-view.style.css?v=553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; */
 :root {
   --bulletin-board: "Scrapbox Helpfeel Cosense Project";
 }
-:root { --kame-layout-inline-version: "213bee6faf72701060ff7c92e873440f974b856a604f689cf3c32406c41a8bdf"; }
+:root { --kame-layout-inline-version: "553d94d034f95ba28045e345fb15fc7601898caa825fabd025d3fcae4f1df2a2"; }
 /* kame-layout:legacy-css:end */
