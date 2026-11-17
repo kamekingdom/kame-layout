@@ -180,15 +180,24 @@ function customProperties(nodes) {
 const beforePinnedTitleFix = (nodes) =>
   nodes.filter(
     (node) =>
-      node.source.input.file !== path.join(root, "src/features/page-cards/pinned-titles.css"),
+      ![
+        "src/features/page-cards/pinned-titles.css",
+        "src/features/code-blocks/rounded-panel.css",
+      ].some((file) => node.source.input.file === path.join(root, file)),
   );
 
-test("existing CSS remains intact outside the scoped pinned-title layout fix", async () => {
+test("existing CSS remains intact outside the scoped pin and code-panel design changes", async () => {
   const fix = postcss.parse(read("src/features/page-cards/pinned-titles.css"));
   fix.walkRules((rule) =>
     assert.ok(
       rule.selector.startsWith(".grid li.pin a .header.pinned"),
       "Title overflow rules stay scoped to pinned headers",
+    ),
+  );
+  postcss.parse(read("src/features/code-blocks/rounded-panel.css")).walkRules((rule) =>
+    assert.ok(
+      rule.selector.split(",").every((selector) => selector.trim().startsWith(".line")),
+      "Code panel styles stay scoped to native lines",
     ),
   );
   assert.deepEqual(

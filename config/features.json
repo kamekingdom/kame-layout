@@ -310,15 +310,20 @@
       "category": "formatting",
       "description": "コードブロックの配色・枠・余白を整えます。",
       "usage": "code: のコードブロックに適用します。",
+      "notes": [
+        "標準のファイル名・コピー操作・ハイライトを残して角丸パネルに整えます。折り返し切替ボタンは追加しません。",
+        "[変更前後のスクリーンショット](../../../docs/code-blocks.md)を確認できます。"
+      ],
       "sourceUrl": "https://scrapbox.io/kamelayout/%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AEuserCSS",
       "files": {
         "style.css": "src/features/code-blocks/style.css"
       },
-      "styleFiles": ["panel.css", "title.css", "content.css"],
+      "styleFiles": ["panel.css", "title.css", "content.css", "rounded-panel.css"],
       "fileDescriptions": {
         "panel.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
         "title.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
-        "content.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
+        "content.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "rounded-panel.css": "角丸グレーのパネルと右上の標準コピーボタン"
       }
     },
     {
@@ -768,6 +773,7 @@
         "model.js": "本文の解析と関連ページの分類",
         "panel.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
         "content.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
+        "rounded-panel.css": "角丸グレーのパネルと右上の標準コピーボタン",
         "footer.css": "表示部分ごとのスタイル（style.cssの順序で結合）",
         "related-pages.css": "表示部分ごとのスタイル（style.cssの順序で結合）"
       }
