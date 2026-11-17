@@ -21,9 +21,9 @@
 
 ## 旧版・元の試作
 
-- [dark-style.css](../../../archive/scrapbox/%E9%9B%BB%E5%85%89%E6%8E%B2%E7%A4%BA%E6%9D%BFUserCSS/dark-style.css)
+- [dark-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E9%9B%BB%E5%85%89%E6%8E%B2%E7%A4%BA%E6%9D%BFUserCSS/dark-style.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

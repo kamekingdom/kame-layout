@@ -62,16 +62,10 @@ WebKitモードには `npx playwright install webkit` でテスト用ブラウ�
 
 公開入口・生成したドキュメント・Scrapbox 用 JSON も一緒にコミットします。[自動同期](auto-sync.md) が設定済みなら `main` へのpush後に配信ページを更新します。手動で確認する場合は `npm run sync:plan` がネットワーク接続・書き込みなしで対象とハッシュを表示します。
 
-セッションを環境変数に設定した環境での `npm run sync:publish` は書き込み操作です。更新対象は `config/scrapbox-sync.json` の配信ページ1件に限定します。
+セッションを環境変数に設定した環境での `npm run sync:publish` は書き込み操作です。更新対象は `config/scrapbox-sync.json` の配信ページ1件と、設定済み利用先のSettings内のUserCSS管理範囲です。
 
 Scrapbox のページ構造が変更されたときは、その変更に関係する機能のセレクターや DOM 処理を確認してください。
 
-## JSON を再抽出する
+## 元コードを確認する
 
-元 JSON を再確認するときは、新しい出力先に取り出します。
-
-```sh
-python3 tools/extract.py /path/to/kamelayout.json /path/to/new-output
-```
-
-抽出ツールは元のページ別構成を出力します。現行の機能別構成へ自動上書きする用途ではありません。
+初回移行の記録は [tests/fixtures/original/](../tests/fixtures/original/README.md) にまとめています。回帰テストは固定した初回コミットから元コードを読み出すため、Git履歴を含むcloneを使用します。初回抽出専用のPythonツールは現行の開発手順から外し、[初回コミット](https://github.com/kamekingdom/kame-layout/tree/68d00aaefdcc5504d59727c23cbe457e38cff19d/tools)に残しています。

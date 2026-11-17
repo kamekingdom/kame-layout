@@ -15,19 +15,19 @@ SVG を使う水中風ホーム画面の旧 CSS です。
 
 | ファイル | 役割 |
 | --- | --- |
-| — | 現行の配布コードはありません。元コードは下の旧版に保管しています。 |
+| — | 現行の配布コードはありません。元コードは下のGit履歴から参照できます。 |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
 
 ## 補足
 
-- 元の CSS は全角空白などの構文上の問題を含むため、archive に保存しています。
+- 元の CSS は全角空白などの構文上の問題を含むため、Git履歴に保存しています。
 
 ## 旧版・元の試作
 
-- [style.css](../../../archive/scrapbox/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8C%E6%B0%B4%E4%B8%AD%E3%81%AB%E3%81%AA%E3%82%8BuserCSS/style.css)
+- [style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8C%E6%B0%B4%E4%B8%AD%E3%81%AB%E3%81%AA%E3%82%8BuserCSS/style.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

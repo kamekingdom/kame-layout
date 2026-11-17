@@ -6,7 +6,7 @@
 
 ## 使い方
 
-現在の style.css は空です。旧案は archive に保管しています。
+現在の style.css は空です。旧案は Git履歴に保存しています。
 
 ## 構成と現在の設定
 
@@ -21,9 +21,9 @@
 
 ## 旧版・元の試作
 
-- [notstyle.css](../../../archive/scrapbox/%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%E3%81%AA%E8%A6%8B%E5%87%BA%E3%81%97/notstyle.css)
+- [notstyle.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%E3%81%AA%E8%A6%8B%E5%87%BA%E3%81%97/notstyle.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

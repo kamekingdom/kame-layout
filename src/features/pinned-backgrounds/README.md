@@ -21,9 +21,9 @@ CSS に記載されたタイトルのカードに適用します。
 
 ## 旧版・元の試作
 
-- [notstyle.css](../../../archive/scrapbox/%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%81%95%E3%82%8C%E3%81%9F%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E3%81%AE%E8%83%8C%E6%99%AF%E7%94%BB%E5%83%8F/notstyle.css)
+- [notstyle.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%94%E3%83%B3%E7%95%99%E3%82%81%E3%81%95%E3%82%8C%E3%81%9F%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0%E3%81%AE%E8%83%8C%E6%99%AF%E7%94%BB%E5%83%8F/notstyle.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

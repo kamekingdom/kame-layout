@@ -1,7 +1,0 @@
-@media (prefers-color-scheme: dark) {
-	.quick-launch {
-   		&::before, &::after {
-  			color: #1f2937;
-  		}
-  	}
-}

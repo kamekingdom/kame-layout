@@ -4,7 +4,7 @@ import { parse } from "acorn";
 import { analyze } from "eslint-scope";
 import { read } from "../../tools/project.mjs";
 
-const manifest = JSON.parse(read("migration/refactors.json"));
+const manifest = JSON.parse(read("tests/fixtures/original/refactors.json"));
 const ast = (text) => parse(text, { ecmaVersion: "latest", sourceType: "module", ranges: true });
 const declarationName = (node) => node.id?.name ?? node.declarations?.[0]?.id?.name;
 const bodyOf = (tree) =>

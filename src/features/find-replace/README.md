@@ -30,9 +30,9 @@ Script 内の検索・置換 UI から使います。対象や正規表現など
 
 ## 旧版・元の試作
 
-- [not-used-script.js](../../../archive/scrapbox/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E7%BD%AE%E6%8F%9B%E6%A9%9F%E8%83%BD/not-used-script.js)
+- [not-used-script.js](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E7%BD%AE%E6%8F%9B%E6%A9%9F%E8%83%BD/not-used-script.js)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 

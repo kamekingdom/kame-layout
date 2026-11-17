@@ -21,9 +21,9 @@
 
 ## 旧版・元の試作
 
-- [not-used-style.css](../../../archive/scrapbox/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE%E8%A8%98%E6%B3%95userCSS/not-used-style.css)
+- [not-used-style.css](https://github.com/kamekingdom/kame-layout/blob/68d00aaefdcc5504d59727c23cbe457e38cff19d/src/%E6%96%87%E5%AD%97%E8%A3%85%E9%A3%BE%E8%A8%98%E6%B3%95userCSS/not-used-style.css)
 
-これらは初期状態で読み込みません。元の構文上の問題も含めて保存しています。
+これらは初期状態で読み込みません。元の構文上の問題も含めてGit履歴に保存しています。
 
 ## 出典
 
