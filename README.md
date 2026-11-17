@@ -8,6 +8,10 @@ Scrapbox / Cosense の見た目と編集機能を拡張する UserCSS・UserScri
 
 ![ピン留めタイトルの表示例](docs/images/pinned-titles-after.png)
 
+コードブロックは、右上のコピー操作を残した角丸グレーのパネルに整えます。[変更前後とスマートフォン幅](docs/code-blocks.md)
+
+![コードブロックの表示例](docs/images/code-blocks-after.png)
+
 ## Scrapbox で使う
 
 GitHub をコードの管理元とし、生成した [Scrapbox 用 JSON](dist/kame-layout.scrapbox.json) をコード配置用のプロジェクトへ取り込みます。Scrapbox の CSP は GitHub / jsDelivr の直接 import を許可していないため、利用時は同じ `scrapbox.io` の `/api/code/` から読み込みます。

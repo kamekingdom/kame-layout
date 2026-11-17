@@ -19,8 +19,14 @@ code: のコードブロックに適用します。
 | [panel.css](panel.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
 | [title.css](title.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
 | [content.css](content.css) | 表示部分ごとのスタイル（style.cssの順序で結合） |
+| [rounded-panel.css](rounded-panel.css) | 角丸グレーのパネルと右上の標準コピーボタン |
 
 有効・無効と読み込み順は [config/features.json](../../../config/features.json) で管理します。変更後に `npm run build` を実行してください。
+
+## 補足
+
+- 標準のファイル名・コピー操作・ハイライトを残して角丸パネルに整えます。折り返し切替ボタンは追加しません。
+- [変更前後のスクリーンショット](../../../docs/code-blocks.md)を確認できます。
 
 ## 旧版・元の試作
 
