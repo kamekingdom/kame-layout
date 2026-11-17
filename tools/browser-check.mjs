@@ -47,6 +47,7 @@ const legacy = legacyEntrypoints(pkg, "kamelayout");
 async function capture(version, viewport) {
   const context = await browser.newContext({ viewport, serviceWorkers: "block" });
   const errors = [];
+  const resizeNotifications = [];
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = new URL(request.url());
@@ -95,7 +96,21 @@ async function capture(version, viewport) {
     return route.continue();
   });
   const page = await context.newPage();
-  page.on("pageerror", (error) => errors.push(error.message));
+  const waitForResizeObservers = async () => {
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const previous = resizeNotifications.length;
+      await page.waitForTimeout(100);
+      if (resizeNotifications.length === previous) return;
+    }
+    assert.fail("ResizeObserver notifications did not settle within one second");
+  };
+  page.on("pageerror", (error) => {
+    // The browser may defer ResizeObserver delivery to the next frame. Record the
+    // standard notification separately; preserve strict comparisons for JS errors.
+    if (error.message === "ResizeObserver loop completed with undelivered notifications.")
+      resizeNotifications.push(error.message);
+    else errors.push(error.message);
+  });
   await page.goto("https://scrapbox.io/kamelayout/テストページ", {
     waitUntil: "domcontentloaded",
     timeout: 30000,
@@ -148,6 +163,7 @@ async function capture(version, viewport) {
     await Promise.all([...document.images].map((image) => image.decode().catch(() => {})));
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
+  await waitForResizeObservers();
   const selectors = [
     "body",
     ".navbar",
@@ -191,11 +207,13 @@ async function capture(version, viewport) {
   const graphVisible = await page.locator("#kame-graph-view").isVisible();
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#kame-graph-view").isVisible(), false);
+  await waitForResizeObservers();
   const result = {
     styles,
     controls,
     graphVisible,
     errors: [...new Set(errors)].sort(),
+    resizeObserverNotifications: resizeNotifications.length,
     screenshot,
   };
   await context.close();
@@ -255,6 +273,10 @@ try {
         : "generated package with test responses",
       engine,
       existingGuestPageErrors: before.errors,
+      resizeObserverNotifications: {
+        baseline: before.resizeObserverNotifications,
+        current: after.resizeObserverNotifications,
+      },
     });
     console.log(
       `PASS ${viewport.width}px: identical screenshots/styles; Script import, counter and graph controls checked.`,
