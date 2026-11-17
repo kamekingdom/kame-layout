@@ -12,6 +12,7 @@ test("delivery revision covers nested CSS, helper modules and loader; unchanged 
     "src/features/code-blocks/rounded-panel.css",
     "src/features/graph-view/colors.js",
     "tools/delivery-loader.js",
+    "tools/legacy-entrypoints.mjs",
   ]) {
     const next = packageFiles(
       createPackage((f) => read(f) + (f === changed ? "\n/* revision test */" : "")),

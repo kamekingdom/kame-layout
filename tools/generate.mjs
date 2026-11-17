@@ -11,12 +11,19 @@ import {
   sourceAtBaseline,
 } from "./project.mjs";
 import { createPackage } from "./scrapbox-package.mjs";
+import { legacyEntrypoints } from "./legacy-entrypoints.mjs";
 import { compileNativeStyle } from "./native-usercss.mjs";
 
 const outputs = new Map();
 const pkg = createPackage();
 outputs.set("dist/kame-layout.scrapbox.json", JSON.stringify(pkg, null, 2) + "\n");
 outputs.set("dist/kame-layout.native.css", compileNativeStyle(pkg).css + "\n");
+const legacy = legacyEntrypoints(
+  pkg,
+  JSON.parse(fs.readFileSync(path.join(root, "config/scrapbox-sync.json"), "utf8")).project,
+);
+outputs.set("src/Settings/style.css", legacy[0].code);
+outputs.set("src/kame/script.js", legacy[1].code);
 const check = process.argv.includes("--check");
 const label = "<!-- config/features.json から生成。説明・設定は config 側を編集してください。 -->";
 const link = (from, target) => encodeURI(path.posix.relative(path.posix.dirname(from), target));

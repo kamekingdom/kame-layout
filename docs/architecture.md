@@ -16,7 +16,7 @@ Scriptの `script.js` は初期化・状態・イベント・監視・後片付�
 
 ## 公開入口と実装を分ける
 
-`style.css` と `script.js` は生成される読み込み順の入口です。実装は `src/features/` に集約します。初回移行時の `src/Settings/`・`src/kame/` の転送ファイルは現行配信では使わないため削除しました。
+`style.css` と `script.js` は生成される読み込み順の入口です。実装は `src/features/` に集約します。既存利用者向けに `src/Settings/style.css` は結合済みCSS、`src/kame/script.js` は現行Scriptへの入口として生成します。Scrapboxの従来URLにも同じ内容を配置します。[互換入口](legacy-entrypoints.md)を参照してください。
 
 実ブラウザの確認では、Scrapbox の CSP により外部 CDN の CSS・ES Modules はブロックされました。そのため Scrapbox 用には `dist/kame-layout.scrapbox.json` を生成し、同一オリジンの `/api/code/プロジェクト/kame-layout:delivery/` を入口にします。外部 URL の直接 import を前提にしません。CSP を無効化する設定や拡張機能も必要ありません。
 
@@ -52,6 +52,6 @@ CSS変数は色として等価でも文字列として読み取れます。`npm 
 
 ## 自動同期の範囲
 
-GitHub Actions は `main` の検証が通った後だけ同期します。配信元は `kame-layout:delivery` の1ページに限定し、既存ページに管理用マーカーがなければ上書きしません。設定済みの利用先では、Settingsの `style.css` の管理範囲も更新し、初回描画からCSSを適用します。ほかの本文・コードブロックは維持します。変更前の配信ページをバックアップし、更新後はコードの本文とContent-Type、利用先の管理範囲を照合します。通常の同期処理にページ削除はありません。
+GitHub Actions は `main` の検証が通った後だけ同期します。配信元は `kame-layout:delivery` の1ページに限定し、既存ページに管理用マーカーがなければ上書きしません。設定済みの利用先では、Settingsの `style.css` の管理範囲も更新し、初回描画からCSSを適用します。ほかの本文・コードブロックは維持します。変更前の配信ページをバックアップし、更新後はコードの本文とContent-Type、利用先の管理範囲を照合します。旧URLを維持する設定が有効なときは、配信元Settingsとkameの指定コードブロックも専用マーカー内だけを更新します。通常の同期処理にページ削除はありません。
 
 API はScrapboxの内部APIであり、認証はログインセッションを使います。これをGitHubへ保存して同期を有効化する操作は、コードの配置とは別に行います。詳細は [自動同期](auto-sync.md) を参照してください。

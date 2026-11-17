@@ -84,6 +84,7 @@ export function createPackage(readSource = read) {
         target,
         readSource("tools/scrapbox-package.mjs"),
         readSource("tools/native-usercss.mjs"),
+        readSource("tools/legacy-entrypoints.mjs"),
       ]),
     )
     .digest("hex");

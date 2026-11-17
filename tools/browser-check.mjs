@@ -6,9 +6,11 @@ import { execFileSync } from "node:child_process";
 import { chromium, webkit } from "@playwright/test";
 import { root, read, migration } from "./project.mjs";
 import { packageFiles, entryPage } from "./scrapbox-package.mjs";
+import { legacyEntrypoints } from "./legacy-entrypoints.mjs";
 import { compileNativeStyle } from "./native-usercss.mjs";
 
 const live = process.argv.includes("--live");
+const legacyMode = process.argv.includes("--legacy");
 const nativeMode = process.argv.includes("--native");
 const loader = process.argv.includes("--loader") || nativeMode;
 if (nativeMode && live)
@@ -17,7 +19,10 @@ if (nativeMode && live)
   );
 const safari = process.argv.includes("--webkit");
 const engine = safari ? "webkit" : "chromium";
-const output = path.join(root, `.cache/browser-${engine}${live ? "-live" : ""}`);
+const output = path.join(
+  root,
+  `.cache/browser-${engine}${legacyMode ? "-legacy" : ""}${live ? "-live" : ""}`,
+);
 fs.mkdirSync(output, { recursive: true });
 const baseline = new Map();
 for (const filename of [
@@ -32,15 +37,17 @@ for (const filename of [
 }
 const browser = await (safari
   ? webkit.launch({ headless: true })
-  : chromium.launch({ channel: "chrome", headless: true }));
+  : chromium.launch(process.env.CI ? { headless: true } : { channel: "chrome", headless: true }));
 const report = [];
 const pkg = JSON.parse(read("dist/kame-layout.scrapbox.json"));
 const packaged = packageFiles(pkg);
 const nativeStyle = compileNativeStyle(pkg);
+const legacy = legacyEntrypoints(pkg, "kamelayout");
 
 async function capture(version, viewport) {
   const context = await browser.newContext({ viewport, serviceWorkers: "block" });
   const errors = [];
+  const resizeNotifications = [];
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = new URL(request.url());
@@ -48,6 +55,18 @@ async function capture(version, viewport) {
     const isPackage = decodeURIComponent(url.pathname).startsWith(
       `/api/code/kamelayout/${entryPage}/`,
     );
+    if (legacyMode && version === "current") {
+      const entry = legacy.find(
+        (entry) => url.pathname === `/api/code/kamelayout/${entry.page}/${entry.block}`,
+      );
+      if (entry)
+        return live
+          ? route.continue()
+          : route.fulfill({
+              contentType: entry.kind === "css" ? "text/css" : "text/javascript",
+              body: entry.code,
+            });
+    }
     if (isPackage && live) return route.continue();
     if (url.hostname === "scrapbox.io" && (isBaseline || isPackage)) {
       const pathname = decodeURIComponent(url.pathname);
@@ -77,7 +96,21 @@ async function capture(version, viewport) {
     return route.continue();
   });
   const page = await context.newPage();
-  page.on("pageerror", (error) => errors.push(error.message));
+  const waitForResizeObservers = async () => {
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const previous = resizeNotifications.length;
+      await page.waitForTimeout(100);
+      if (resizeNotifications.length === previous) return;
+    }
+    assert.fail("ResizeObserver notifications did not settle within one second");
+  };
+  page.on("pageerror", (error) => {
+    // The browser may defer ResizeObserver delivery to the next frame. Record the
+    // standard notification separately; preserve strict comparisons for JS errors.
+    if (error.message === "ResizeObserver loop completed with undelivered notifications.")
+      resizeNotifications.push(error.message);
+    else errors.push(error.message);
+  });
   await page.goto("https://scrapbox.io/kamelayout/テストページ", {
     waitUntil: "domcontentloaded",
     timeout: 30000,
@@ -90,7 +123,10 @@ async function capture(version, viewport) {
     version === "baseline"
       ? "https://scrapbox.io/__kame-layout-test/baseline"
       : `https://scrapbox.io/api/code/kamelayout/${entryPage}`;
-  if (nativeMode && version === "current") await page.addStyleTag({ content: nativeStyle.css });
+  if (legacyMode && version === "current")
+    await page.addStyleTag({ url: "https://scrapbox.io/api/code/kamelayout/Settings/style.css" });
+  else if (nativeMode && version === "current")
+    await page.addStyleTag({ content: nativeStyle.css });
   else if (!(loader && version === "current")) await page.addStyleTag({ url: `${base}/style.css` });
   const importError = await page.evaluate(
     async (url) => {
@@ -101,11 +137,25 @@ async function capture(version, viewport) {
         return error.message;
       }
     },
-    loader && version === "current"
-      ? `${base}/loader.js?reload=${Date.now()}-${Math.random()}`
-      : `${base}/script.js`,
+    legacyMode && version === "current"
+      ? "https://scrapbox.io/api/code/kamelayout/kame/script.js"
+      : loader && version === "current"
+        ? `${base}/loader.js?reload=${Date.now()}-${Math.random()}`
+        : `${base}/script.js`,
   );
   assert.equal(importError, null, `${version} import failed`);
+  if (legacyMode && version === "current") {
+    // The compatibility entry and the current entry resolve to the same ESM URL.
+    const scriptUrl = legacy[1].source.match(/import "([^"]+)"/)[1];
+    await page.evaluate(async (url) => {
+      await import(url);
+    }, scriptUrl);
+    assert.equal(
+      await page.locator("link[data-kame-layout-version]").count(),
+      0,
+      "Compatibility Script does not inject a replacement main stylesheet",
+    );
+  }
   await page.evaluate(() => document.fonts.ready);
   // The original character-counter waits three seconds before it initialises.
   await page.waitForTimeout(3400);
@@ -113,6 +163,7 @@ async function capture(version, viewport) {
     await Promise.all([...document.images].map((image) => image.decode().catch(() => {})));
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
+  await waitForResizeObservers();
   const selectors = [
     "body",
     ".navbar",
@@ -156,11 +207,13 @@ async function capture(version, viewport) {
   const graphVisible = await page.locator("#kame-graph-view").isVisible();
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("#kame-graph-view").isVisible(), false);
+  await waitForResizeObservers();
   const result = {
     styles,
     controls,
     graphVisible,
     errors: [...new Set(errors)].sort(),
+    resizeObserverNotifications: resizeNotifications.length,
     screenshot,
   };
   await context.close();
@@ -220,6 +273,10 @@ try {
         : "generated package with test responses",
       engine,
       existingGuestPageErrors: before.errors,
+      resizeObserverNotifications: {
+        baseline: before.resizeObserverNotifications,
+        current: after.resizeObserverNotifications,
+      },
     });
     console.log(
       `PASS ${viewport.width}px: identical screenshots/styles; Script import, counter and graph controls checked.`,
