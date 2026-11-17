@@ -83,29 +83,3 @@ jobs:
           path: .cache/scrapbox-sync/previous.scrapbox.json
           if-no-files-found: ignore
           retention-days: 7
-
-  legacy-cleanup-once:
-    needs: [validate, delivery-browser]
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/codex/19-cleanup-layout'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
-        with:
-          node-version: "22"
-      - run: npm ci --ignore-scripts
-      - run: npm install --prefix "$RUNNER_TEMP/legacy-cleanup" --no-package-lock --ignore-scripts socket.io-client@4.8.1
-      - name: Remove only the 73 audited legacy pages and verify retained pages
-        run: node tools/one-off/legacy-cleanup.mjs
-        env:
-          SCRAPBOX_SID: ${{ secrets.SCRAPBOX_SID }}
-          LEGACY_RUNTIME: ${{ runner.temp }}/legacy-cleanup
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
-        with:
-          name: legacy-cleanup-backup
-          path: .cache/legacy-cleanup/
-          retention-days: 30

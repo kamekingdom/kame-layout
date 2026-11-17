@@ -93,4 +93,3 @@ npm test
 
 - [Scrapbox UserCSS](https://scrapbox.io/help-jp/UserCSS)
 - [Scrapbox UserScript](https://scrapbox.io/help-jp/UserScript)
-- [jsDelivr の GitHub 配信](https://github.com/jsdelivr/jsdelivr#github)
